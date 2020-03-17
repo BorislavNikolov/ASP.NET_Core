@@ -1,0 +1,15 @@
+﻿li {
+    font-size: 1.8em;
+}
+
+header > div > h1:hover {
+    cursor: pointer;
+    color: mediumseagreen;
+    transition: color 1s;
+}
+
+li:hover {
+    cursor: pointer;
+    color: mediumseagreen;
+    transition: color 1s;
+}

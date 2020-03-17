@@ -5,42 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Pugna</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="apple-touch-icon" sizes="180x180" href="~/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/favicon-16x16.png">
+    <link rel="manifest" href="~/manifest.json">
+    <link rel="stylesheet" href="~/css/header.css" />
+    <link rel="stylesheet" href="~/css/footer.css" />
+    <!--<link rel="stylesheet" href="~/css/site.css" />-->
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Pugna</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+    <header class="bg-dark text-white p-2 text-center font-weight-bold d-flex justify-content-between">
+        <div class="p-1">
+            <h1><a style="text-decoration: none; color: inherit;" asp-area="" asp-controller="Home" asp-action="Index">Pugna</a></h1>
+        </div>
+
+        <nav>
+            <ul class="d-flex  pt-1" style="list-style: none;">
+                <li class="m-2"><a href="https://www.google.com/" style="text-decoration: none; color: inherit;">Register</a></li>
+                <li class="m-2"><a href="https://www.google.com/" style="text-decoration: none; color: inherit;">Login</a></li>
+                <li class="m-2"><a href="https://www.google.com/" style="text-decoration: none; color: inherit;">Logout</a></li>
+                <li class="m-2"><a href="https://www.google.com/" style="text-decoration: none; color: inherit;">Profile</a></li>
+                <li class="m-2"><a href="https://www.google.com/" style="text-decoration: none; color: inherit;">Managers</a></li>
+                <li class="m-2"><a href="https://www.google.com/" style="text-decoration: none; color: inherit;">Fighters</a></li>
+                <li class="m-2"><a href="https://www.google.com/" style="text-decoration: none; color: inherit;">Teams</a></li>
+            </ul>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - Pugna - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <main role="main" class="p-5">
+        @RenderBody()
+    </main>
+
+    <footer class="bg-dark text-white p-3">
+        <div class="d-flex justify-content-around font-weight-bold">
+            <span>&copy; 2020</span>
+            <span>All Rights Reserved.</span>
+            <span>v 1.0</span>
+        </div>
+
+        <div class="text-center pt-3">
+            <span id="quote" class="font-weight-bold">“My opponent is my teacher. My ego is my enemy.”</span>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

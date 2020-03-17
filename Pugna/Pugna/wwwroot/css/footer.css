@@ -1,0 +1,9 @@
+﻿#quote {
+    opacity: 0.3;
+}
+
+#quote:hover {
+    opacity: 1;
+    transition: all 1s;
+    cursor: pointer;
+}
