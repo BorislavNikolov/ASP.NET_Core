@@ -1,11 +1,20 @@
-﻿li {
-    font-size: 1.8em;
-}
-
-header > div > h1:hover {
+﻿header > div > h1:hover {
     cursor: pointer;
     color: mediumseagreen;
     transition: color 1s;
+}
+
+#navigation {
+    list-style: none;
+}
+
+.navigation-link {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+li {
+    font-size: 1.8em;
 }
 
 li:hover {

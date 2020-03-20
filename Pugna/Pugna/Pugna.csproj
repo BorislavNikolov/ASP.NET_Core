@@ -5,6 +5,10 @@
     <UserSecretsId>aspnet-Pugna-D1844BE0-52E5-4D5B-BFA3-EFB00896549F</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\css\Pugna.png" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.2" />
@@ -16,6 +20,9 @@
 
 
   <ItemGroup>
+    <Content Update="Views\Shared\_Layout.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\android-chrome-192x192.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>

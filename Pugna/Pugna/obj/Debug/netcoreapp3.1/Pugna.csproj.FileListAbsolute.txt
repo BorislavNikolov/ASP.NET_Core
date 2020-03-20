@@ -81,3 +81,8 @@ C:\Users\LEGION\Desktop\ASP\Pugna\Pugna\obj\Debug\netcoreapp3.1\staticwebassets\
 C:\Users\LEGION\Desktop\ASP\Pugna\Pugna\obj\Debug\netcoreapp3.1\Pugna.dll
 C:\Users\LEGION\Desktop\ASP\Pugna\Pugna\obj\Debug\netcoreapp3.1\Pugna.pdb
 C:\Users\LEGION\Desktop\ASP\Pugna\Pugna\bin\Debug\netcoreapp3.1\wwwroot\css\site.css
+C:\Users\LEGION\Desktop\ASP\Pugna\Pugna\bin\Debug\netcoreapp3.1\Views\Shared\_Layout.cshtml
+C:\Users\LEGION\Desktop\ASP\Pugna\Pugna\obj\Debug\netcoreapp3.1\Razor\Views\Teams\All.cshtml.g.cs
+C:\Users\LEGION\Desktop\ASP\Pugna\Pugna\obj\Debug\netcoreapp3.1\Razor\Views\Fighters\All.cshtml.g.cs
+C:\Users\LEGION\Desktop\ASP\Pugna\Pugna\obj\Debug\netcoreapp3.1\Razor\Views\Managers\All.cshtml.g.cs
+C:\Users\LEGION\Desktop\ASP\Pugna\Pugna\obj\Debug\netcoreapp3.1\Razor\Views\Users\Info.cshtml.g.cs
