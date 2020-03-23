@@ -6,11 +6,10 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    using PugnaFighting.Data.Common.Models;
-    using PugnaFighting.Data.Models;
-
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using PugnaFighting.Data.Common.Models;
+    using PugnaFighting.Data.Models;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
@@ -25,6 +24,18 @@
         }
 
         public DbSet<Setting> Settings { get; set; }
+
+        public DbSet<Fighter> Fighters { get; set; }
+
+        public DbSet<Organization> Organizations { get; set; }
+
+        public DbSet<Manager> Managers { get; set; }
+
+        public DbSet<Cutman> Cutmen { get; set; }
+
+        public DbSet<Team> Teams { get; set; }
+
+        public DbSet<Coach> Coaches { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
