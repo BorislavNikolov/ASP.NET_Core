@@ -4,9 +4,9 @@ namespace PugnaFighting.Data.Models
     using System;
     using System.Collections.Generic;
 
-    using PugnaFighting.Data.Common.Models;
-
     using Microsoft.AspNetCore.Identity;
+
+    using PugnaFighting.Data.Common.Models;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
@@ -16,6 +16,7 @@ namespace PugnaFighting.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
+            this.Coins = 15000;
         }
 
         // Audit info
@@ -27,6 +28,8 @@ namespace PugnaFighting.Data.Models
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+
+        public int Coins { get; set; }
 
         public virtual ICollection<Fighter> Fighters { get; set; }
 

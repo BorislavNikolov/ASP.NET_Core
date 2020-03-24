@@ -44,4 +44,10 @@
     <ProjectReference Include="..\PugnaFighting.Web.Infrastructure\PugnaFighting.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\PugnaFighting.Web.ViewModels\PugnaFighting.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\css\header.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

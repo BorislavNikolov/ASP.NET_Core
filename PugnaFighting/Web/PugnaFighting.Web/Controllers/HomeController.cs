@@ -1,7 +1,7 @@
 ﻿namespace PugnaFighting.Web.Controllers
 {
     using System.Diagnostics;
-
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
 
@@ -18,7 +18,12 @@
 
         public IActionResult Index()
         {
-            return View();
+            return this.View();
+        }
+
+        public IActionResult IndexGuest()
+        {
+            return this.View();
         }
 
         public IActionResult Privacy()

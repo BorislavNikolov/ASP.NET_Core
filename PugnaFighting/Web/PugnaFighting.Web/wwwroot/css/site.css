@@ -1,10 +1,10 @@
 ﻿body {
     margin: 0;
     padding: 0;
+    min-height: 100vh;
 }
 
 main {
-    background: url('https://media.istockphoto.com/photos/professional-boxing-ring-in-3d-picture-id936850064?k=6&m=936850064&s=612x612&w=0&h=NH7MRrfXDcMcLysWUNH80HVHJQvz8gOX5DQcB5CHeh0=') no-repeat center center fixed;
-    background-size: cover;
-    height: auto;
+   min-height: 100vh;
+   height: fit-content;
 }

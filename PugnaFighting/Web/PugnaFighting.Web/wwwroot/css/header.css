@@ -6,18 +6,16 @@
 
 #navigation {
     list-style: none;
-}
-
-.navigation-link {
-    text-decoration: none !important;
-    color: inherit !important;
-}
-
-li {
     font-size: 1.8em;
 }
 
-li:hover {
+.navigation-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.navigation-link:hover {
+    text-decoration: none;
     cursor: pointer;
     color: mediumseagreen;
     transition: color 1s;

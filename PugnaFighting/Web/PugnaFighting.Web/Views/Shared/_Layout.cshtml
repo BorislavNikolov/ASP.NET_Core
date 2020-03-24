@@ -9,10 +9,10 @@
     <link rel="icon" type="image/png" sizes="32x32" href="~/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="~/favicon/favicon-16x16.png">
     <link rel="manifest" href="~/favicon/manifest.json">
+    <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/typography.css" />
     <link rel="stylesheet" href="~/css/header.css" />
     <link rel="stylesheet" href="~/css/footer.css" />
-    <!--<link rel="stylesheet" href="~/css/site.css" />-->
 </head>
 <body>
     <header class="bg-dark text-white p-2 text-center font-weight-bold d-flex justify-content-between">
@@ -22,13 +22,23 @@
 
         <nav>
             <ul id="navigation" class="d-flex  pt-1">
-                <li class="m-2"><a class="navigation-link">Register</a></li>
-                <li class="m-2"><a class="navigation-link">Login</a></li>
-                <li class="m-2"><a class="navigation-link" asp-area="" asp-controller="Users" asp-action="Info">Profile</a></li>
-                <li class="m-2"><a class="navigation-link" asp-area="" asp-controller="Managers" asp-action="All">Managers</a></li>
-                <li class="m-2"><a class="navigation-link" asp-area="" asp-controller="Fighters" asp-action="All">Fighters</a></li>
-                <li class="m-2"><a class="navigation-link" asp-area="" asp-controller="Teams" asp-action="All">Teams</a></li>
-                <li class="m-2"><a class="navigation-link">Logout</a></li>
+                @if (User.Identity.IsAuthenticated == false)
+                {
+                    <li class="m-2"><a class="navigation-link" href="https://localhost:44319/Identity/Account/Register">Register</a></li>
+                    <li class="m-2"><a class="navigation-link" href="https://localhost:44319/Identity/Account/Login">Login</a></li>
+                }
+                else
+                {
+
+                    <li class="m-2"><a class="navigation-link" asp-area="" asp-controller="Users" asp-action="Info">Profile</a></li>
+                    <li class="m-2"><a class="navigation-link" asp-area="" asp-controller="Managers" asp-action="All">Managers</a></li>
+                    <li class="m-2"><a class="navigation-link" asp-area="" asp-controller="Fighters" asp-action="All">Fighters</a></li>
+                    <li class="m-2"><a class="navigation-link" asp-area="" asp-controller="Teams" asp-action="All">Teams</a></li>
+                    <li class="m-2"><a class="navigation-link" asp-area="" asp-controller="Teams" asp-action="All">Cutmen</a></li>
+                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("IndexGuest", "Home", new { area = "" })">
+                        <button type="submit" id="logout" class="btn text-white">Logout</button>
+                    </form>
+                }
             </ul>
         </nav>
     </header>
