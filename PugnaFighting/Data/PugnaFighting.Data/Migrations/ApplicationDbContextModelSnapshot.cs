@@ -350,14 +350,8 @@ namespace PugnaFighting.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Category")
-                        .HasColumnType("int");
 
                     b.Property<int>("CoachId")
                         .HasColumnType("int");
@@ -374,12 +368,6 @@ namespace PugnaFighting.Data.Migrations
                     b.Property<int>("FansCount")
                         .HasColumnType("int");
 
-                    b.Property<int>("Grappling")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Health")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -389,33 +377,13 @@ namespace PugnaFighting.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("Nationality")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
-
                     b.Property<int?>("OrganizationId")
                         .HasColumnType("int");
 
-                    b.Property<string>("PictureUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Stamina")
+                    b.Property<int>("PersonalInfoId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Strenght")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Striking")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Wrestling")
+                    b.Property<int>("SkillId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -431,6 +399,10 @@ namespace PugnaFighting.Data.Migrations
                     b.HasIndex("ManagerId");
 
                     b.HasIndex("OrganizationId");
+
+                    b.HasIndex("PersonalInfoId");
+
+                    b.HasIndex("SkillId");
 
                     b.ToTable("Fighters");
                 });
@@ -507,6 +479,62 @@ namespace PugnaFighting.Data.Migrations
                     b.ToTable("Organizations");
                 });
 
+            modelBuilder.Entity("PugnaFighting.Data.Models.PersonalInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Category")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Nationality")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("Nickname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("PictureUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("PersonalInfo");
+                });
+
             modelBuilder.Entity("PugnaFighting.Data.Models.Setting", b =>
                 {
                     b.Property<int>("Id")
@@ -537,6 +565,50 @@ namespace PugnaFighting.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Settings");
+                });
+
+            modelBuilder.Entity("PugnaFighting.Data.Models.Skill", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Grappling")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Health")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Stamina")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Strenght")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Striking")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Wrestling")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Skills");
                 });
 
             modelBuilder.Entity("PugnaFighting.Data.Models.Team", b =>
@@ -664,6 +736,18 @@ namespace PugnaFighting.Data.Migrations
                     b.HasOne("PugnaFighting.Data.Models.Organization", null)
                         .WithMany("Fighters")
                         .HasForeignKey("OrganizationId");
+
+                    b.HasOne("PugnaFighting.Data.Models.PersonalInfo", "PersonalInfo")
+                        .WithMany()
+                        .HasForeignKey("PersonalInfoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PugnaFighting.Data.Models.Skill", "Skill")
+                        .WithMany()
+                        .HasForeignKey("SkillId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
