@@ -44,14 +44,17 @@
     </header>
 
     <main role="main" class="p-5">
-        @RenderBody()
+        <div class="container">
+            <partial name="_CookieConsentPartial" />
+        </div>
+        @this.RenderBody()
     </main>
 
     <footer class="bg-dark text-white p-3">
         <div class="d-flex justify-content-around font-weight-bold">
             <span>&copy; 2020</span>
             <span>All Rights Reserved.</span>
-            <span>v 1.0</span>
+            <span>v 1.0 <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></span>
         </div>
 
         <div class="text-center pt-3">

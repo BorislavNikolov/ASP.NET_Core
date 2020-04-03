@@ -2,6 +2,16 @@
 {
     using System.Reflection;
 
+    using CloudinaryDotNet;
+
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+
     using PugnaFighting.Data;
     using PugnaFighting.Data.Common;
     using PugnaFighting.Data.Common.Repositories;
@@ -12,14 +22,6 @@
     using PugnaFighting.Services.Mapping;
     using PugnaFighting.Services.Messaging;
     using PugnaFighting.Web.ViewModels;
-
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
 
     public class Startup
     {
@@ -49,6 +51,14 @@
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            Account account = new Account(
+                this.configuration["Cloudinary:AppName"],
+                this.configuration["Cloudinary:AppKey"],
+                this.configuration["Cloudinary:AppSecret"]);
+
+            Cloudinary cloudinary = new Cloudinary(account);
+
+            services.AddSingleton(cloudinary);
             services.AddSingleton(this.configuration);
 
             // Data repositories

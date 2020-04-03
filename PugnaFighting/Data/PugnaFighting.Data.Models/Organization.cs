@@ -5,6 +5,11 @@
 
     public class Organization
     {
+        public Organization()
+        {
+            this.Fighters = new List<Fighter>();
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -19,6 +24,6 @@
         [Required]
         public string LogoUrl { get; set; }
 
-        public virtual ICollection<Fighter> Fighters => new List<Fighter>();
+        public virtual ICollection<Fighter> Fighters { get; set; }
     }
 }
