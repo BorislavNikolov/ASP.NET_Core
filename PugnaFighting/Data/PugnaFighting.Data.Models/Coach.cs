@@ -7,8 +7,12 @@
     public class Coach : BaseDeletableModel<int>
     {
         [Required]
-        [MaxLength(50)]
-        public string Name { get; set; }
+        [MaxLength(30)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [MaxLength(30)]
+        public string LastName { get; set; }
 
         [Required]
         [MaxLength(30)]

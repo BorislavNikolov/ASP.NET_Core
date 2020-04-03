@@ -3,15 +3,14 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class Organization
+    using PugnaFighting.Data.Common.Models;
+
+    public class Organization : BaseDeletableModel<int>
     {
         public Organization()
         {
             this.Fighters = new List<Fighter>();
         }
-
-        [Key]
-        public int Id { get; set; }
 
         [Required]
         [MaxLength(20)]
