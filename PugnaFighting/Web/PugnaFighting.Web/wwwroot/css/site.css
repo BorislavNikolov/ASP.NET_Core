@@ -8,3 +8,7 @@ main {
    min-height: 100vh;
    height: fit-content;
 }
+
+a, a:hover {
+    color: mediumseagreen;
+}

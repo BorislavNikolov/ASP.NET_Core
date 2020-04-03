@@ -4,14 +4,14 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
+
+    using Moq;
+
     using PugnaFighting.Data;
     using PugnaFighting.Data.Common.Repositories;
     using PugnaFighting.Data.Models;
     using PugnaFighting.Data.Repositories;
-
-    using Microsoft.EntityFrameworkCore;
-
-    using Moq;
 
     using Xunit;
 

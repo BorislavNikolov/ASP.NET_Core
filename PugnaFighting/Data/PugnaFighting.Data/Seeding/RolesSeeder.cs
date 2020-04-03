@@ -4,11 +4,11 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using PugnaFighting.Common;
-    using PugnaFighting.Data.Models;
-
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
+
+    using PugnaFighting.Common;
+    using PugnaFighting.Data.Models;
 
     internal class RolesSeeder : ISeeder
     {

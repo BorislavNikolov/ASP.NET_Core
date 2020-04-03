@@ -3,12 +3,12 @@
     using System;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Mvc;
+
     using PugnaFighting.Data.Common.Repositories;
     using PugnaFighting.Data.Models;
     using PugnaFighting.Services.Data;
     using PugnaFighting.Web.ViewModels.Settings;
-
-    using Microsoft.AspNetCore.Mvc;
 
     public class SettingsController : BaseController
     {

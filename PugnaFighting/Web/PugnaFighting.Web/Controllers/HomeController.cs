@@ -1,6 +1,7 @@
 ﻿namespace PugnaFighting.Web.Controllers
 {
     using System.Diagnostics;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
@@ -9,23 +10,30 @@
 
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> logger;
 
         public HomeController(ILogger<HomeController> logger)
         {
-            _logger = logger;
+            this.logger = logger;
         }
 
         public IActionResult Index()
         {
+            if (this.User.Identity.IsAuthenticated == false)
+            {
+                return this.Redirect("/Home/IndexGuest");
+            }
+
             return this.View();
         }
 
+        [AllowAnonymous]
         public IActionResult IndexGuest()
         {
             return this.View();
         }
 
+        [AllowAnonymous]
         public IActionResult Privacy()
         {
             return this.View();
@@ -34,7 +42,7 @@
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿namespace PugnaFighting.Web.Areas.Administration.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+
     using PugnaFighting.Services.Data;
     using PugnaFighting.Web.ViewModels.Administration.Dashboard;
-
-    using Microsoft.AspNetCore.Mvc;
 
     public class DashboardController : AdministrationController
     {

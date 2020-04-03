@@ -20,3 +20,12 @@
     color: mediumseagreen;
     transition: color 1s;
 }
+
+#logout {
+    font-size: 1em;
+}
+
+#logout:hover {
+    border-right: solid 3px seagreen;
+    transition: border-right 1s;
+}

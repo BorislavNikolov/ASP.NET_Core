@@ -1,9 +1,9 @@
 ﻿namespace PugnaFighting.Web.ViewModels.Settings
 {
+    using AutoMapper;
+
     using PugnaFighting.Data.Models;
     using PugnaFighting.Services.Mapping;
-
-    using AutoMapper;
 
     public class SettingViewModel : IMapFrom<Setting>, IHaveCustomMappings
     {

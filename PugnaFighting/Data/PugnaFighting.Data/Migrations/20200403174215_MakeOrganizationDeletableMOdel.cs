@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace PugnaFighting.Data.Migrations
+﻿namespace PugnaFighting.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class MakeOrganizationDeletableMOdel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

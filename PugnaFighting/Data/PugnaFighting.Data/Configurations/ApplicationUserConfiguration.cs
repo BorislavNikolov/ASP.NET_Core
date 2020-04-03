@@ -1,8 +1,9 @@
 ﻿namespace PugnaFighting.Data.Configurations
 {
-    using PugnaFighting.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    using PugnaFighting.Data.Models;
 
     public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {

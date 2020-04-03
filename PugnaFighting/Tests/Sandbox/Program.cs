@@ -5,6 +5,13 @@
     using System.IO;
     using System.Threading.Tasks;
 
+    using CommandLine;
+
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+
     using PugnaFighting.Data;
     using PugnaFighting.Data.Common;
     using PugnaFighting.Data.Common.Repositories;
@@ -13,13 +20,6 @@
     using PugnaFighting.Data.Seeding;
     using PugnaFighting.Services.Data;
     using PugnaFighting.Services.Messaging;
-
-    using CommandLine;
-
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
 
     public static class Program
     {

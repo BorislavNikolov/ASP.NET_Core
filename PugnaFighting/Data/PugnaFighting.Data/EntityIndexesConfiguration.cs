@@ -2,9 +2,9 @@
 {
     using System.Linq;
 
-    using PugnaFighting.Data.Common.Models;
-
     using Microsoft.EntityFrameworkCore;
+
+    using PugnaFighting.Data.Common.Models;
 
     internal static class EntityIndexesConfiguration
     {

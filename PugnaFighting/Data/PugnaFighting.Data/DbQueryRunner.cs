@@ -3,9 +3,9 @@
     using System;
     using System.Threading.Tasks;
 
-    using PugnaFighting.Data.Common;
-
     using Microsoft.EntityFrameworkCore;
+
+    using PugnaFighting.Data.Common;
 
     public class DbQueryRunner : IDbQueryRunner
     {

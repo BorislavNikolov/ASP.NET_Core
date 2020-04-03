@@ -3,9 +3,9 @@ namespace PugnaFighting.Data.Models
 {
     using System;
 
-    using PugnaFighting.Data.Common.Models;
-
     using Microsoft.AspNetCore.Identity;
+
+    using PugnaFighting.Data.Common.Models;
 
     public class ApplicationRole : IdentityRole, IAuditInfo, IDeletableEntity
     {
