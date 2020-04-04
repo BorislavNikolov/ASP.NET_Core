@@ -29,6 +29,22 @@
         </div>
         <button type="submit" class="btn btn-success mt-1">Register</button>
     </form>
+
+    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+        <div>
+            <p>
+                @foreach (var provider in Model.ExternalLogins)
+                {
+                    if (provider.Name == "Facebook")
+                    {
+                        <span class="font-weight-bold text-primary">Facebook Login:</span>
+                    }
+
+                    <button type="submit" class="btn btn-primary font-weight-bold" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                    }
+            </p>
+        </div>
+    </form>
 </div>
 
 @section Scripts {
