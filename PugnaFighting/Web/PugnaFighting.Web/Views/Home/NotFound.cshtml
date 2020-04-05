@@ -1,9 +1,9 @@
-﻿@model ErrorViewModel
+﻿@model int
 @{
-    ViewData["Title"] = "Error";
+    ViewData["Title"] = "404";
 }
 
     <div class="p-5 rounded text-white bg-dark mx-auto w-75">
-        <h1 class="text-danger">Error.</h1>
+        <h1 class="text-danger">Error: @Model</h1>
         <h2 class="text-danger">An error occurred while processing your request.</h2>
     </div>

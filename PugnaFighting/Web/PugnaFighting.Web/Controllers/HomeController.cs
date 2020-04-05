@@ -27,6 +27,16 @@
             return this.View();
         }
 
+        public IActionResult HttpError(int statusCode)
+        {
+            if (statusCode == 404)
+            {
+                return this.View("NotFound", statusCode);
+            }
+
+            return this.View("Error");
+        }
+
         [AllowAnonymous]
         public IActionResult IndexGuest()
         {

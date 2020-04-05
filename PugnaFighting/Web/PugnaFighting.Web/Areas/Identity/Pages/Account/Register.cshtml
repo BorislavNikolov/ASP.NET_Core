@@ -35,12 +35,12 @@
             <p>
                 @foreach (var provider in Model.ExternalLogins)
                 {
+                    <button type="submit" class="btn btn-primary font-weight-bold mt-2" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+
                     if (provider.Name == "Facebook")
                     {
-                        <span class="font-weight-bold text-primary">Facebook Login:</span>
+                        <span class="font-weight-bold text-primary">- Facebook Sign Up</span>
                     }
-
-                    <button type="submit" class="btn btn-primary font-weight-bold" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
                     }
             </p>
         </div>
