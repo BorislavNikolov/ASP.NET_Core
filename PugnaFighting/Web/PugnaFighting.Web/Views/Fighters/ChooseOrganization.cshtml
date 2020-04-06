@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Choose Organization";
+}
+
+<div class="p-5 rounded text-white bg-dark mx-auto w-75">
+    <h2 class="text-center">Chose Organization</h2>
+
+    <div class="row text-center">
+        <div class="col-sm bg-primary m-2 rounded">
+            <h3 class="p-2">Animo</h3>
+            <img src="Animo.png" alt="" style="width: 300px;">
+            <ul style="list-style: none;">
+                <li>Fans - 100</li>
+                <li>Instant cash - 5000 $</li>
+                <li>Money per a fight - 1500 $</li>
+            </ul>
+        </div>
+
+        <div class="col-sm bg-danger m-2 rounded">
+            <h3 class="p-2">Corporis</h3>
+            <img src="Corporis.png" alt="" style="width: 300px;">
+            <ul style="list-style: none;">
+                <li>Fans - 500</li>
+                <li>Instant cash - 7000 $</li>
+                <li>Money per a fight - 1000 $</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="text-center pt-3">
+        <select class="custom-select w-50" id="inlineFormCustomSelectPref">
+            <option selected>Choose...</option>
+            <option value="1">Animo</option>
+            <option value="2">Corporis</option>
+        </select>
+    </div>
+
+    <div class="text-center pt-5">
+        <button type="submit" class="btn btn-success" asp-area="" asp-controller="Users" asp-action="Info">Choose</button>
+    </div>
+</div>
