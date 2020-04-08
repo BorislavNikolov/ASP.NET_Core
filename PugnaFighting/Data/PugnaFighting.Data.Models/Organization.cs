@@ -23,6 +23,15 @@
         [Required]
         public string LogoUrl { get; set; }
 
+        [Required]
+        public int FansCount { get; set; }
+
+        [Required]
+        public int InstantCash { get; set; }
+
+        [Required]
+        public int MoneyPerFight { get; set; }
+
         public virtual ICollection<Fighter> Fighters { get; set; }
     }
 }

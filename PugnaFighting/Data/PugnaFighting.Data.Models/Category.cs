@@ -1,12 +1,11 @@
 ﻿namespace PugnaFighting.Data.Models
 {
-    public enum Category
+    using PugnaFighting.Data.Common.Models;
+
+    public class Category : BaseDeletableModel<int>
     {
-        Unknown = 0,
-        Flyweight = 1,
-        Lightweight = 2,
-        Welterweight = 3,
-        Middleweight = 4,
-        Heavyweight = 5,
+        public string Name { get; set; }
+
+        public string WeightLimit { get; set; }
     }
 }

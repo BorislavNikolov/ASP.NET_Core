@@ -27,9 +27,10 @@
                           {
                               new RolesSeeder(),
                               new SettingsSeeder(),
-                              new OrganizationSeeder(),
-                              new ManagerSeeder(),
-                              new CutmanSeeder(),
+                              new OrganizationsSeeder(),
+                              new ManagersSeeder(),
+                              new CutmenSeeder(),
+                              new CategoriesSeeder(),
                           };
 
             foreach (var seeder in seeders)

@@ -33,13 +33,13 @@
 
         public DbSet<Cutman> Cutmen { get; set; }
 
-        public DbSet<Team> Teams { get; set; }
-
         public DbSet<Coach> Coaches { get; set; }
 
         public DbSet<Skill> Skills { get; set; }
 
-        public DbSet<PersonalInfo> PersonalInfo { get; set; }
+        public DbSet<Biography> Biographies { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

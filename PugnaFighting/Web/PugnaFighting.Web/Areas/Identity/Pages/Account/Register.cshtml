@@ -7,6 +7,7 @@
 <div class="col-5 mx-auto bg-dark p-5 rounded text-white">
     <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
         <h4>Create a new account.</h4>
+        <div asp-validation-summary="All" class="text-danger"></div>
         <div class="form-group mt-3">
             <label asp-for="Input.Username"></label>
             <input asp-for="Input.Username" class="form-control" placeholder="Username" />

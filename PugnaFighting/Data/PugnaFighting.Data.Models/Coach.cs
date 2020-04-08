@@ -16,7 +16,7 @@
 
         [Required]
         [MaxLength(30)]
-        public string Nationality { get; set; }
+        public string BornCountry { get; set; }
 
         [Required]
         [Range(18, 90)]
@@ -27,5 +27,8 @@
 
         [Required]
         public int Price { get; set; }
+
+        [Required]
+        public int SkillBonus { get; set; }
     }
 }

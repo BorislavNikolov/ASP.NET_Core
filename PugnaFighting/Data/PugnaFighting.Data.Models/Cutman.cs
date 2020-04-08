@@ -16,7 +16,7 @@
 
         [Required]
         [MaxLength(30)]
-        public string Nationality { get; set; }
+        public string BornCountry { get; set; }
 
         [Required]
         [Range(18, 70)]

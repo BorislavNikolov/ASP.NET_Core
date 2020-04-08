@@ -10,26 +10,37 @@
         public int FansCount { get; set; }
 
         [Required]
-        public virtual int PersonalInfoId { get; set; }
+        public string UserId { get; set; }
+
+        public virtual ApplicationUser User { get; set; }
 
         [Required]
-        public virtual PersonalInfo PersonalInfo { get; set; }
+        public int BiographyId { get; set; }
 
         [Required]
-        public virtual int SkillId { get; set; }
+        public virtual Biography Biography { get; set; }
+
+        [Required]
+        public int CategoryId { get; set; }
+
+        [Required]
+        public virtual Category Category { get; set; }
+
+        [Required]
+        public int SkillId { get; set; }
 
         [Required]
         public virtual Skill Skill { get; set; }
 
-        public virtual int ManagerId { get; set; }
+        public int? ManagerId { get; set; }
 
         public virtual Manager Manager { get; set; }
 
-        public virtual int CoachId { get; set; }
+        public int? CoachId { get; set; }
 
         public virtual Coach Coach { get; set; }
 
-        public virtual int CutmanId { get; set; }
+        public int? CutmanId { get; set; }
 
         public virtual Cutman Cutman { get; set; }
     }
