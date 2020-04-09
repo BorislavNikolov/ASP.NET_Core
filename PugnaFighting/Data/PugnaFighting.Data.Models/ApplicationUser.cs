@@ -16,6 +16,7 @@ namespace PugnaFighting.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
+            this.Fighters = new HashSet<Fighter>();
             this.Coins = 15000;
         }
 
@@ -28,6 +29,8 @@ namespace PugnaFighting.Data.Models
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+
+        public int FightersCount => this.Fighters.Count;
 
         public int Coins { get; set; }
 

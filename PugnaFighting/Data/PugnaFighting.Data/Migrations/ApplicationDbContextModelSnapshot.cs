@@ -448,13 +448,13 @@ namespace PugnaFighting.Data.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CoachId")
+                    b.Property<int?>("CoachId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CutmanId")
+                    b.Property<int?>("CutmanId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("DeletedOn")
@@ -466,7 +466,7 @@ namespace PugnaFighting.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("ManagerId")
+                    b.Property<int?>("ManagerId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedOn")
@@ -754,23 +754,17 @@ namespace PugnaFighting.Data.Migrations
 
                     b.HasOne("PugnaFighting.Data.Models.Coach", "Coach")
                         .WithMany()
-                        .HasForeignKey("CoachId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("CoachId");
 
                     b.HasOne("PugnaFighting.Data.Models.Cutman", "Cutman")
                         .WithMany()
-                        .HasForeignKey("CutmanId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("CutmanId");
 
                     b.HasOne("PugnaFighting.Data.Models.Manager", "Manager")
                         .WithMany()
-                        .HasForeignKey("ManagerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("ManagerId");
 
-                    b.HasOne("PugnaFighting.Data.Models.Organization", null)
+                    b.HasOne("PugnaFighting.Data.Models.Organization", "Organization")
                         .WithMany("Fighters")
                         .HasForeignKey("OrganizationId");
 

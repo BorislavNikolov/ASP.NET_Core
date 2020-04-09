@@ -11,6 +11,7 @@
     using PugnaFighting.Data.Models;
     using PugnaFighting.Services.Data;
     using PugnaFighting.Web.ViewModels.Fighters;
+    using PugnaFighting.Web.ViewModels.Organizations;
 
     [Authorize]
     public class FightersController : Controller
@@ -19,6 +20,7 @@
         private readonly ICategoriesService categoriesService;
         private readonly IBiographiesService biographiesService;
         private readonly ISkillsService skillsService;
+        private readonly IOrganizationsService organizationsService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IMapper mapper;
 
@@ -27,12 +29,14 @@
             ICategoriesService categoriesService,
             IBiographiesService biographiesService,
             ISkillsService skillsService,
+            IOrganizationsService organizationsService,
             UserManager<ApplicationUser> userManager)
         {
             this.fightersService = fightersService;
             this.categoriesService = categoriesService;
             this.biographiesService = biographiesService;
             this.skillsService = skillsService;
+            this.organizationsService = organizationsService;
             this.userManager = userManager;
         }
 
@@ -54,7 +58,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Create(FighterCreateInputModel input)
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -74,8 +77,24 @@
 
         public IActionResult ChooseOrganization()
         {
-            return this.View();
+            var organizationsDropDown = this.organizationsService.GetAll<OrganizationDropDownViewModel>();
+            var organizations = this.organizationsService.GetAll<OrganizationViewModel>();
+
+            var viewModel = new ChooseOrganizationViewModel
+            {
+                Organizations = organizations,
+                OrganizationsDropDown = organizationsDropDown,
+            };
+
+            return this.View(viewModel);
         }
+
+        //[HttpPost]
+        //public async Task<IActionResult> ChooseOrganization()
+        //{
+
+        //    return this.RedirectToAction("Info");
+        //}
 
         public IActionResult Fight()
         {

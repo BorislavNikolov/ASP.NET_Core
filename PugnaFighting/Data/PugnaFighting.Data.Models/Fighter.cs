@@ -12,6 +12,7 @@
         [Required]
         public string UserId { get; set; }
 
+        [Required]
         public virtual ApplicationUser User { get; set; }
 
         [Required]
@@ -31,6 +32,10 @@
 
         [Required]
         public virtual Skill Skill { get; set; }
+
+        public int? OrganizationId { get; set; }
+
+        public virtual Organization Organization { get; set; }
 
         public int? ManagerId { get; set; }
 

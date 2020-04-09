@@ -1,41 +1,42 @@
-﻿@{
+﻿@model PugnaFighting.Web.ViewModels.Organizations.ChooseOrganizationViewModel
+@{
     ViewData["Title"] = "Choose Organization";
+    var organizations = Model.OrganizationsDropDown.Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+    var background = "primary";
 }
 
 <div class="p-5 rounded text-white bg-dark mx-auto w-75">
-    <h2 class="text-center">Chose Organization</h2>
+    <h2 class="text-center">Choose Organization</h2>
 
     <div class="row text-center">
-        <div class="col-sm bg-primary m-2 rounded">
-            <h3 class="p-2">Animo</h3>
-            <img src="Animo.png" alt="" style="width: 300px;">
-            <ul style="list-style: none;">
-                <li>Fans - 100</li>
-                <li>Instant cash - 5000 $</li>
-                <li>Money per a fight - 1500 $</li>
-            </ul>
+        @foreach (var organization in Model.Organizations)
+        {
+            @if (organization.Name == "Corporis")
+            {
+                background = "danger";
+            }
+
+            <div class="col-sm bg-@background m-2 rounded">
+                <h3 class="p-2">@organization.Name</h3>
+                <h4 class="p-2">Location: @organization.Location</h4>
+                <img class="rounded" src="@organization.LogoUrl" alt="logo" style="width: 300px;">
+                <ul class="mt-2 font-weight-bold" style="list-style: none;">
+                    <li>Fans - @organization.FansCount</li>
+                    <li>Instant cash - @organization.InstantCash</li>
+                    <li>Money per a fight - @organization.MoneyPerFight</li>
+                </ul>
+            </div>
+        }
+    </div>
+
+    <form method="post" asp-action="ChooseOrganization">
+        <div class="text-center pt-3">
+            <label asp-for="OrganizationId" class="font-weight-bold"></label>
+            <select asp-for="OrganizationId" asp-items="organizations" class="form-control w-25 mx-auto"></select>
+            <span asp-validation-for="OrganizationId" class="text-danger"></span>
         </div>
 
-        <div class="col-sm bg-danger m-2 rounded">
-            <h3 class="p-2">Corporis</h3>
-            <img src="Corporis.png" alt="" style="width: 300px;">
-            <ul style="list-style: none;">
-                <li>Fans - 500</li>
-                <li>Instant cash - 7000 $</li>
-                <li>Money per a fight - 1000 $</li>
-            </ul>
-        </div>
-    </div>
+        <button type="submit" class="btn btn-success d-block mx-auto mt-2">Choose</button>
+    </form>
 
-    <div class="text-center pt-3">
-        <select class="custom-select w-50" id="inlineFormCustomSelectPref">
-            <option selected>Choose...</option>
-            <option value="1">Animo</option>
-            <option value="2">Corporis</option>
-        </select>
-    </div>
-
-    <div class="text-center pt-5">
-        <button type="submit" class="btn btn-success" asp-area="" asp-controller="Users" asp-action="Info">Choose</button>
-    </div>
 </div>
