@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.3" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
@@ -21,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\PugnaFighting.Data.Models\PugnaFighting.Data.Models.csproj" />
     <ProjectReference Include="..\..\Services\PugnaFighting.Services.Mapping\PugnaFighting.Services.Mapping.csproj" />
+    <ProjectReference Include="..\PugnaFighting.Web.Infrastructure\PugnaFighting.Web.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

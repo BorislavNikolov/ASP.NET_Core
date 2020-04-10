@@ -84,6 +84,7 @@
             services.AddTransient<ISkillsService, SkillsService>();
             services.AddTransient<IFightersService, FightersService>();
             services.AddTransient<IOrganizationsService, OrganizationsService>();
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

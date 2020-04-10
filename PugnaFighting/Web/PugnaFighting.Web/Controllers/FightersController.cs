@@ -68,7 +68,7 @@
             }
 
             var skillId = await this.skillsService.CreateAsync();
-            var biographyId = await this.biographiesService.CreateAsync(input.FirstName, input.Nickname, input.LastName, input.BornCountry, input.Age);
+            var biographyId = await this.biographiesService.CreateAsync(input.FirstName, input.Nickname, input.LastName, input.BornCountry, input.Age, input.Picture);
             var fighterId = await this.fightersService.CreateAsync(skillId, biographyId, input.CategoryId, user.Id);
             this.TempData["InfoMessage"] = "Fighter created!";
 
@@ -89,12 +89,15 @@
             return this.View(viewModel);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> ChooseOrganization()
-        //{
+        [HttpPost]
+        public IActionResult ChooseOrganization(ChooseOrganizationViewModel viewModel)
+        {
+            var id = int.Parse(this.RouteData.Values["id"].ToString());
 
-        //    return this.RedirectToAction("Info");
-        //}
+            this.fightersService.ChooseOrganization(id, viewModel.OrganizationId);
+
+            return this.RedirectToAction("Info", "Users");
+        }
 
         public IActionResult Fight()
         {
