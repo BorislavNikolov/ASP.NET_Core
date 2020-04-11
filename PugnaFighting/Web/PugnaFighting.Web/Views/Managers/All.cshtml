@@ -1,15 +1,21 @@
-﻿@{
+﻿@model PugnaFighting.Web.ViewModels.Managers.AllManagersViewModel
+@{
     ViewData["Title"] = "Managers";
 }
 
 <div class="p-5 rounded text-white bg-dark mx-auto w-75">
     <div class="d-flex flex-column">
-        <div class="d-flex bg-success rounded p-4 justify-content-between">
-            <img src="https://res.cloudinary.com/dka5uzl0n/image/upload/v1585938628/face8_pfqvgw.png" style="width: 50px; height: 50px;"/>
-            <p>FirstName LastName</p>
-            <p>Nationality Age</p>
-            <p>Price</p>
-            <span type="button" class="btn btn-light"><a>Hire</a></span>
-        </div>
+        @foreach (var manager in Model.ManagerViewModels)
+        {
+            <div class="d-flex bg-success rounded m-4 p-3 justify-content-between">
+                <span>
+                    <img src="@manager.PictureUrl" style="width: 60px; height: 60px;" class="rounded" />
+                </span>
+                <p>Name: @manager.FirstName @manager.LastName</p>
+                <p>Age: @manager.Age</p>
+                <p>Born County: @manager.BornCountry</p>
+                <a type="button" class="btn btn-light" asp-controller="Managers" asp-action="Details" asp-route-id="@manager.Id">Details</a>
+            </div>
+        }
     </div>
 </div>

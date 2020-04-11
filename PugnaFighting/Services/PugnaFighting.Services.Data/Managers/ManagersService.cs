@@ -1,4 +1,4 @@
-﻿namespace PugnaFighting.Services.Data.Cutmen
+﻿namespace PugnaFighting.Services.Data.Managers
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -8,19 +8,19 @@
     using PugnaFighting.Services.Data.Contracts;
     using PugnaFighting.Services.Mapping;
 
-    public class CutmenService : ICutmenService
+    public class ManagersService : IManagersService
     {
-        private readonly IDeletableEntityRepository<Cutman> cutmenRepository;
+        private readonly IDeletableEntityRepository<Manager> managersRepository;
 
-        public CutmenService(IDeletableEntityRepository<Cutman> cutmenRepository)
+        public ManagersService(IDeletableEntityRepository<Manager> managersRepository)
         {
-            this.cutmenRepository = cutmenRepository;
+            this.managersRepository = managersRepository;
         }
 
         public IEnumerable<T> GetAll<T>(int? count = null)
         {
-            IQueryable<Cutman> query =
-                this.cutmenRepository.All().Where(x => x.IsCustom == false).OrderBy(x => x.Price);
+            IQueryable<Manager> query =
+                this.managersRepository.All().Where(x => x.IsCustom == false).OrderBy(x => x.Price);
             if (count.HasValue)
             {
                 query = query.Take(count.Value);
@@ -31,9 +31,9 @@
 
         public T GetById<T>(int id)
         {
-            var coach = this.cutmenRepository.All().Where(x => x.Id == id)
+            var manager = this.managersRepository.All().Where(x => x.Id == id)
                 .To<T>().FirstOrDefault();
-            return coach;
+            return manager;
         }
     }
 }

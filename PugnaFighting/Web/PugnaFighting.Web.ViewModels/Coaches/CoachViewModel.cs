@@ -1,12 +1,15 @@
-﻿namespace PugnaFighting.Web.ViewModels.Cutmen
+﻿namespace PugnaFighting.Web.ViewModels.Coaches
 {
     using System.ComponentModel.DataAnnotations;
 
     using PugnaFighting.Data.Models;
     using PugnaFighting.Services.Mapping;
 
-    public class DetailsCutmanViewModel : IMapFrom<Cutman>
+    public class CoachViewModel : IMapFrom<Coach>
     {
+        [Required]
+        public int Id { get; set; }
+
         [Required]
         public string FirstName { get; set; }
 
@@ -21,11 +24,5 @@
 
         [Required]
         public string PictureUrl { get; set; }
-
-        [Required]
-        public int Price { get; set; }
-
-        [Required]
-        public int HealthBonus { get; set; }
     }
 }

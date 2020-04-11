@@ -1,7 +1,21 @@
-﻿@{
+﻿@model PugnaFighting.Web.ViewModels.Coaches.AllCoachesViewModel
+@{
     ViewData["Title"] = "Coaches";
 }
 
-<div class="p-5 rounded text-white bg-dark mx-auto w-75">
-    
-</div>
+    <div class="p-5 rounded text-white bg-dark mx-auto w-75">
+        <div class="d-flex flex-column">
+            @foreach (var coach in Model.CoachViewModels)
+            {
+            <div class="d-flex bg-success rounded m-4 p-3 justify-content-between">
+                <span>
+                    <img src="@coach.PictureUrl" style="width: 60px; height: 60px;" class="rounded" />
+                </span>
+                <p>Name: @coach.FirstName @coach.LastName</p>
+                <p>Age: @coach.Age</p>
+                <p>Born County: @coach.BornCountry</p>
+                <a type="button" class="btn btn-light" asp-controller="Coaches" asp-action="Details" asp-route-id="@coach.Id">Details</a>
+            </div>
+            }
+        </div>
+    </div>

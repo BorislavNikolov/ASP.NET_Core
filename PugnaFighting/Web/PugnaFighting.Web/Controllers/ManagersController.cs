@@ -8,12 +8,41 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    using PugnaFighting.Services.Data.Contracts;
+    using PugnaFighting.Web.ViewModels.Managers;
+
+    [Authorize]
     public class ManagersController : Controller
     {
-        [Authorize]
+        private readonly IManagersService managersService;
+
+        public ManagersController(IManagersService managersService)
+        {
+            this.managersService = managersService;
+        }
+
         public IActionResult All()
         {
-            return this.View();
+            var managers = this.managersService.GetAll<ManagerViewModel>();
+
+            var viewModel = new AllManagersViewModel
+            {
+                ManagerViewModels = managers,
+            };
+
+            return this.View(viewModel);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var managerViewModel = this.managersService.GetById<DetailsManagerViewModel>(id);
+
+            if (managerViewModel == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.View(managerViewModel);
         }
     }
 }

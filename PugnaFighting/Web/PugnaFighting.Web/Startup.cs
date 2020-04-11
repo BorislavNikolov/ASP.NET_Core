@@ -20,8 +20,10 @@
     using PugnaFighting.Data.Repositories;
     using PugnaFighting.Data.Seeding;
     using PugnaFighting.Services.Data;
+    using PugnaFighting.Services.Data.Coaches;
     using PugnaFighting.Services.Data.Contracts;
     using PugnaFighting.Services.Data.Cutmen;
+    using PugnaFighting.Services.Data.Managers;
     using PugnaFighting.Services.Mapping;
     using PugnaFighting.Services.Messaging;
     using PugnaFighting.Web.ViewModels;
@@ -87,6 +89,8 @@
             services.AddTransient<IFightersService, FightersService>();
             services.AddTransient<IOrganizationsService, OrganizationsService>();
             services.AddTransient<ICutmenService, CutmenService>();
+            services.AddTransient<ICoachesService, CoachesService>();
+            services.AddTransient<IManagersService, ManagersService>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
         }
 
