@@ -5,11 +5,8 @@
     using PugnaFighting.Data.Models;
     using PugnaFighting.Services.Mapping;
 
-    public class CutmanViewModel : IMapFrom<Cutman>
+    public class DetailsCutmanViewModel : IMapFrom<Cutman>
     {
-        [Required]
-        public int Id { get; set; }
-
         [Required]
         public string FirstName { get; set; }
 
@@ -24,5 +21,14 @@
 
         [Required]
         public string PictureUrl { get; set; }
+
+        [Required]
+        public int Price { get; set; }
+
+        [Required]
+        public int HealthBonus { get; set; }
+
+        [Required]
+        public bool IsCustom { get; set; }
     }
 }

@@ -27,5 +27,17 @@
 
             return this.View(viewModel);
         }
+
+        public IActionResult Details(int id)
+        {
+            var cutmanViewModel = this.cutmenService.GetById<DetailsCutmanViewModel>(id);
+
+            if (cutmanViewModel == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.View(cutmanViewModel);
+        }
     }
 }

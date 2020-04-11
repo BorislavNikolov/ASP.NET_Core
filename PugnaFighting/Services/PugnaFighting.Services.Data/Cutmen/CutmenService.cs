@@ -10,23 +10,30 @@
 
     public class CutmenService : ICutmenService
     {
-        private readonly IDeletableEntityRepository<Cutman> cutmenService;
+        private readonly IDeletableEntityRepository<Cutman> cutmenRepository;
 
-        public CutmenService(IDeletableEntityRepository<Cutman> cutmenService)
+        public CutmenService(IDeletableEntityRepository<Cutman> cutmenRepository)
         {
-            this.cutmenService = cutmenService;
+            this.cutmenRepository = cutmenRepository;
         }
 
         public IEnumerable<T> GetAll<T>(int? count = null)
         {
             IQueryable<Cutman> query =
-                this.cutmenService.All().OrderBy(x => x.Price);
+                this.cutmenRepository.All().Where(x => x.IsCustom == false).OrderBy(x => x.Price);
             if (count.HasValue)
             {
                 query = query.Take(count.Value);
             }
 
             return query.To<T>().ToList();
+        }
+
+        public T GetById<T>(int id)
+        {
+            var post = this.cutmenRepository.All().Where(x => x.Id == id)
+                .To<T>().FirstOrDefault();
+            return post;
         }
     }
 }

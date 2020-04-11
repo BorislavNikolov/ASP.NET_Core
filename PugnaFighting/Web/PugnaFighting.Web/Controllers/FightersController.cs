@@ -90,11 +90,11 @@
         }
 
         [HttpPost]
-        public IActionResult ChooseOrganization(ChooseOrganizationViewModel viewModel)
+        public async Task<IActionResult> ChooseOrganization(ChooseOrganizationViewModel viewModel)
         {
             var id = int.Parse(this.RouteData.Values["id"].ToString());
 
-            this.fightersService.ChooseOrganization(id, viewModel.OrganizationId);
+            await this.fightersService.ChooseOrganization(id, viewModel.OrganizationId);
 
             return this.RedirectToAction("Info", "Users");
         }

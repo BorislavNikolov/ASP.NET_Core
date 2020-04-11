@@ -14,7 +14,7 @@
                 <p>Name: @cutman.FirstName @cutman.LastName</p>
                 <p>Age: @cutman.Age</p>
                 <p>Born County: @cutman.BornCountry</p>
-                <span type="button" class="btn btn-light"><a>Details</a></span>
+                <span type="button" class="btn btn-light"><a asp-controller="Cutmen" asp-action="Details" asp-route-id="@cutman.Id">Details</a></span>
             </div>
         }
     </div>

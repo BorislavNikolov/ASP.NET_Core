@@ -10,6 +10,6 @@
 
         Fighter GetById(int id);
 
-        void ChooseOrganization(int fighterId, int organizationId);
+        Task ChooseOrganization(int fighterId, int organizationId);
     }
 }

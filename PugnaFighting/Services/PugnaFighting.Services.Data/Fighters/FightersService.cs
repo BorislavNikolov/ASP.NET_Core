@@ -39,13 +39,13 @@
             return fighter;
         }
 
-        public void ChooseOrganization(int fighterId, int organizationId)
+        public async Task ChooseOrganization(int fighterId, int organizationId)
         {
             var fighter = this.GetById(fighterId);
 
             fighter.OrganizationId = organizationId;
 
-            this.fightersRepository.SaveChangesAsync();
+            await this.fightersRepository.SaveChangesAsync();
         }
     }
 }
