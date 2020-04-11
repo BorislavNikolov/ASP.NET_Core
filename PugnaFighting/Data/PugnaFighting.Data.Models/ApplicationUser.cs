@@ -3,6 +3,7 @@ namespace PugnaFighting.Data.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using Microsoft.AspNetCore.Identity;
 
@@ -30,8 +31,10 @@ namespace PugnaFighting.Data.Models
 
         public DateTime? DeletedOn { get; set; }
 
-        public int FightersCount => this.Fighters.Count;
+        [Required]
+        public int FightersCount { get; set; }
 
+        [Required]
         public int Coins { get; set; }
 
         public virtual ICollection<Fighter> Fighters { get; set; }

@@ -26,6 +26,8 @@
                     BornCountry = "England",
                     Price = 5000,
                     PictureUrl = "https://res.cloudinary.com/dka5uzl0n/image/upload/v1585939328/face14_qkppms.png",
+                    HealthBonus = 1,
+                    IsCustom = false,
                 },
                 new Cutman
                 {
@@ -35,33 +37,41 @@
                     BornCountry = "America",
                     Price = 15000,
                     PictureUrl = "https://res.cloudinary.com/dka5uzl0n/image/upload/v1585939330/face20_zozn7u.png",
+                    HealthBonus = 2,
+                    IsCustom = false,
                 },
                 new Cutman
                 {
                     FirstName = "Joseph",
                     LastName = "Johnson",
                     Age = 35,
-                    BornCountry = "Englishman",
+                    BornCountry = "England",
                     Price = 20000,
                     PictureUrl = "https://res.cloudinary.com/dka5uzl0n/image/upload/v1585939330/face21_ns1ph7.png",
+                    HealthBonus = 3,
+                    IsCustom = false,
                 },
                 new Cutman
                 {
                     FirstName = "Andrew",
                     LastName = "Rogers",
                     Age = 53,
-                    BornCountry = "American",
+                    BornCountry = "America",
                     Price = 25000,
                     PictureUrl = "https://res.cloudinary.com/dka5uzl0n/image/upload/v1585940167/face32_q0ofhx.png",
+                    HealthBonus = 4,
+                    IsCustom = false,
                 },
                 new Cutman
                 {
                     FirstName = "Michael",
                     LastName = "Sanders",
                     Age = 60,
-                    BornCountry = "Mexican",
+                    BornCountry = "Mexico",
                     Price = 30000,
-                    PictureUrl = "https://res.cloudinary.com/dka5uzl0n/image/upload/v1585938627/face5_f6gznz.png",
+                    PictureUrl = "https://res.cloudinary.com/dka5uzl0n/image/upload/v1585940169/face29_eko6il.png",
+                    HealthBonus = 5,
+                    IsCustom = false,
                 },
             };
 

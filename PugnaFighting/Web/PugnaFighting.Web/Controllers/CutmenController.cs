@@ -1,19 +1,31 @@
 ﻿namespace PugnaFighting.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+
+    using PugnaFighting.Services.Data.Contracts;
+    using PugnaFighting.Web.ViewModels.Cutmen;
 
     [Authorize]
     public class CutmenController : Controller
     {
+        private readonly ICutmenService cutmenService;
+
+        public CutmenController(ICutmenService cutmenService)
+        {
+            this.cutmenService = cutmenService;
+        }
+
         public IActionResult All()
         {
-            return this.View();
+            var cutmen = this.cutmenService.GetAll<CutmanViewModel>();
+
+            var viewModel = new AllCutmenViewModel
+            {
+                CutmanViewModels = cutmen,
+            };
+
+            return this.View(viewModel);
         }
     }
 }

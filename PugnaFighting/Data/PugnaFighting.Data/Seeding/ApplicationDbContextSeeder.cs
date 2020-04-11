@@ -30,6 +30,7 @@
                               new OrganizationsSeeder(),
                               new ManagersSeeder(),
                               new CutmenSeeder(),
+                              new CoachesSeeder(),
                               new CategoriesSeeder(),
                           };
 

@@ -27,5 +27,11 @@
 
         [Required]
         public int Price { get; set; }
+
+        [Required]
+        public int HealthBonus { get; set; }
+
+        [Required]
+        public bool IsCustom { get; set; }
     }
 }

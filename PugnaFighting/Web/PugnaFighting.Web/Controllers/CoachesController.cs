@@ -7,7 +7,7 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    public class TeamsController : Controller
+    public class CoachesController : Controller
     {
         public IActionResult All()
         {

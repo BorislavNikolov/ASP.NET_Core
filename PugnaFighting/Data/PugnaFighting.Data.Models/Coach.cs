@@ -30,5 +30,8 @@
 
         [Required]
         public int SkillBonus { get; set; }
+
+        [Required]
+        public bool IsCustom { get; set; }
     }
 }

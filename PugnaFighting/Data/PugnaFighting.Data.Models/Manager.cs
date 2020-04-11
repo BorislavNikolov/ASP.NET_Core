@@ -33,5 +33,8 @@
 
         [Required]
         public int FansCount { get; set; }
+
+        [Required]
+        public bool IsCustom { get; set; }
     }
 }
