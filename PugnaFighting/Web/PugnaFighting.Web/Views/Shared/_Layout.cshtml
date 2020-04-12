@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="~/css/typography.css" />
     <link rel="stylesheet" href="~/css/header.css" />
     <link rel="stylesheet" href="~/css/footer.css" />
+    <link rel="stylesheet" href="~/css/hint.css" />
 </head>
 <body>
     <header class="bg-dark text-white p-2 text-center font-weight-bold d-flex justify-content-between">
@@ -45,6 +46,15 @@
     </header>
 
     <main role="main" class="p-5">
+
+        <div class="mb-2">
+            <button id="hint-btn">Hint</button>
+            <div id="hint" class="p-3 rounded">
+                <span id="close-btn" class="mb-2">&times;</span>
+                <span id="hint-text"></span>
+            </div>
+        </div>
+
         <div class="container">
             <partial name="_CookieConsentPartial" />
         </div>
@@ -66,6 +76,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/hint.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

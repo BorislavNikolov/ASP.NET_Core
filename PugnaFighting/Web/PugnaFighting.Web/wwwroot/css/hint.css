@@ -1,0 +1,49 @@
+﻿#hint-btn {
+    background-color: black;
+    padding: 1em;
+    color: snow;
+    font: bold;
+    border: 2px solid white;
+    border-radius: 15px;
+    opacity: 0.7;
+    transition: .3s;
+}
+
+#hint-btn:hover {
+    opacity: 1;
+    cursor: help;
+    box-shadow: 0 0 10px 0 yellow inset, 0 0 20px 2px yellow;
+    animation: pulse 1s infinite;
+    transition: .3s;
+}
+
+#hint {
+    display: none;
+    background-color: rgb(52, 58, 64);
+    color: snow;
+}
+
+#hint-text {
+    display: none;
+}
+
+#close-btn {
+    display: none;
+    font-weight: bold;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    70% {
+        transform: scale(.9);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
