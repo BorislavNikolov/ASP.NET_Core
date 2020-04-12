@@ -4,6 +4,7 @@
 }
 
 <div class="p-5 rounded text-white bg-dark mx-auto w-75">
+    <h3 class="text-center m-2">Managers</h3>
     <div class="d-flex flex-column">
         @foreach (var manager in Model.ManagerViewModels)
         {
@@ -18,4 +19,6 @@
             </div>
         }
     </div>
+
+    <button type="submit" class="btn btn-success d-block mx-auto mt-3 w-25">Create</button>
 </div>

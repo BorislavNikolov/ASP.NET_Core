@@ -11,5 +11,11 @@
         Fighter GetById(int id);
 
         Task ChooseOrganization(int fighterId, int organizationId);
+
+        public T GetBestStriker<T>(string organizationName);
+
+        public T GetBestWrestler<T>(string organizationName);
+
+        public T GetBestGrappler<T>(string organizationName);
     }
 }

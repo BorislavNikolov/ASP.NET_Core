@@ -47,5 +47,44 @@
 
             await this.fightersRepository.SaveChangesAsync();
         }
+
+        public T GetBestStriker<T>(string organizationName)
+        {
+            var fighter = this.fightersRepository.All()
+                .Where(x => x.Organization.Name.ToLower() == organizationName.ToLower())
+                .OrderByDescending(x => x.Skill.Striking)
+                .ThenByDescending(x => x.FansCount)
+                .ThenBy(x => x.Biography.Age)
+                .To<T>()
+                .FirstOrDefault();
+
+            return fighter;
+        }
+
+        public T GetBestWrestler<T>(string organizationName)
+        {
+            var fighter = this.fightersRepository.All()
+                .Where(x => x.Organization.Name.ToLower() == organizationName.ToLower())
+                .OrderByDescending(x => x.Skill.Wrestling)
+                .ThenByDescending(x => x.FansCount)
+                .ThenBy(x => x.Biography.Age)
+                .To<T>()
+                .FirstOrDefault();
+
+            return fighter;
+        }
+
+        public T GetBestGrappler<T>(string organizationName)
+        {
+            var fighter = this.fightersRepository.All()
+                .Where(x => x.Organization.Name.ToLower() == organizationName.ToLower())
+                .OrderByDescending(x => x.Skill.Grappling)
+                .ThenByDescending(x => x.FansCount)
+                .ThenBy(x => x.Biography.Age)
+                .To<T>()
+                .FirstOrDefault();
+
+            return fighter;
+        }
     }
 }

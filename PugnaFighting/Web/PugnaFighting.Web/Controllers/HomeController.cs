@@ -4,17 +4,20 @@
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
 
+    using PugnaFighting.Services.Data;
     using PugnaFighting.Web.ViewModels;
+    using PugnaFighting.Web.ViewModels.Home;
 
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> logger;
+        private const string AnimoOrganizationName = "Animo";
+        private const string CorporisOrganizationName = "Corporis";
+        private readonly IFightersService fightersService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IFightersService fightersService)
         {
-            this.logger = logger;
+            this.fightersService = fightersService;
         }
 
         public IActionResult Index()
@@ -24,7 +27,25 @@
                 return this.Redirect("/Home/IndexGuest");
             }
 
-            return this.View();
+            var animoBestStriker = this.fightersService.GetBestStriker<BestFighterViewModel>(AnimoOrganizationName);
+            var animoBestGrapller = this.fightersService.GetBestGrappler<BestFighterViewModel>(AnimoOrganizationName);
+            var animoBestWrestller = this.fightersService.GetBestWrestler<BestFighterViewModel>(AnimoOrganizationName);
+
+            var corporisBestStriker = this.fightersService.GetBestStriker<BestFighterViewModel>(CorporisOrganizationName);
+            var corporisBestGrappler = this.fightersService.GetBestGrappler<BestFighterViewModel>(CorporisOrganizationName);
+            var corporisBestWrestller = this.fightersService.GetBestWrestler<BestFighterViewModel>(CorporisOrganizationName);
+
+            var viewModel = new IndexViewModel
+            {
+                AnimoGrapller = animoBestGrapller,
+                AnimoStriker = animoBestStriker,
+                AnimoWrestler = animoBestWrestller,
+                CorporisGrapller = corporisBestGrappler,
+                CorporisStriker = corporisBestStriker,
+                CorporisWrestler = corporisBestWrestller,
+            };
+
+            return this.View(viewModel);
         }
 
         public IActionResult HttpError(int statusCode)

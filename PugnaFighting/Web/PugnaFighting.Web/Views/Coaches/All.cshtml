@@ -3,10 +3,11 @@
     ViewData["Title"] = "Coaches";
 }
 
-    <div class="p-5 rounded text-white bg-dark mx-auto w-75">
-        <div class="d-flex flex-column">
-            @foreach (var coach in Model.CoachViewModels)
-            {
+<div class="p-5 rounded text-white bg-dark mx-auto w-75">
+    <h3 class="text-center m-2">Coaches</h3>
+    <div class="d-flex flex-column">
+        @foreach (var coach in Model.CoachViewModels)
+        {
             <div class="d-flex bg-success rounded m-4 p-3 justify-content-between">
                 <span>
                     <img src="@coach.PictureUrl" style="width: 60px; height: 60px;" class="rounded" />
@@ -16,6 +17,8 @@
                 <p>Born County: @coach.BornCountry</p>
                 <a type="button" class="btn btn-light" asp-controller="Coaches" asp-action="Details" asp-route-id="@coach.Id">Details</a>
             </div>
-            }
-        </div>
+        }
     </div>
+
+    <button type="submit" class="btn btn-success d-block mx-auto mt-3 w-25">Create</button>
+</div>
