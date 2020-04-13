@@ -1,5 +1,6 @@
 ﻿namespace PugnaFighting.Services.Data.Users
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -13,11 +14,18 @@
 
     public class UsersService : IUsersService
     {
+        private readonly ISkillsService skillsService;
+        private readonly IBiographiesService biographiesService;
         private readonly IDeletableEntityRepository<Fighter> fightersRepository;
 
-        public UsersService(IDeletableEntityRepository<Fighter> fightersRepository)
+        public UsersService(
+            IDeletableEntityRepository<Fighter> fightersRepository,
+            ISkillsService skillsService,
+            IBiographiesService biographiesService)
         {
             this.fightersRepository = fightersRepository;
+            this.skillsService = skillsService;
+            this.biographiesService = biographiesService;
         }
 
         public IEnumerable<T> GetAllFighters<T>(string userId)
@@ -34,6 +42,17 @@
                 .To<T>().FirstOrDefaultAsync();
 
             return fighter;
+        }
+
+        public async Task DeleteFighter(Fighter fighter)
+        {
+            fighter.IsDeleted = true;
+            fighter.DeletedOn = DateTime.UtcNow;
+
+            await this.biographiesService.Delete(fighter.BiographyId);
+            await this.skillsService.Delete(fighter.SkillId);
+
+            await this.fightersRepository.SaveChangesAsync();
         }
     }
 }

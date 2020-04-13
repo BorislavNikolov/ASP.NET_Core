@@ -1,5 +1,7 @@
 ﻿namespace PugnaFighting.Services.Data
 {
+    using System;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Http;
@@ -49,6 +51,22 @@
             await this.biographiesRepository.SaveChangesAsync();
 
             return biography.Id;
+        }
+
+        public Biography GetById(int id)
+        {
+            var biography = this.biographiesRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            return biography;
+        }
+
+        public async Task Delete(int id)
+        {
+            var biography = this.GetById(id);
+
+            biography.IsDeleted = true;
+            biography.DeletedOn = DateTime.UtcNow;
+
+            await this.biographiesRepository.SaveChangesAsync();
         }
     }
 }

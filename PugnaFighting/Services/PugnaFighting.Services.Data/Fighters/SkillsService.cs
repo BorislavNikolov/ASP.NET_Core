@@ -1,5 +1,7 @@
 ﻿namespace PugnaFighting.Services.Data
 {
+    using System;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using PugnaFighting.Data.Common.Repositories;
@@ -30,6 +32,22 @@
             await this.skillsRepository.SaveChangesAsync();
 
             return skill.Id;
+        }
+
+        public Skill GetById(int id)
+        {
+            var skill = this.skillsRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            return skill;
+        }
+
+        public async Task Delete(int id)
+        {
+            var skill = this.GetById(id);
+
+            skill.IsDeleted = true;
+            skill.DeletedOn = DateTime.UtcNow;
+
+            await this.skillsRepository.SaveChangesAsync();
         }
     }
 }

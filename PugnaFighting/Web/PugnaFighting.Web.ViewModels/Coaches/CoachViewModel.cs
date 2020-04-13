@@ -1,6 +1,5 @@
 ﻿namespace PugnaFighting.Web.ViewModels.Coaches
 {
-
     using PugnaFighting.Data.Models;
     using PugnaFighting.Services.Mapping;
 

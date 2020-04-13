@@ -13,6 +13,5 @@
         public BestFighterViewModel CorporisGrapller { get; set; }
 
         public BestFighterViewModel CorporisWrestler { get; set; }
-
     }
 }

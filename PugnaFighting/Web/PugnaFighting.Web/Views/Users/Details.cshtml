@@ -6,14 +6,21 @@
     ViewData["Title"] = Model.Biography.Nickname;
 }
 
-<div class="jumbotron w-75 bg-secondary mx-auto">
-    <h3 class="text-center">@Model.Biography.FirstName @Model.Biography.LastName</h3>
-    <img src="@Model.Biography.PictureUrl" style="width: 250px; height: 250px;" class="rounded d-block mx-auto mt-3" />
-    <div class="d-flex justify-content-around mt-4 font-weight-bold">
-        <span>Age: @Model.Biography.Age</span>
-        <span>Born Country: @Model.Biography.BornCountry</span>
-        <span>Price: @Model.Category.Name</span>
-        <span>Bonus Health Points: @Model.FansCount</span>
+<div class="p-5 rounded text-white bg-dark mx-auto w-75">
+    <div class="jumbotron w-75 bg-secondary mx-auto">
+        <h3 class="text-center">@Model.Biography.FirstName @Model.Biography.LastName</h3>
+        <img src="@Model.Biography.PictureUrl" style="width: 250px; height: 250px;" class="rounded d-block mx-auto mt-3" />
+        <div class="d-flex justify-content-around mt-4 font-weight-bold">
+            <span>Age: @Model.Biography.Age</span>
+            <span>Born Country: @Model.Biography.BornCountry</span>
+            <span>Price: @Model.Category.Name</span>
+            <span>Bonus Health Points: @Model.FansCount</span>
+        </div>
+        <form method="post" asp-controller="Users" asp-action="SellFighter" asp-route-id="@Model.Id">
+            <span id="delete-btn" class="btn btn-success d-block mx-auto mt-3 w-25">Sell</span>
+            <p class="bg-danger text-center p-2 m-2 rounded">Are you sure you want do sell this fighter?</p>
+            <button type="submit" id="delete-btn" class="btn btn-danger d-block mx-auto mt-3">Yes</button>
+            <button id="delete-btn" class="btn btn-success d-block mx-auto mt-3">No</button>
+        </form>
     </div>
-    <span class="btn btn-success d-block mx-auto mt-3 w-25">Hire</span>
 </div>

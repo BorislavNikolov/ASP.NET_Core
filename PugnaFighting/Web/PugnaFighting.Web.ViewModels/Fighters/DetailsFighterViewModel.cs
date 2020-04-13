@@ -5,6 +5,8 @@
 
     public class DetailsFighterViewModel : IMapFrom<Fighter>
     {
+        public int Id { get; set; }
+
         public int FansCount { get; set; }
 
         public Biography Biography { get; set; }

@@ -96,7 +96,7 @@
 
             await this.fightersService.ChooseOrganization(id, viewModel.OrganizationId);
 
-            return this.RedirectToAction("Info", "Users");
+            return this.RedirectToAction("AllFighters", "Users");
         }
 
         public IActionResult Fight()
