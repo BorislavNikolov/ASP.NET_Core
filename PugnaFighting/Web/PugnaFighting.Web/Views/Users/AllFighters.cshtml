@@ -1,0 +1,28 @@
+﻿@model PugnaFighting.Web.ViewModels.Fighters.AllFightersViewModel
+@{
+    ViewData["Title"] = "My Fighters";
+}
+
+<div class="p-5 rounded text-white bg-dark mx-auto w-75">
+    <h2 class="text-center">@User.Identity.Name</h2>
+
+    <div class="d-flex justify-content-between m-3">
+        <span class="font-weight-bold">1/5 fighters count</span>
+        <span class="font-weight-bold">coins</span>
+    </div>
+
+    <div class="d-flex flex-column">
+        @foreach (var fighter in Model.FighterViewModels)
+        {
+            <div class="d-flex bg-success rounded m-4 p-3 justify-content-between">
+                <span>
+                    <img src="@fighter.Biography.PictureUrl" style="width: 60px; height: 60px;" class="rounded" />
+                </span>
+                <p>Name: @fighter.Biography.FirstName @fighter.Biography.LastName</p>
+                <p>Age: @fighter.Biography.Age</p>
+                <p>Born County: @fighter.Biography.BornCountry</p>
+                <a type="button" class="btn btn-light" asp-controller="Users" asp-action="Details" asp-route-id="@fighter.Biography.Id">Details</a>
+            </div>
+        }
+    </div>
+</div>

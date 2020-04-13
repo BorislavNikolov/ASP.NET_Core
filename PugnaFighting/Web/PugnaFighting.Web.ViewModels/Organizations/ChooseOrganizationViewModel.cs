@@ -3,9 +3,6 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using PugnaFighting.Data.Models;
-    using PugnaFighting.Services.Mapping;
-
     public class ChooseOrganizationViewModel
     {
         public IEnumerable<OrganizationViewModel> Organizations { get; set; }
