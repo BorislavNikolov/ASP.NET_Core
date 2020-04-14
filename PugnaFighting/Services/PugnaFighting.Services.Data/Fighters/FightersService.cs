@@ -23,17 +23,20 @@
             this.usersRepository = usersRepository;
         }
 
-        public async Task<int> CreateAsync(int skillId, int biogrphyId, int categoryId, string userId)
+        public async Task<int> CreateAsync(int skillId, int biogrphyId, int categoryId, ApplicationUser user)
         {
             var fighter = new Fighter
             {
                 CategoryId = categoryId,
-                UserId = userId,
+                UserId = user.Id,
                 SkillId = biogrphyId,
                 BiographyId = skillId,
                 FansCount = 100,
             };
 
+            user.FightersCount++;
+
+            await this.usersRepository.SaveChangesAsync();
             await this.fightersRepository.AddAsync(fighter);
             await this.fightersRepository.SaveChangesAsync();
 

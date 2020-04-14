@@ -69,7 +69,7 @@
 
             var skillId = await this.skillsService.CreateAsync();
             var biographyId = await this.biographiesService.CreateAsync(input.FirstName, input.Nickname, input.LastName, input.BornCountry, input.Age, input.Picture);
-            var fighterId = await this.fightersService.CreateAsync(skillId, biographyId, input.CategoryId, user.Id);
+            var fighterId = await this.fightersService.CreateAsync(skillId, biographyId, input.CategoryId, user);
             this.TempData["InfoMessage"] = "Fighter created!";
 
             return this.RedirectToAction(nameof(this.ChooseOrganization), new { id = fighterId });

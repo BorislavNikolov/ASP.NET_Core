@@ -63,8 +63,9 @@
         public async Task<IActionResult> SellFighter(int id)
         {
             var fighter = this.fightersService.GetById(id);
+            var user = await this.userManager.GetUserAsync(this.User);
 
-            await this.usersService.DeleteFighter(fighter);
+            await this.usersService.DeleteFighter(fighter, user);
             await this.biographiesService.Delete(fighter.BiographyId);
             await this.skillsService.Delete(fighter.SkillId);
 

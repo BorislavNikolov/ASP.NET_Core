@@ -18,6 +18,7 @@ namespace PugnaFighting.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Fighters = new HashSet<Fighter>();
+            this.FightersCount = 0;
             this.Coins = 15000;
         }
 

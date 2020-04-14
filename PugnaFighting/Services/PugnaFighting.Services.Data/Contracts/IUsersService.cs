@@ -11,6 +11,6 @@
 
         Task<T> GetFighterById<T>(int id);
 
-        Task DeleteFighter(Fighter fighter);
+        Task DeleteFighter(Fighter fighter, ApplicationUser user);
     }
 }

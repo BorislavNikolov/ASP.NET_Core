@@ -15,10 +15,14 @@
     public class UsersService : IUsersService
     {
         private readonly IDeletableEntityRepository<Fighter> fightersRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
 
-        public UsersService(IDeletableEntityRepository<Fighter> fightersRepository)
+        public UsersService(
+            IDeletableEntityRepository<Fighter> fightersRepository,
+            IDeletableEntityRepository<ApplicationUser> usersRepository)
         {
             this.fightersRepository = fightersRepository;
+            this.usersRepository = usersRepository;
         }
 
         public IEnumerable<T> GetAllFighters<T>(string userId)
@@ -37,11 +41,14 @@
             return fighter;
         }
 
-        public async Task DeleteFighter(Fighter fighter)
+        public async Task DeleteFighter(Fighter fighter, ApplicationUser user)
         {
+            user.FightersCount--;
+            user.Coins += 10000;
             fighter.IsDeleted = true;
             fighter.DeletedOn = DateTime.UtcNow;
 
+            await this.usersRepository.SaveChangesAsync();
             await this.fightersRepository.SaveChangesAsync();
         }
     }
