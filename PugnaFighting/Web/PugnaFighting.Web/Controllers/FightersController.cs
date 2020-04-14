@@ -94,7 +94,9 @@
         {
             var id = int.Parse(this.RouteData.Values["id"].ToString());
 
-            await this.fightersService.ChooseOrganization(id, viewModel.OrganizationId);
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            await this.fightersService.SetOrganization(id, viewModel.OrganizationId, user);
 
             return this.RedirectToAction("AllFighters", "Users");
         }

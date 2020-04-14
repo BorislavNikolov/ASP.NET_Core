@@ -10,6 +10,9 @@
         public int FansCount { get; set; }
 
         [Required]
+        public int MoneyPerFight { get; set; }
+
+        [Required]
         public string UserId { get; set; }
 
         [Required]

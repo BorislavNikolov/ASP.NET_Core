@@ -9,6 +9,8 @@
 
         public int FansCount { get; set; }
 
+        public int MoneyPerFight { get; set; }
+
         public Biography Biography { get; set; }
 
         public Category Category { get; set; }

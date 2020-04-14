@@ -27,5 +27,11 @@
 
             return query.To<T>().ToList();
         }
+
+        public Organization GetById(int id)
+        {
+            var organization = this.organizationsRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            return organization;
+        }
     }
 }

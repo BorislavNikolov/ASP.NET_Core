@@ -9,11 +9,18 @@
 
     public class FightersService : IFightersService
     {
+        private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
         private readonly IDeletableEntityRepository<Fighter> fightersRepository;
+        private readonly IOrganizationsService organizationsService;
 
-        public FightersService(IDeletableEntityRepository<Fighter> fightersRepository)
+        public FightersService(
+            IDeletableEntityRepository<Fighter> fightersRepository,
+            IOrganizationsService organizationsService,
+            IDeletableEntityRepository<ApplicationUser> usersRepository)
         {
             this.fightersRepository = fightersRepository;
+            this.organizationsService = organizationsService;
+            this.usersRepository = usersRepository;
         }
 
         public async Task<int> CreateAsync(int skillId, int biogrphyId, int categoryId, string userId)
@@ -39,12 +46,17 @@
             return fighter;
         }
 
-        public async Task ChooseOrganization(int fighterId, int organizationId)
+        public async Task SetOrganization(int fighterId, int organizationId, ApplicationUser user)
         {
             var fighter = this.GetById(fighterId);
+            var organization = this.organizationsService.GetById(organizationId);
 
             fighter.OrganizationId = organizationId;
+            fighter.MoneyPerFight = organization.MoneyPerFight;
+            fighter.FansCount += organization.FansCount;
+            user.Coins += organization.InstantCash;
 
+            await this.usersRepository.SaveChangesAsync();
             await this.fightersRepository.SaveChangesAsync();
         }
 
