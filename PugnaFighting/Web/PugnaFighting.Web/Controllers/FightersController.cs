@@ -2,8 +2,6 @@
 {
     using System.Threading.Tasks;
 
-    using AutoMapper;
-
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -22,7 +20,6 @@
         private readonly ISkillsService skillsService;
         private readonly IOrganizationsService organizationsService;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IMapper mapper;
 
         public FightersController(
             IFightersService fightersService,

@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\PugnaFighting.Data.Common\PugnaFighting.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\PugnaFighting.Data.Models\PugnaFighting.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Web\PugnaFighting.Web.ViewModels\PugnaFighting.Web.ViewModels.csproj" />
     <ProjectReference Include="..\PugnaFighting.Services.Mapping\PugnaFighting.Services.Mapping.csproj" />
   </ItemGroup>
 

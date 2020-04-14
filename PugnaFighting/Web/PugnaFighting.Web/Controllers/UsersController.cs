@@ -10,6 +10,7 @@
     using PugnaFighting.Services.Data;
     using PugnaFighting.Services.Data.Contracts;
     using PugnaFighting.Web.ViewModels.Fighters;
+    using PugnaFighting.Web.ViewModels.Skills;
 
     [Authorize]
     public class UsersController : Controller
@@ -70,6 +71,25 @@
             await this.skillsService.Delete(fighter.SkillId);
 
             return this.RedirectToAction(nameof(this.AllFighters));
+        }
+
+        public IActionResult Train()
+        {
+            var skillId = int.Parse(this.RouteData.Values["id"].ToString());
+
+            var skills = this.skillsService.GetById<TrainViewModel>(skillId);
+
+            return this.View("Train", skills);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Train(TrainViewModel skills)
+        {
+            var skillId = int.Parse(this.RouteData.Values["id"].ToString());
+
+            await this.skillsService.UpdateSkillPoints(skills, skillId);
+
+            return this.RedirectToAction("AllFighters");
         }
     }
 }
