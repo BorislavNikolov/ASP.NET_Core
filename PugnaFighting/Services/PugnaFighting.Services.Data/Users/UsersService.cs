@@ -14,18 +14,11 @@
 
     public class UsersService : IUsersService
     {
-        private readonly ISkillsService skillsService;
-        private readonly IBiographiesService biographiesService;
         private readonly IDeletableEntityRepository<Fighter> fightersRepository;
 
-        public UsersService(
-            IDeletableEntityRepository<Fighter> fightersRepository,
-            ISkillsService skillsService,
-            IBiographiesService biographiesService)
+        public UsersService(IDeletableEntityRepository<Fighter> fightersRepository)
         {
             this.fightersRepository = fightersRepository;
-            this.skillsService = skillsService;
-            this.biographiesService = biographiesService;
         }
 
         public IEnumerable<T> GetAllFighters<T>(string userId)
@@ -48,9 +41,6 @@
         {
             fighter.IsDeleted = true;
             fighter.DeletedOn = DateTime.UtcNow;
-
-            await this.biographiesService.Delete(fighter.BiographyId);
-            await this.skillsService.Delete(fighter.SkillId);
 
             await this.fightersRepository.SaveChangesAsync();
         }

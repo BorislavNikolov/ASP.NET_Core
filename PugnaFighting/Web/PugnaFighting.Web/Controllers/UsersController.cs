@@ -15,14 +15,23 @@
     public class UsersController : Controller
     {
         private readonly IUsersService usersService;
+        private readonly ISkillsService skillsService;
         private readonly IFightersService fightersService;
+        private readonly IBiographiesService biographiesService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public UsersController(IUsersService usersService, UserManager<ApplicationUser> userManager, IFightersService fightersService)
+        public UsersController(
+            IUsersService usersService,
+            UserManager<ApplicationUser> userManager,
+            IFightersService fightersService,
+            ISkillsService skillsService,
+            IBiographiesService biographiesService)
         {
             this.usersService = usersService;
             this.userManager = userManager;
             this.fightersService = fightersService;
+            this.skillsService = skillsService;
+            this.biographiesService = biographiesService;
         }
 
         public IActionResult AllFighters()
@@ -51,11 +60,13 @@
         }
 
         [HttpPost]
-        public IActionResult SellFighter(int id)
+        public async Task<IActionResult> SellFighter(int id)
         {
             var fighter = this.fightersService.GetById(id);
 
-            this.usersService.DeleteFighter(fighter);
+            await this.usersService.DeleteFighter(fighter);
+            await this.biographiesService.Delete(fighter.BiographyId);
+            await this.skillsService.Delete(fighter.SkillId);
 
             return this.RedirectToAction(nameof(this.AllFighters));
         }
