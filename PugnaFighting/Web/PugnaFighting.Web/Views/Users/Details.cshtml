@@ -17,10 +17,12 @@
             <span>Bonus Health Points: @Model.FansCount</span>
         </div>
         <form method="post" asp-controller="Users" asp-action="SellFighter" asp-route-id="@Model.Id">
-            <span id="delete-btn" class="btn btn-success d-block mx-auto mt-3 w-25">Sell</span>
-            <p class="bg-danger text-center p-2 m-2 rounded">Are you sure you want do sell this fighter?</p>
-            <button type="submit" id="delete-btn" class="btn btn-danger d-block mx-auto mt-3">Yes</button>
-            <button id="delete-btn" class="btn btn-success d-block mx-auto mt-3">No</button>
+            <span id="delete-span" class="btn btn-success mx-auto mt-3 w-25">Sell</span>
+            <p style="display: none" id="delete-question" class="bg-danger text-center p-2 m-2 rounded">Are you sure you want do sell this fighter?</p>
+            <button style="display: none" id="delete-btn" class="btn btn-danger mx-auto mt-3" type="submit">Yes</button>
+            <button style="display: none" id="cancel-btn" class="btn btn-success mx-auto mt-3" type="button">No</button>
         </form>
     </div>
 </div>
+
+<script src ="~/js/confirmDelete.js"></script>
