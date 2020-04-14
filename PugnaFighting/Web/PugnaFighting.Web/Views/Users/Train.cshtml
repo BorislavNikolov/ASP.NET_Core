@@ -9,62 +9,64 @@
             <h1 class="text-center mb-3">Skills</h1>
 
             <div class="w-50 mx-auto">
-                <p class="text-center font-weight-bold">Grappling: <input asp-for="Grappling" style="width: 30px" class="rounded" min="@Model.Grappling" max="100" value="@Model.Grappling" /></p>
+                <p class="text-center font-weight-bold">Grappling: <input id="grappling-value" asp-for="Grappling" style="width: 30px" class="rounded" min="@Model.Grappling" max="100" value="@Model.Grappling" /></p>
                 <span asp-validation-for="Grappling" class="text-danger"></span>
                 <div class="d-flex justify-content-between">
-                    <span class="mx-5 btn text-white border rounded" id="decr">-</span>
+                    <span class="mx-5 btn text-white border rounded" id="decr-grappling">-</span>
                     <div class="progress m-2 w-100">
-                        <div id="grapling-bar" class="progress-bar bg-success" role="progressbar" style="width: @Model.Grappling%">@Model.Grappling</div>
+                        <div id="grappling-bar" class="progress-bar bg-success" role="progressbar" style="width: @Model.Grappling%">@Model.Grappling</div>
                     </div>
-                    <span id="incr" class="border rounded mx-5 btn text-white">+</span>
+                    <span class="border rounded mx-5 btn text-white" id="incr-grappling">+</span>
                 </div>
 
-                <p class="text-center font-weight-bold">Striking: <input asp-for="Striking" style="width: 30px" class="rounded" min="@Model.Striking" max="100" value="@Model.Striking" /></p>
+                <p class="text-center font-weight-bold">Striking: <input id="striking-value" asp-for="Striking" style="width: 30px" class="rounded" min="@Model.Striking" max="100" value="@Model.Striking" /></p>
                 <div class="d-flex justify-content-between">
-                    <span class="mx-5 btn text-white border rounded" id="decr">-</span>
+                    <span class="mx-5 btn text-white border rounded" id="decr-striking">-</span>
                     <div class="progress m-2 w-100">
-                        <div id="grapling-bar" class="progress-bar bg-success" role="progressbar" style="width: @Model.Striking%">@Model.Striking</div>
+                        <div id="striking-bar" class="progress-bar bg-success" role="progressbar" style="width: @Model.Striking%">@Model.Striking</div>
                     </div>
-                    <span id="incr" class="border rounded mx-5 btn text-white">+</span>
+                    <span class="border rounded mx-5 btn text-white" id="incr-striking">+</span>
                 </div>
 
-                <p class="text-center font-weight-bold">Wrestling: <input asp-for="Wrestling" style="width: 30px" class="rounded" min="@Model.Wrestling" max="100" value="@Model.Wrestling" /></p>
+                <p class="text-center font-weight-bold">Wrestling: <input id="wrestling-value" asp-for="Wrestling" style="width: 30px" class="rounded" min="@Model.Wrestling" max="100" value="@Model.Wrestling" /></p>
                 <div class="d-flex justify-content-between">
-                    <span class="mx-5 btn text-white border rounded" id="decr">-</span>
+                    <span class="mx-5 btn text-white border rounded" id="decr-wrestling">-</span>
                     <div class="progress m-2 w-100">
-                        <div id="grapling-bar" class="progress-bar bg-success" role="progressbar" style="width: @Model.Wrestling%">@Model.Wrestling</div>
+                        <div id="wrestling-bar" class="progress-bar bg-success" role="progressbar" style="width: @Model.Wrestling%">@Model.Wrestling</div>
                     </div>
-                    <span id="incr" class="border rounded mx-5 btn text-white">+</span>
+                    <span class="border rounded mx-5 btn text-white" id="incr-wrestling">+</span>
                 </div>
 
-                <p class="text-center font-weight-bold">Health: <input asp-for="Health" style="width: 30px" class="rounded" min="@Model.Health" max="100" value="@Model.Health" /></p>
+                <p class="text-center font-weight-bold">Health: <input id="health-value" asp-for="Health" style="width: 30px" class="rounded" min="@Model.Health" max="100" value="@Model.Health" /></p>
                 <div class="d-flex justify-content-between">
-                    <span class="mx-5 btn text-white border rounded" id="decr">-</span>
+                    <span class="mx-5 btn text-white border rounded" id="decr-health">-</span>
                     <div class="progress m-2 w-100">
-                        <div id="grapling-bar" class="progress-bar bg-success" role="progressbar" style="width: @Model.Health%">@Model.Health</div>
+                        <div id="health-bar" class="progress-bar bg-success" role="progressbar" style="width: @Model.Health%">@Model.Health</div>
                     </div>
-                    <span id="incr" class="border rounded mx-5 btn text-white">+</span>
+                    <span class="border rounded mx-5 btn text-white" id="incr-health">+</span>
                 </div>
 
-                <p class="text-center font-weight-bold">Strenght: <input asp-for="Strenght" style="width: 30px" class="rounded" min="@Model.Strenght" max="100" value="@Model.Strenght" /></p>
+                <p class="text-center font-weight-bold">Strenght: <input id="strenght-value" asp-for="Strenght" style="width: 30px" class="rounded" min="@Model.Strenght" max="100" value="@Model.Strenght" /></p>
                 <div class="d-flex justify-content-between">
-                    <span class="mx-5 btn text-white border rounded" id="decr">-</span>
+                    <span class="mx-5 btn text-white border rounded" id="decr-strenght">-</span>
                     <div class="progress m-2 w-100">
-                        <div id="grapling-bar" class="progress-bar bg-success" role="progressbar" style="width: @Model.Strenght%">@Model.Strenght</div>
+                        <div id="strenght-bar" class="progress-bar bg-success" role="progressbar" style="width: @Model.Strenght%">@Model.Strenght</div>
                     </div>
-                    <span id="incr" class="border rounded mx-5 btn text-white">+</span>
+                    <span class="border rounded mx-5 btn text-white" id="incr-strenght">+</span>
                 </div>
 
-                <p class="text-center font-weight-bold">Stamina: <input asp-for="Stamina" style="width: 30px" class="rounded" min="@Model.Stamina" max="100" value="@Model.Stamina" /></p>
+                <p class="text-center font-weight-bold">Stamina: <input id="stamina-value" asp-for="Stamina" style="width: 30px" class="rounded" min="@Model.Stamina" max="100" value="@Model.Stamina" /></p>
                 <div class="d-flex justify-content-between">
-                    <span class="mx-5 btn text-white border rounded" id="decr">-</span>
+                    <span class="mx-5 btn text-white border rounded" id="decr-stamina">-</span>
                     <div class="progress m-2 w-100">
-                        <div id="grapling-bar" class="progress-bar bg-success" role="progressbar" style="width: @Model.Stamina%">@Model.Stamina</div>
+                        <div id="stamina-bar" class="progress-bar bg-success" role="progressbar" style="width: @Model.Stamina%">@Model.Stamina</div>
                     </div>
-                    <span id="incr" class="border rounded mx-5 btn text-white">+</span>
+                    <span class="border rounded mx-5 btn text-white" id="incr-stamina">+</span>
                 </div>
             </div>
         </div>
         <button class="btn btn-success d-block mx-auto mt-5" type="submit">Train</button>
     </form>
 </div>
+
+<script src="~/js/progressBarIncreaseDecrease.js"></script>
