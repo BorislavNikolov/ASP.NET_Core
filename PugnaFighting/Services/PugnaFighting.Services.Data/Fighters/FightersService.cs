@@ -110,5 +110,12 @@
 
             return fighter;
         }
+
+        public async Task AppointManagerToFighter(Fighter fighter, int managerId)
+        {
+            fighter.ManagerId = managerId;
+
+            await this.fightersRepository.SaveChangesAsync();
+        }
     }
 }

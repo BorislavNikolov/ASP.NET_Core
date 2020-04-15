@@ -1,7 +1,10 @@
 ﻿namespace PugnaFighting.Web.Controllers
 {
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+
     using PugnaFighting.Services.Data;
     using PugnaFighting.Services.Data.Contracts;
     using PugnaFighting.Web.ViewModels.Fighters;
@@ -44,6 +47,16 @@
             }
 
             return this.View(managerViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AppointManagerToFighter(DetailsManagerViewModel managerViewModel)
+        {
+            var fighter = this.fightersServie.GetById(managerViewModel.FighterId);
+
+            await this.fightersServie.AppointManagerToFighter(fighter, managerViewModel.Id);
+
+            return this.RedirectToAction("AllFighters", "Users");
         }
     }
 }

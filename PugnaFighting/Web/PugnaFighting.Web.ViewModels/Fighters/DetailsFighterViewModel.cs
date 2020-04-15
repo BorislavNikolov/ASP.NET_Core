@@ -19,7 +19,11 @@
 
         public virtual Organization Organization { get; set; }
 
+        public int ManagerId { get; set; }
+
         public virtual Manager Manager { get; set; }
+
+        public int CoachId { get; set; }
 
         public virtual Coach Coach { get; set; }
 

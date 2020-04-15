@@ -15,10 +15,12 @@
             <span>Bonus Fans Count: @Model.FansCount</span>
             <span>Money Per Fight: @Model.MoneyPerFight</span>
         </div>
-        <div class="mt-3">
-            <p class="text-center">Select a fighter to appoint the manager:</p>
-            <select asp-items="fighters" class="form-control d-block mx-auto w-50"></select>
-        </div>
-        <span class="btn btn-success d-block mx-auto mt-3 w-25">Hire</span>
+        <form method="post" asp-controller="Managers" asp-action="AppointManagerToFighter">
+            <div class="mt-3">
+                <p class="text-center">Select a fighter to appoint the manager:</p>
+                <select asp-for="FighterId" asp-items="fighters" class="form-control d-block mx-auto w-50"></select>
+            </div>
+            <button type="submit" class="btn btn-success d-block mx-auto mt-3 w-25" asp-controller="Managers" asp-action="AppointManagerToFighter" asp-route-id="@Model.Id">Hire</button>
+        </form>
     </div>
 </div>

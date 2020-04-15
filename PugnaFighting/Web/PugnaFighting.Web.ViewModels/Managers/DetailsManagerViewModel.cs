@@ -1,6 +1,7 @@
 ﻿namespace PugnaFighting.Web.ViewModels.Managers
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using PugnaFighting.Data.Models;
     using PugnaFighting.Services.Mapping;
@@ -8,6 +9,8 @@
 
     public class DetailsManagerViewModel : IMapFrom<Manager>
     {
+        public int Id { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -25,5 +28,8 @@
         public int FansCount { get; set; }
 
         public IEnumerable<FightersDropDownViewModel> Fighters { get; set; }
+
+        [Range(1, int.MaxValue)]
+        public int FighterId { get; set; }
     }
 }

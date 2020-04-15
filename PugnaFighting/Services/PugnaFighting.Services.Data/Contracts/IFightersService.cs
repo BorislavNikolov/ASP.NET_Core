@@ -20,5 +20,7 @@
         T GetBestGrappler<T>(string organizationName);
 
         IEnumerable<T> GetAll<T>();
+
+        Task AppointManagerToFighter(Fighter fighter, int managerId);
     }
 }

@@ -32,6 +32,7 @@
                               new CutmenSeeder(),
                               new CoachesSeeder(),
                               new CategoriesSeeder(),
+                              new FightersSeeder(),
                           };
 
             foreach (var seeder in seeders)
