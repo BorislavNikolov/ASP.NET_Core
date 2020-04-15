@@ -58,5 +58,34 @@
 
             return this.RedirectToAction("AllFighters", "Users");
         }
+
+        public IActionResult Create()
+        {
+            var fighters = this.fightersServie.GetAll<FightersDropDownViewModel>();
+
+            var viewModel = new CreateManagerViewModel
+            {
+                Fighters = fighters,
+            };
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateManagerViewModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            var managerId = await this.managersService.CreateAsync(input);
+            this.TempData["InfoMessage"] = "Manager created!";
+
+            var fighter = this.fightersServie.GetById(input.FighterId);
+            await this.fightersServie.AppointManagerToFighter(fighter, managerId);
+
+            return this.RedirectToAction("AllFighters", "Users");
+        }
     }
 }

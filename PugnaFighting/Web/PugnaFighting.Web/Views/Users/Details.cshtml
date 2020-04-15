@@ -1,9 +1,9 @@
 ﻿@model PugnaFighting.Web.ViewModels.Fighters.DetailsFighterViewModel
 @{
     ViewData["Title"] = Model.Biography.Nickname;
-    var coachFullName = Model.Coach == null ? "none" : Model.Coach.FirstName + Model.Coach.LastName;
-    var cutmanFullName = Model.Cutman == null ? "none" : Model.Cutman.FirstName + Model.Cutman.LastName;
-    var managerFullName = Model.Manager == null ? "none" : Model.Manager.FirstName + Model.Manager.LastName;
+    var coachFullName = Model.Coach == null ? "none" : Model.Coach.FirstName + " " + Model.Coach.LastName;
+    var cutmanFullName = Model.Cutman == null ? "none" : Model.Cutman.FirstName + " " + Model.Cutman.LastName;
+    var managerFullName = Model.Manager == null ? "none" : Model.Manager.FirstName + " " + Model.Manager.LastName;
 }
 
 <div class="p-5 rounded text-white bg-dark mx-auto w-75">

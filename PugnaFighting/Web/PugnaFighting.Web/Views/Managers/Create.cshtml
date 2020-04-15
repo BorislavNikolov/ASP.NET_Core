@@ -1,0 +1,57 @@
+﻿@model PugnaFighting.Web.ViewModels.Managers.CreateManagerViewModel
+@{
+    ViewData["Title"] = "Create Manager";
+    var fighters = Model.Fighters.Select(x => new SelectListItem(x.Biography.FirstName + " " + x.Biography.LastName, x.Id.ToString()));
+}
+
+<div class="p-5 rounded text-white bg-dark mx-auto w-75">
+
+    <form class="col-6 mx-auto" method="post" asp-action="Create">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <input type="text" class="form-control" asp-for="FirstName" placeholder="First Name">
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" asp-for="LastName" placeholder="Last Name">
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="nationality" asp-for="BornCountry" placeholder="Nationality">
+            <small id="nationality" class="form-text text-muted">Manager Born Country</small>
+            <span asp-validation-for="BornCountry" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Age">Age</label>
+            <input type="number" class="form-control" min="18" max="50" value="18" asp-for="Age" />
+            <span asp-validation-for="Age" class="text-danger"></span>
+        </div>
+        <label asp-for="Picture">Choose Picture</label>
+        <div class="custom-file fas fa-info-circle text-dark">
+            <input asp-for="Picture" class="custom-file-input input-group-lg form-control" />
+            <label asp-for="Picture" class="custom-file-label col-form-label-lg form-control">
+                <span class="badge badge-light">
+                    <i class="fas fa-cloud-upload-alt fa-2x"></i>
+                </span>
+            </label>
+            <span asp-validation-for="Picture" class="text-danger"></span>
+        </div>
+        <div class="form-group mt-3">
+            <label asp-for="MoneyPerFight">Money Per Fight</label>
+            <input type="number" value="700" min="700" max="3000" class="form-control" asp-for="MoneyPerFight">
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="FansCount">Fans count</label>
+            <input type="number" value="100" min="100" max="500" class="form-control" asp-for="FansCount">
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="mt-3">
+            <p class="text-center">Select a fighter to appoint the manager:</p>
+            <select asp-for="FighterId" asp-items="fighters" class="form-control d-block mx-auto w-50"></select>
+        </div>
+        <button type="submit" class="btn btn-success d-block mx-auto mt-3 w-25">Create</button>
+    </form>
+</div>
+
+<script src="~/js/disableLinks.js"></script>
