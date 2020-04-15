@@ -10,6 +10,7 @@
     using PugnaFighting.Services.Data;
     using PugnaFighting.Services.Data.Contracts;
     using PugnaFighting.Web.ViewModels.Fighters;
+    using PugnaFighting.Web.ViewModels.Managers;
     using PugnaFighting.Web.ViewModels.Skills;
 
     [Authorize]
@@ -19,6 +20,7 @@
         private readonly ISkillsService skillsService;
         private readonly IFightersService fightersService;
         private readonly IBiographiesService biographiesService;
+        private readonly IManagersService managersService;
         private readonly UserManager<ApplicationUser> userManager;
 
         public UsersController(
@@ -26,13 +28,15 @@
             UserManager<ApplicationUser> userManager,
             IFightersService fightersService,
             ISkillsService skillsService,
-            IBiographiesService biographiesService)
+            IBiographiesService biographiesService,
+            IManagersService managersService)
         {
             this.usersService = usersService;
             this.userManager = userManager;
             this.fightersService = fightersService;
             this.skillsService = skillsService;
             this.biographiesService = biographiesService;
+            this.managersService = managersService;
         }
 
         public IActionResult AllFighters()
@@ -90,6 +94,31 @@
             await this.skillsService.UpdateSkillPoints(skills, skillId);
 
             return this.RedirectToAction("AllFighters");
+        }
+
+        public IActionResult ManagerDetails()
+        {
+            var fighterId = int.Parse(this.RouteData.Values["id"].ToString());
+            var fighter = this.fightersService.GetById(fighterId);
+
+            var managerId = int.Parse(fighter.ManagerId.ToString());
+
+            var managerViewModel = this.managersService.GetById<DetailsManagerViewModel>(managerId);
+            managerViewModel.FighterId = fighterId;
+
+            return this.View(managerViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> FireManager()
+        {
+            var fighterId = int.Parse(this.RouteData.Values["id"].ToString());
+
+            var fighter = this.fightersService.GetById(fighterId);
+
+            await this.fightersService.FireManager(fighter);
+
+            return this.RedirectToAction(nameof(this.AllFighters));
         }
     }
 }

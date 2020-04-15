@@ -22,5 +22,7 @@
         IEnumerable<T> GetAll<T>();
 
         Task AppointManagerToFighter(Fighter fighter, int managerId);
+
+        Task FireManager(Fighter fighter);
     }
 }

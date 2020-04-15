@@ -79,6 +79,7 @@
                 return this.View(input);
             }
 
+            // Give parameters
             var managerId = await this.managersService.CreateAsync(input);
             this.TempData["InfoMessage"] = "Manager created!";
 

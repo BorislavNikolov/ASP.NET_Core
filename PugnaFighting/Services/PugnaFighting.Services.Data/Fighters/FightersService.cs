@@ -117,5 +117,13 @@
 
             await this.fightersRepository.SaveChangesAsync();
         }
+
+        public async Task FireManager(Fighter fighter)
+        {
+            fighter.ManagerId = null;
+            fighter.Manager = null;
+
+            await this.fightersRepository.SaveChangesAsync();
+        }
     }
 }

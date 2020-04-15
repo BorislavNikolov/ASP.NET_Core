@@ -35,7 +35,12 @@
                 <span>Team:</span>
                 <span>Coach: @coachFullName</span>
                 <span>Cutman: @cutmanFullName</span>
-                <span>Manager: @managerFullName</span>
+                @if (managerFullName != "none")
+                {
+                    <span>Manager: <a asp-controller="Users" asp-action="ManagerDetails" asp-route-id="@Model.Id">@managerFullName</a></span>
+                }else {
+                    <span>Manager: @managerFullName</span>
+                }
             </div>
         </div>
 
