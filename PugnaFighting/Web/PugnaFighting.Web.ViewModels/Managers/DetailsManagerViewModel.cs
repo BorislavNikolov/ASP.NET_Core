@@ -1,7 +1,10 @@
 ﻿namespace PugnaFighting.Web.ViewModels.Managers
 {
+    using System.Collections.Generic;
+
     using PugnaFighting.Data.Models;
     using PugnaFighting.Services.Mapping;
+    using PugnaFighting.Web.ViewModels.Fighters;
 
     public class DetailsManagerViewModel : IMapFrom<Manager>
     {
@@ -20,5 +23,7 @@
         public int MoneyPerFight { get; set; }
 
         public int FansCount { get; set; }
+
+        public IEnumerable<FightersDropDownViewModel> Fighters { get; set; }
     }
 }

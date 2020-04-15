@@ -1,5 +1,6 @@
 ﻿namespace PugnaFighting.Services.Data
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using PugnaFighting.Data.Models;
@@ -17,5 +18,7 @@
         T GetBestWrestler<T>(string organizationName);
 
         T GetBestGrappler<T>(string organizationName);
+
+        IEnumerable<T> GetAll<T>();
     }
 }

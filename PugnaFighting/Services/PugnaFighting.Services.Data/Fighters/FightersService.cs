@@ -1,5 +1,6 @@
 ﻿namespace PugnaFighting.Services.Data
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -47,6 +48,14 @@
         {
             var fighter = this.fightersRepository.All().Where(x => x.Id == id).FirstOrDefault();
             return fighter;
+        }
+
+        public IEnumerable<T> GetAll<T>()
+        {
+            IQueryable<Fighter> query =
+               this.fightersRepository.All().Where(x => x.ManagerId == null);
+
+            return query.To<T>().ToList();
         }
 
         public async Task SetOrganization(int fighterId, int organizationId, ApplicationUser user)
