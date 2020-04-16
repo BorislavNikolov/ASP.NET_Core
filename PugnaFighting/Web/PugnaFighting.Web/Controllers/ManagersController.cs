@@ -14,12 +14,12 @@
     public class ManagersController : Controller
     {
         private readonly IManagersService managersService;
-        private readonly IFightersService fightersServie;
+        private readonly IFightersService fightersService;
 
         public ManagersController(IManagersService managersService, IFightersService fightersServie)
         {
             this.managersService = managersService;
-            this.fightersServie = fightersServie;
+            this.fightersService = fightersServie;
         }
 
         public IActionResult All()
@@ -36,7 +36,7 @@
 
         public IActionResult Details(int id)
         {
-            var fighters = this.fightersServie.GetAll<FightersDropDownViewModel>();
+            var fighters = this.fightersService.GetAllFightersWithoutManagers<FightersDropDownViewModel>();
             var managerViewModel = this.managersService.GetById<DetailsManagerViewModel>(id);
 
             managerViewModel.Fighters = fighters;
@@ -52,16 +52,16 @@
         [HttpPost]
         public async Task<IActionResult> AppointManagerToFighter(DetailsManagerViewModel managerViewModel)
         {
-            var fighter = this.fightersServie.GetById(managerViewModel.FighterId);
+            var fighter = this.fightersService.GetById(managerViewModel.FighterId);
 
-            await this.fightersServie.AppointManagerToFighter(fighter, managerViewModel.Id);
+            await this.fightersService.AppointManagerToFighter(fighter, managerViewModel.Id);
 
             return this.RedirectToAction("AllFighters", "Users");
         }
 
         public IActionResult Create()
         {
-            var fighters = this.fightersServie.GetAll<FightersDropDownViewModel>();
+            var fighters = this.fightersService.GetAllFightersWithoutManagers<FightersDropDownViewModel>();
 
             var viewModel = new CreateManagerViewModel
             {
@@ -83,8 +83,8 @@
             var managerId = await this.managersService.CreateAsync(input);
             this.TempData["InfoMessage"] = "Manager created!";
 
-            var fighter = this.fightersServie.GetById(input.FighterId);
-            await this.fightersServie.AppointManagerToFighter(fighter, managerId);
+            var fighter = this.fightersService.GetById(input.FighterId);
+            await this.fightersService.AppointManagerToFighter(fighter, managerId);
 
             return this.RedirectToAction("AllFighters", "Users");
         }

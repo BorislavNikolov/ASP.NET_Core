@@ -19,10 +19,16 @@
 
         T GetBestGrappler<T>(string organizationName);
 
-        IEnumerable<T> GetAll<T>();
+        IEnumerable<T> GetAllFightersWithoutManagers<T>();
+
+        IEnumerable<T> GetAllFightersWithoutCoaches<T>();
 
         Task AppointManagerToFighter(Fighter fighter, int managerId);
 
         Task FireManager(Fighter fighter);
+
+        Task AppointCoachToFighter(Fighter fighter, int coachId);
+
+        Task FireCoach(Fighter fighter);
     }
 }

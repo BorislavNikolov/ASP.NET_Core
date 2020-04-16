@@ -50,10 +50,18 @@
             return fighter;
         }
 
-        public IEnumerable<T> GetAll<T>()
+        public IEnumerable<T> GetAllFightersWithoutManagers<T>()
         {
             IQueryable<Fighter> query =
                this.fightersRepository.All().Where(x => x.ManagerId == null);
+
+            return query.To<T>().ToList();
+        }
+
+        public IEnumerable<T> GetAllFightersWithoutCoaches<T>()
+        {
+            IQueryable<Fighter> query =
+               this.fightersRepository.All().Where(x => x.CoachId == null);
 
             return query.To<T>().ToList();
         }
@@ -122,6 +130,21 @@
         {
             fighter.ManagerId = null;
             fighter.Manager = null;
+
+            await this.fightersRepository.SaveChangesAsync();
+        }
+
+        public async Task AppointCoachToFighter(Fighter fighter, int coachId)
+        {
+            fighter.CoachId = coachId;
+
+            await this.fightersRepository.SaveChangesAsync();
+        }
+
+        public async Task FireCoach(Fighter fighter)
+        {
+            fighter.CoachId = null;
+            fighter.Coach = null;
 
             await this.fightersRepository.SaveChangesAsync();
         }

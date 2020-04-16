@@ -33,12 +33,30 @@
 
             <div class="d-flex flex-column col-4 mt-4 font-weight-bold">
                 <span>Team:</span>
-                <span>Coach: @coachFullName</span>
-                <span>Cutman: @cutmanFullName</span>
+                @if (coachFullName != "none")
+                {
+                    <span>Coach: <a asp-controller="Users" asp-action="CoachDetails" asp-route-id="@Model.Id">@coachFullName</a></span>
+                }
+                else
+                {
+                    <span>Coach: @coachFullName</span>
+                }
+
+                @if (cutmanFullName != "none")
+                {
+                    <span>Cutman: <a asp-controller="Users" asp-action="CutmanDetails" asp-route-id="@Model.Id">@cutmanFullName</a></span>
+                }
+                else
+                {
+                    <span>Cutman: @cutmanFullName</span>
+                }
+
                 @if (managerFullName != "none")
                 {
                     <span>Manager: <a asp-controller="Users" asp-action="ManagerDetails" asp-route-id="@Model.Id">@managerFullName</a></span>
-                }else {
+                }
+                else
+                {
                     <span>Manager: @managerFullName</span>
                 }
             </div>

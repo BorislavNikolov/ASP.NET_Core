@@ -6,10 +6,12 @@
 
     using Microsoft.AspNetCore.Http;
 
+    using PugnaFighting.Data.Models;
+    using PugnaFighting.Services.Mapping;
     using PugnaFighting.Web.Infrastructure;
     using PugnaFighting.Web.ViewModels.Fighters;
 
-    public class CreateManagerViewModel
+    public class CreateManagerViewModel : IMapTo<Manager>
     {
         [Required]
         [MaxLength(30)]

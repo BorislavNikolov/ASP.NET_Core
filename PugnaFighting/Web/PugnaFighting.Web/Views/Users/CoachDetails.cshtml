@@ -1,0 +1,26 @@
+﻿@model PugnaFighting.Web.ViewModels.Coaches.DetailsCoachViewModel
+@{
+    ViewData["Title"] = Model.FirstName + " " + Model.LastName;
+}
+
+<div class="p-5 rounded text-white bg-dark mx-auto w-75">
+    <div class="jumbotron w-75 bg-secondary mx-auto">
+        <h3 class="text-center">@Model.FirstName @Model.LastName</h3>
+        <img src="@Model.PictureUrl" style="width: 250px; height: 250px;" class="rounded d-block mx-auto mt-3" />
+        <div class="d-flex justify-content-around mt-4 font-weight-bold">
+            <span>Age: @Model.Age</span>
+            <span>Born Country: @Model.BornCountry</span>
+            <span>Price: @Model.Price</span>
+            <span>Bonus Skill Points: @Model.SkillBonus</span>
+        </div>
+
+        <form method="post" asp-controller="Users" asp-action="FireCoach" asp-route-id="@Model.FighterId">
+            <span style="display:block" id="delete-span" class="btn btn-success mx-auto mt-3 w-25">Fire</span>
+            <p style="display: none" id="delete-question" class="bg-danger text-center p-2 m-2 rounded">Are you sure you want do fire this coach?</p>
+            <button style="display: none" id="delete-btn" class="btn btn-danger mx-auto mt-3" type="submit">Yes</button>
+            <button style="display: none" id="cancel-btn" class="btn btn-success mx-auto mt-3" type="button">No</button>
+        </form>
+    </div>
+</div>
+
+<script src="~/js/confirmDelete.js"></script>
