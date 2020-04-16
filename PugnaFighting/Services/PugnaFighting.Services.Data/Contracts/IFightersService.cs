@@ -23,6 +23,8 @@
 
         IEnumerable<T> GetAllFightersWithoutCoaches<T>();
 
+        IEnumerable<T> GetAllFightersWithoutCutmen<T>();
+
         Task AppointManagerToFighter(Fighter fighter, int managerId);
 
         Task FireManager(Fighter fighter);
@@ -30,5 +32,9 @@
         Task AppointCoachToFighter(Fighter fighter, int coachId);
 
         Task FireCoach(Fighter fighter);
+
+        Task AppointCutmanToFighter(Fighter fighter, int cutmanId);
+
+        Task FireCutman(Fighter fighter);
     }
 }

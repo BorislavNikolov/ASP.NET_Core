@@ -10,6 +10,7 @@
     using PugnaFighting.Services.Data;
     using PugnaFighting.Services.Data.Contracts;
     using PugnaFighting.Web.ViewModels.Coaches;
+    using PugnaFighting.Web.ViewModels.Cutmen;
     using PugnaFighting.Web.ViewModels.Fighters;
     using PugnaFighting.Web.ViewModels.Managers;
     using PugnaFighting.Web.ViewModels.Skills;
@@ -23,6 +24,7 @@
         private readonly IBiographiesService biographiesService;
         private readonly IManagersService managersService;
         private readonly ICoachesService coachesService;
+        private readonly ICutmenService cutmenService;
         private readonly UserManager<ApplicationUser> userManager;
 
         public UsersController(
@@ -32,7 +34,8 @@
             ISkillsService skillsService,
             IBiographiesService biographiesService,
             IManagersService managersService,
-            ICoachesService coachesService)
+            ICoachesService coachesService,
+            ICutmenService cutmenService)
         {
             this.usersService = usersService;
             this.userManager = userManager;
@@ -41,6 +44,7 @@
             this.biographiesService = biographiesService;
             this.managersService = managersService;
             this.coachesService = coachesService;
+            this.cutmenService = cutmenService;
         }
 
         public IActionResult AllFighters()
@@ -146,6 +150,31 @@
             var fighter = this.fightersService.GetById(fighterId);
 
             await this.fightersService.FireCoach(fighter);
+
+            return this.RedirectToAction(nameof(this.AllFighters));
+        }
+
+        public IActionResult CutmanDetails()
+        {
+            var fighterId = int.Parse(this.RouteData.Values["id"].ToString());
+            var fighter = this.fightersService.GetById(fighterId);
+
+            var cutmanId = int.Parse(fighter.CutmanId.ToString());
+
+            var cutmanViewModel = this.cutmenService.GetById<DetailsCutmanViewModel>(cutmanId);
+            cutmanViewModel.FighterId = fighterId;
+
+            return this.View(cutmanViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> FireCutman()
+        {
+            var fighterId = int.Parse(this.RouteData.Values["id"].ToString());
+
+            var fighter = this.fightersService.GetById(fighterId);
+
+            await this.fightersService.FireCutman(fighter);
 
             return this.RedirectToAction(nameof(this.AllFighters));
         }

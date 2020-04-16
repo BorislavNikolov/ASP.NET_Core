@@ -1,18 +1,25 @@
 ﻿@model PugnaFighting.Web.ViewModels.Cutmen.DetailsCutmanViewModel
 @{
     ViewData["Title"] = "Cutman Details";
+    var fighters = Model.Fighters.Select(x => new SelectListItem(x.Biography.FirstName + " " + x.Biography.LastName, x.Id.ToString()));
 }
 
 <div class="p-5 rounded text-white bg-dark mx-auto w-75">
     <div class="jumbotron w-75 bg-secondary mx-auto">
         <h3 class="text-center">@Model.FirstName @Model.LastName</h3>
-        <img src="@Model.PictureUrl" style="width: 250px; height: 250px;"  class="rounded d-block mx-auto mt-3"/>
+        <img src="@Model.PictureUrl" style="width: 250px; height: 250px;" class="rounded d-block mx-auto mt-3" />
         <div class="d-flex justify-content-around mt-4 font-weight-bold">
             <span>Age: @Model.Age</span>
             <span>Born Country: @Model.BornCountry</span>
             <span>Price: @Model.Price</span>
             <span>Bonus Health Points: @Model.HealthBonus</span>
         </div>
-        <span class="btn btn-success d-block mx-auto mt-3 w-25">Hire</span>
+        <form method="post" asp-controller="Cutmen" asp-action="AppointCutmanToFighter">
+            <div class="mt-3">
+                <p class="text-center">Select a fighter to appoint the manager:</p>
+                <select asp-for="FighterId" asp-items="fighters" class="form-control d-block mx-auto w-50"></select>
+            </div>
+            <button type="submit" class="btn btn-success d-block mx-auto mt-3 w-25" asp-controller="Cutmen" asp-action="AppointCutmanToFighter" asp-route-id="@Model.Id">Hire</button>
+        </form>
     </div>
 </div>

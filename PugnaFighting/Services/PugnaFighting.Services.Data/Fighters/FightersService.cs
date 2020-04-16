@@ -66,6 +66,14 @@
             return query.To<T>().ToList();
         }
 
+        public IEnumerable<T> GetAllFightersWithoutCutmen<T>()
+        {
+            IQueryable<Fighter> query =
+               this.fightersRepository.All().Where(x => x.CutmanId == null);
+
+            return query.To<T>().ToList();
+        }
+
         public async Task SetOrganization(int fighterId, int organizationId, ApplicationUser user)
         {
             var fighter = this.GetById(fighterId);
@@ -145,6 +153,21 @@
         {
             fighter.CoachId = null;
             fighter.Coach = null;
+
+            await this.fightersRepository.SaveChangesAsync();
+        }
+
+        public async Task AppointCutmanToFighter(Fighter fighter, int cutmanId)
+        {
+            fighter.CutmanId = cutmanId;
+
+            await this.fightersRepository.SaveChangesAsync();
+        }
+
+        public async Task FireCutman(Fighter fighter)
+        {
+            fighter.CutmanId = null;
+            fighter.Cutman = null;
 
             await this.fightersRepository.SaveChangesAsync();
         }
