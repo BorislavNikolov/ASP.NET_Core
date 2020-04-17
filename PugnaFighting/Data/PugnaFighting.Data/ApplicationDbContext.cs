@@ -41,6 +41,10 @@
 
         public DbSet<Category> Categories { get; set; }
 
+        public DbSet<Fight> Fights { get; set; }
+
+        public DbSet<Record> Records { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

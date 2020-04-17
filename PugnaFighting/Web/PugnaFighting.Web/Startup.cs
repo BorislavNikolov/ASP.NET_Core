@@ -23,6 +23,7 @@
     using PugnaFighting.Services.Data.Coaches;
     using PugnaFighting.Services.Data.Contracts;
     using PugnaFighting.Services.Data.Cutmen;
+    using PugnaFighting.Services.Data.Fighters;
     using PugnaFighting.Services.Data.Managers;
     using PugnaFighting.Services.Data.Users;
     using PugnaFighting.Services.Mapping;
@@ -93,6 +94,7 @@
             services.AddTransient<ICoachesService, CoachesService>();
             services.AddTransient<IManagersService, ManagersService>();
             services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IRecordsService, RecordsService>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
         }
 

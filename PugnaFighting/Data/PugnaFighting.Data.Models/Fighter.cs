@@ -36,6 +36,11 @@
         [Required]
         public virtual Skill Skill { get; set; }
 
+        [Required]
+        public int RecordId { get; set; }
+
+        public virtual Record Record { get; set; }
+
         public int? OrganizationId { get; set; }
 
         public virtual Organization Organization { get; set; }

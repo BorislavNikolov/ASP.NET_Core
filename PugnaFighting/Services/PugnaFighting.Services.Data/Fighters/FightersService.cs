@@ -1,5 +1,6 @@
 ﻿namespace PugnaFighting.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -12,19 +13,23 @@
     {
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
         private readonly IDeletableEntityRepository<Fighter> fightersRepository;
+        private readonly IDeletableEntityRepository<Fight> fightsRepository;
+        private readonly IDeletableEntityRepository<Record> recordsRepository;
         private readonly IOrganizationsService organizationsService;
 
         public FightersService(
             IDeletableEntityRepository<Fighter> fightersRepository,
             IOrganizationsService organizationsService,
+            IDeletableEntityRepository<Record> recordsRepository,
             IDeletableEntityRepository<ApplicationUser> usersRepository)
         {
             this.fightersRepository = fightersRepository;
             this.organizationsService = organizationsService;
+            this.recordsRepository = recordsRepository;
             this.usersRepository = usersRepository;
         }
 
-        public async Task<int> CreateAsync(int skillId, int biogrphyId, int categoryId, ApplicationUser user)
+        public async Task<int> CreateAsync(int skillId, int biogrphyId, int categoryId, int recordId, ApplicationUser user)
         {
             var fighter = new Fighter
             {
@@ -32,6 +37,7 @@
                 UserId = user.Id,
                 SkillId = biogrphyId,
                 BiographyId = skillId,
+                RecordId = recordId,
                 FansCount = 100,
             };
 
@@ -191,6 +197,67 @@
         public int GetOpponentsCount(string userId)
         {
             return this.fightersRepository.All().Count(x => x.UserId != userId);
+        }
+
+        public async Task<Fight> Fight(int fighterId, int opponentId)
+        {
+            var fighter = this.GetById(fighterId);
+            var opponet = this.GetById(opponentId);
+
+            var fighterOverall = fighter.Skill.Striking +
+                                fighter.Skill.Grappling +
+                                fighter.Skill.Wrestling +
+                                fighter.Skill.Striking +
+                                fighter.Skill.Stamina +
+                                fighter.Skill.Strenght;
+
+            var opponentOverall = opponet.Skill.Striking +
+                                opponet.Skill.Grappling +
+                                opponet.Skill.Wrestling +
+                                opponet.Skill.Striking +
+                                opponet.Skill.Stamina +
+                                opponet.Skill.Strenght;
+
+            var fight = new Fight
+            {
+                DateTime = DateTime.UtcNow,
+                Method = "KO",
+                OpponentName = opponet.Biography.FirstName + " " + opponet.Biography.LastName,
+            };
+
+            if (fighterOverall > opponentOverall)
+            {
+                fight.Result = "Win";
+            }
+            else if (fighterOverall > opponentOverall)
+            {
+                fight.Result = "Lose";
+            }
+            else
+            {
+                fight.Result = "Draw";
+            }
+
+            await this.fightsRepository.AddAsync(fight);
+            await this.fightsRepository.SaveChangesAsync();
+
+            return fight;
+        }
+
+        public async Task AddFightToRecord(Fight fight, Fighter fighter)
+        {
+            var record = this.GetRecordById(fighter.RecordId);
+
+            record.Fights.ToList().Add(fight);
+
+            await this.recordsRepository.AddAsync(record);
+            await this.recordsRepository.SaveChangesAsync();
+        }
+
+        public Record GetRecordById(int id)
+        {
+            var record = this.recordsRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            return record;
         }
     }
 }

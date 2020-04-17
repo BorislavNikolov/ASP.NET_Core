@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
@@ -26,7 +25,7 @@
         private readonly ISkillsService skillsService;
         private readonly IOrganizationsService organizationsService;
         private readonly IUsersService usersService;
-        private readonly IHttpContextAccessor http;
+        private readonly IRecordsService recordsService;
         private readonly UserManager<ApplicationUser> userManager;
 
         public FightersController(
@@ -36,7 +35,7 @@
             ISkillsService skillsService,
             IOrganizationsService organizationsService,
             IUsersService usersService,
-            IHttpContextAccessor http,
+            IRecordsService recordsService,
             UserManager<ApplicationUser> userManager)
         {
             this.fightersService = fightersService;
@@ -45,7 +44,7 @@
             this.skillsService = skillsService;
             this.organizationsService = organizationsService;
             this.usersService = usersService;
-            this.http = http;
+            this.recordsService = recordsService;
             this.userManager = userManager;
         }
 
@@ -99,7 +98,8 @@
 
             var skillId = await this.skillsService.CreateAsync();
             var biographyId = await this.biographiesService.CreateAsync(input.FirstName, input.Nickname, input.LastName, input.BornCountry, input.Age, input.Picture);
-            var fighterId = await this.fightersService.CreateAsync(skillId, biographyId, input.CategoryId, user);
+            var recordId = await this.recordsService.CreateAsync();
+            var fighterId = await this.fightersService.CreateAsync(skillId, biographyId, recordId, input.CategoryId, user);
             this.TempData["InfoMessage"] = "Fighter created!";
 
             return this.RedirectToAction(nameof(this.ChooseOrganization), new { id = fighterId });
@@ -131,10 +131,15 @@
             return this.RedirectToAction("AllFighters", "Users");
         }
 
-        public IActionResult Fight(int fighterId, int opponentId)
+        public async Task<IActionResult> Fight(int fighterId, int opponentId)
         {
+            var fighter = this.fightersService.GetById(fighterId);
 
-            return this.View();
+            var fight = await this.fightersService.Fight(fighterId, opponentId);
+
+            await this.fightersService.AddFightToRecord(fight, fighter);
+
+            return this.RedirectToAction("AllFighters", "Users");
         }
     }
 }

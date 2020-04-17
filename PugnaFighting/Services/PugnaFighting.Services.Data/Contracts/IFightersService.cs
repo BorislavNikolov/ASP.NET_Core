@@ -7,7 +7,7 @@
 
     public interface IFightersService
     {
-        Task<int> CreateAsync(int skillId, int biographyId, int categoryId, ApplicationUser user);
+        Task<int> CreateAsync(int skillId, int biographyId, int recordId, int categoryId, ApplicationUser user);
 
         Fighter GetById(int id);
 
@@ -40,5 +40,11 @@
         IEnumerable<T> GetAllOpponents<T>(string userId, int? take = null, int skip = 0);
 
         int GetOpponentsCount(string userId);
+
+        Task<Fight> Fight(int fighterId, int opponentId);
+
+        Task AddFightToRecord(Fight fight, Fighter fighter);
+
+        public Record GetRecordById(int id);
     }
 }
