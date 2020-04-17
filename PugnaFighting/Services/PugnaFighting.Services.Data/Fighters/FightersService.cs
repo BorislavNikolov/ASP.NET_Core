@@ -171,5 +171,26 @@
 
             await this.fightersRepository.SaveChangesAsync();
         }
+
+        public IEnumerable<T> GetAllOpponents<T>(string userId, int? take = null, int skip = 0)
+        {
+            IQueryable<Fighter> query =
+               this.fightersRepository.All()
+               .Where(x => x.UserId != userId)
+               .OrderByDescending(x => x.FansCount)
+               .Skip(skip);
+
+            if (take.HasValue)
+            {
+                query = query.Take(take.Value);
+            }
+
+            return query.To<T>().ToList();
+        }
+
+        public int GetOpponentsCount(string userId)
+        {
+            return this.fightersRepository.All().Count(x => x.UserId != userId);
+        }
     }
 }

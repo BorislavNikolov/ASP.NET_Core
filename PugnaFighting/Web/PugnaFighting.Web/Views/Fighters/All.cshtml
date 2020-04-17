@@ -1,68 +1,86 @@
-﻿@{
+﻿@model PugnaFighting.Web.ViewModels.Fighters.AllOpponentsViewModel
+@{
     ViewData["Title"] = "Fighters";
+    var fighters = Model.Fighters.Select(x => new SelectListItem(x.Biography.FirstName + " " + x.Biography.LastName, x.Id.ToString()));
 }
 
-<div class="d-flex p-5 rounded text-white bg-dark mx-auto w-75">
-    <div class="col-3 text-center d-flex flex-column border">
-        <h4 class="border-bottom py-2">Filter</h4>
-        <span class="font-weight-bold pb-3">Category</span>
-        <div class="form-check text-left">
-            <div class="form-check">
-                <label class="form-check-label pr-4" for="gridRadios1">Lightweight</label>
-                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-            </div>
-            <div class="form-check">
-                <label class="form-check-label pr-4" for="gridRadios1">WelterWeight</label>
-                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option2" checked>
-            </div>
-            <div class="form-check">
-                <label class="form-check-label pr-4" for="gridRadios1">MiddleWeight</label>
-                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option3" checked>
-            </div>
-            <div class="form-check">
-                <label class="form-check-label pr-4" for="gridRadios1">Heavyweight</label>
-                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option4" checked>
-            </div>
-        </div>
-        <span class="font-weight-bold p-3">Organization</span>
-        <div class="form-check text-left">
-            <div class="form-check">
-                <label class="form-check-label pr-4" for="gridRadios2">Animo</label>
-                <input class="form-check-input" type="radio" name="gridRadios2" id="gridRadios2" value="option1" checked>
-            </div>
-            <div class="form-check">
-                <label class="form-check-label pr-4" for="gridRadios2">Corporis</label>
-                <input class="form-check-input" type="radio" name="gridRadios2" id="gridRadios2" value="option1" checked>
-            </div>
-            <br>
-        </div>
-    </div>
-
-    <div class="col-8 border p-4">
-        <div class="d-flex flex-column">
-            <div class="my-2 d-flex bg-danger rounded p-4 justify-content-between">
-                <p>Name Name</p>
-                <p>Bulgarian</p>
-                <p>Bonus Bonus Bonus</p>
-                <p>Price</p>
-                <span type="button" class="btn btn-light"><a href="../Design/secondPage.html.html">Fight</a></span>
+<div class="p-5 rounded text-white bg-dark mx-auto w-75">
+    <form method="post" asp-controller="Fighters" asp-action="Fight">
+        <div class="text-center d-flex justify-content-around border">
+            <div class="p-3">
+                <h5 class="text-center">Organization</h5>
+                <div class="d-flex">
+                    <input type="radio" id="animo-checkbox" name="organization" value="Animo" checked="checked">
+                    <label class="mr-3" for="animo">Animo</label><br>
+                    <input class="ml-3" type="radio" id="corporis-checkbox" name="organization" value="Corporis">
+                    <label for="coroporis">Corporis</label><br>
+                </div>
             </div>
 
-            <div class="my-2 d-flex bg-danger rounded p-4 justify-content-between">
-                <p>Name Name</p>
-                <p>Bulgarian</p>
-                <p>Bonus Bonus Bonus</p>
-                <p>Price</p>
-                <span type="button" class="btn btn-light"><a href="../Design/secondPage.html.html">Fight</a></span>
+            <div class="p-2">
+                <p class="text-center">Select a fighter to fight:</p>
+                <select asp-for="FighterId" asp-items="fighters" class="form-control"></select>
             </div>
 
-            <div class="my-2 d-flex bg-danger rounded p-4 justify-content-between">
-                <p>Name Name</p>
-                <p>Bulgarian</p>
-                <p>Bonus Bonus Bonus</p>
-                <p>Price</p>
-                <span type="button" class="btn btn-light"><a href="../Design/secondPage.html.html">Fight</a></span>
-            </div>
         </div>
-    </div>
+
+        <div class="border p-4">
+            <div class="d-flex flex-column">
+                @foreach (var fighter in Model.Opponents)
+                {
+                    <div class="my-2 d-flex bg-danger rounded p-4 justify-content-between">
+                        <p>@fighter.Biography.FirstName "@fighter.Biography.Nickname" @fighter.Biography.LastName</p>
+                        <p>@fighter.Biography.BornCountry</p>
+                        <p>@fighter.Category.Name</p>
+                        <p>@fighter.Organization.Name</p>
+                        <button type="submit" class="btn btn-light" asp-controller="Fighters" asp-action="Fight" asp-route-fighterId="@Model.FighterId" asp-route-opponentId="@fighter.Id">Fight</button>
+                    </div>
+                }
+            </div>
+
+            <nav>
+                <ul class="pagination justify-content-center">
+                    @if (this.Model.CurrentPage == 1)
+                    {
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">Previous</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            <a class="page-link"
+                               asp-route="fighters"
+                               asp-route-page="@(this.Model.CurrentPage - 1)">Previous</a>
+                        </li>
+                    }
+
+                    @for (int i = 1; i <= this.Model.PagesCount; i++)
+                    {
+                        var active = i == this.Model.CurrentPage ? "active" : string.Empty;
+                        <li class="page-item @active">
+                            <a class="page-link"
+                               asp-route="fighters"
+                               asp-route-page="@i">@i</a>
+                        </li>
+                    }
+
+                    @if (this.Model.CurrentPage == this.Model.PagesCount)
+                    {
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            <a class="page-link"
+                               asp-route="fighters"
+                               asp-route-page="@(this.Model.CurrentPage + 1)">Next</a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </div>
+    </form>
 </div>

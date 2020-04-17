@@ -36,5 +36,9 @@
         Task AppointCutmanToFighter(Fighter fighter, int cutmanId);
 
         Task FireCutman(Fighter fighter);
+
+        IEnumerable<T> GetAllOpponents<T>(string userId, int? take = null, int skip = 0);
+
+        int GetOpponentsCount(string userId);
     }
 }
