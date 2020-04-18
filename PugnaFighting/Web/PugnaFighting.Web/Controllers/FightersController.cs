@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
@@ -26,7 +25,7 @@
         private readonly ISkillsService skillsService;
         private readonly IOrganizationsService organizationsService;
         private readonly IUsersService usersService;
-        private readonly IHttpContextAccessor http;
+        private readonly IRecordsService recordsService;
         private readonly UserManager<ApplicationUser> userManager;
 
         public FightersController(
@@ -36,7 +35,7 @@
             ISkillsService skillsService,
             IOrganizationsService organizationsService,
             IUsersService usersService,
-            IHttpContextAccessor http,
+            IRecordsService recordsService,
             UserManager<ApplicationUser> userManager)
         {
             this.fightersService = fightersService;
@@ -45,7 +44,7 @@
             this.skillsService = skillsService;
             this.organizationsService = organizationsService;
             this.usersService = usersService;
-            this.http = http;
+            this.recordsService = recordsService;
             this.userManager = userManager;
         }
 
@@ -99,6 +98,7 @@
 
             var skillId = await this.skillsService.CreateAsync();
             var biographyId = await this.biographiesService.CreateAsync(input.FirstName, input.Nickname, input.LastName, input.BornCountry, input.Age, input.Picture);
+            //var recordId = await this.recordsService.CreateAsync();
             var fighterId = await this.fightersService.CreateAsync(skillId, biographyId, input.CategoryId, user);
             this.TempData["InfoMessage"] = "Fighter created!";
 
@@ -133,8 +133,26 @@
 
         public IActionResult Fight(int fighterId, int opponentId)
         {
+            var fighter = this.fightersService.GetById(fighterId);
+            var opponent = this.fightersService.GetById(opponentId);
 
-            return this.View();
+            var viewModel = new FightViewModel
+            {
+                Fighter = fighter,
+                Opponent = opponent,
+            };
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Fight(Fighter fighter, Fighter oppinent)
+        {
+            var fight = await this.fightersService.Fight(fighter, oppinent);
+
+            await this.fightersService.AddFightToRecord(fight, fighter);
+
+            return this.RedirectToAction("AllFighters", "Users");
         }
     }
 }

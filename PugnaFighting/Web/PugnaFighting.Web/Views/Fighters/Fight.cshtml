@@ -1,37 +1,36 @@
-﻿@{
+﻿@model PugnaFighting.Web.ViewModels.Fighters.FightViewModel
+@{
     this.ViewData["Title"] = "Fight";
 }
 
 <div class="p-5 rounded text-white bg-dark mx-auto w-75">
     <h2 class="text-center font-weight-bold">It's time to fight</h2>
+    <form method="post" asp-action="Fight">
+        <div class="row text-center">
+            <div class="col-sm bg-info m-2 rounded p-2">
+                <h3 class="p-2">@Model.Fighter.Biography.FirstName @Model.Fighter.Biography.Nickname @Model.Fighter.Biography.LastName</h3>
+                <p class="font-weight-bold">@Model.Fighter.Record.Wins-@Model.Fighter.Record.Losses-@Model.Fighter.Record.Draws</p>
+                <img src="@Model.Fighter.Biography.PictureUrl" alt="fighter pic" style="width: 250px;">
+                <ul class="text-left p-2" style="list-style: none;">
+                    <li>Trainer: Javier Peterson</li>
+                    <li>Manager: Ali Perry</li>
+                    <li>Cutman: Ivan Johnson</li>
+                </ul>
+            </div>
 
-    <div class="row text-center">
-        <div class="col-sm bg-info m-2 rounded p-2">
-            <h3 class="p-2">Cody "Killer" Goodson</h3>
-            <p class="font-weight-bold">20-3-1</p>
-            <img src="codddd.png" alt="" style="width: 250px;">
-            <ul class="text-left p-2" style="list-style: none;">
-                <li>Team: AKA</li>
-                <li>Trainer: Javier Peterson</li>
-                <li>Manager: Ali Perry</li>
-                <li>Cutman: Ivan Johnson</li>
-            </ul>
+            <div class="col-sm bg-info m-2 rounded">
+                <h3 class="p-2">@Model.Opponent.Biography.FirstName @Model.Opponent.Biography.Nickname @Model.Opponent.Biography.LastName</h3>
+                <p class="font-weight-bold mb-5">@Model.Opponent.Record.Wins-@Model.Opponent.Record.Losses-@Model.Opponent.Record.Draws</p>
+                <img src="@Model.Opponent.Biography.PictureUrl" alt="opponent pic" style="width: 250px;">
+                <ul class="text-left p-2" style="list-style: none;">
+                    <li>Trainer: John Levinghton</li>
+                    <li>Manager: Abdul Petrovic</li>
+                    <li>Cutman: Johny Sealed</li>
+                </ul>
+            </div>
         </div>
-
-        <div class="col-sm bg-info m-2 rounded">
-            <h3 class="p-2">Ivan "No Love" Drago</h3>
-            <p class="font-weight-bold mb-5">16-0-0</p>
-            <img src="DILLASHAW_TJ.png" alt="" style="width: 250px;">
-            <ul class="text-left p-2" style="list-style: none;">
-                <li>Team: RAW</li>
-                <li>Trainer: John Levinghton</li>
-                <li>Manager: Abdul Petrovic</li>
-                <li>Cutman: Johny Sealed</li>
-            </ul>
+        <div class="text-center pt-5">
+            <button type="submit" class="btn btn-light" asp-action="Fight" asp-route-fighter="@Model.Fighter" asp-route-opponent="@Model.Opponent">Fight</button>
         </div>
-    </div>
-
-    <div class="text-center pt-5">
-        <span type="button" class="btn btn-light"><a href="../Design/secondPage.html.html">Fight</a></span>
-    </div>
+    </form>
 </div>

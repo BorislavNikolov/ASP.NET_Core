@@ -40,5 +40,11 @@
         IEnumerable<T> GetAllOpponents<T>(string userId, int? take = null, int skip = 0);
 
         int GetOpponentsCount(string userId);
+
+        Task<Fight> Fight(Fighter fighter, Fighter opponet);
+
+        Task AddFightToRecord(Fight fight, Fighter fighter);
+
+        public Record GetRecordById(int id);
     }
 }

@@ -447,6 +447,52 @@ namespace PugnaFighting.Data.Migrations
                     b.ToTable("Cutmen");
                 });
 
+            modelBuilder.Entity("PugnaFighting.Data.Models.Fight", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Method")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OpponentName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("RecordId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Result")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("RecordId");
+
+                    b.ToTable("Fights");
+                });
+
             modelBuilder.Entity("PugnaFighting.Data.Models.Fighter", b =>
                 {
                     b.Property<int>("Id")
@@ -490,6 +536,9 @@ namespace PugnaFighting.Data.Migrations
                     b.Property<int?>("OrganizationId")
                         .HasColumnType("int");
 
+                    b.Property<int>("RecordId")
+                        .HasColumnType("int");
+
                     b.Property<int>("SkillId")
                         .HasColumnType("int");
 
@@ -512,6 +561,8 @@ namespace PugnaFighting.Data.Migrations
                     b.HasIndex("ManagerId");
 
                     b.HasIndex("OrganizationId");
+
+                    b.HasIndex("RecordId");
 
                     b.HasIndex("SkillId");
 
@@ -629,6 +680,41 @@ namespace PugnaFighting.Data.Migrations
                     b.ToTable("Organizations");
                 });
 
+            modelBuilder.Entity("PugnaFighting.Data.Models.Record", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Draws")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Losses")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Wins")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Records");
+                });
+
             modelBuilder.Entity("PugnaFighting.Data.Models.Setting", b =>
                 {
                     b.Property<int>("Id")
@@ -710,7 +796,7 @@ namespace PugnaFighting.Data.Migrations
                     b.HasOne("PugnaFighting.Data.Models.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -719,7 +805,7 @@ namespace PugnaFighting.Data.Migrations
                     b.HasOne("PugnaFighting.Data.Models.ApplicationUser", null)
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -728,7 +814,7 @@ namespace PugnaFighting.Data.Migrations
                     b.HasOne("PugnaFighting.Data.Models.ApplicationUser", null)
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -737,13 +823,13 @@ namespace PugnaFighting.Data.Migrations
                     b.HasOne("PugnaFighting.Data.Models.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PugnaFighting.Data.Models.ApplicationUser", null)
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -752,8 +838,15 @@ namespace PugnaFighting.Data.Migrations
                     b.HasOne("PugnaFighting.Data.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("PugnaFighting.Data.Models.Fight", b =>
+                {
+                    b.HasOne("PugnaFighting.Data.Models.Record", null)
+                        .WithMany("Fights")
+                        .HasForeignKey("RecordId");
                 });
 
             modelBuilder.Entity("PugnaFighting.Data.Models.Fighter", b =>
@@ -761,13 +854,13 @@ namespace PugnaFighting.Data.Migrations
                     b.HasOne("PugnaFighting.Data.Models.Biography", "Biography")
                         .WithMany()
                         .HasForeignKey("BiographyId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PugnaFighting.Data.Models.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PugnaFighting.Data.Models.Coach", "Coach")
@@ -786,16 +879,22 @@ namespace PugnaFighting.Data.Migrations
                         .WithMany("Fighters")
                         .HasForeignKey("OrganizationId");
 
+                    b.HasOne("PugnaFighting.Data.Models.Record", "Record")
+                        .WithMany()
+                        .HasForeignKey("RecordId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("PugnaFighting.Data.Models.Skill", "Skill")
                         .WithMany()
                         .HasForeignKey("SkillId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PugnaFighting.Data.Models.ApplicationUser", "User")
                         .WithMany("Fighters")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618
