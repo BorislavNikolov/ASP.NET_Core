@@ -134,8 +134,8 @@
 
         public IActionResult Fight(int fighterId, int opponentId)
         {
-            var fighter = this.fightersService.GetById(fighterId);
-            var opponent = this.fightersService.GetById(opponentId);
+            var fighter = this.fightersService.GetById<FighterFightViewModel>(fighterId);
+            var opponent = this.fightersService.GetById<FighterFightViewModel>(opponentId);
 
             var viewModel = new FightViewModel
             {
@@ -143,21 +143,18 @@
                 Opponent = opponent,
             };
 
-            viewModel.Fighter.Biography = this.biographiesService.GetById(fighter.BiographyId);
-            viewModel.Fighter.Record = this.recordsService.GetById(fighter.RecordId);
-
-            viewModel.Opponent.Biography = this.biographiesService.GetById(opponent.BiographyId);
-            viewModel.Opponent.Record = this.recordsService.GetById(opponent.RecordId);
-
             return this.View(viewModel);
         }
 
         [HttpPost]
         public async Task<IActionResult> Fight(FightViewModel viewModel)
         {
-            var fight = await this.fightersService.Fight(viewModel.Fighter, viewModel.Opponent);
+            var fighter = this.fightersService.GetById(viewModel.FighterId);
+            var opponent = this.fightersService.GetById(viewModel.OpponentId);
 
-            await this.fightersService.AddFightToRecord(fight, viewModel.Fighter);
+            var fight = await this.fightersService.Fight(fighter, opponent);
+
+            await this.fightersService.AddFightToRecord(fight, fighter);
 
             return this.RedirectToAction("AllFighters", "Users");
         }

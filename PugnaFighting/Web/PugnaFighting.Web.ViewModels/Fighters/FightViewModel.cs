@@ -3,10 +3,14 @@
     using PugnaFighting.Data.Models;
     using PugnaFighting.Services.Mapping;
 
-    public class FightViewModel : IMapFrom<Fighter>
+    public class FightViewModel
     {
-        public Fighter Fighter { get; set; }
+        public int FighterId { get; set; }
 
-        public Fighter Opponent { get; set; }
+        public FighterFightViewModel Fighter { get; set; }
+
+        public int OpponentId { get; set; }
+
+        public FighterFightViewModel Opponent { get; set; }
     }
 }

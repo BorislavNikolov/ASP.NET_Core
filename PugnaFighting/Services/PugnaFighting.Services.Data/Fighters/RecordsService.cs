@@ -1,5 +1,6 @@
 ﻿namespace PugnaFighting.Services.Data.Fighters
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -23,6 +24,7 @@
                 Wins = 0,
                 Draws = 0,
                 Losses = 0,
+                Fights = new List<Fight>(),
             };
 
             await this.recordsRepository.AddAsync(record);

@@ -11,6 +11,8 @@
 
         Fighter GetById(int id);
 
+        public T GetById<T>(int id);
+
         Task SetOrganization(int fighterId, int organizationId, ApplicationUser user);
 
         T GetBestStriker<T>(string organizationName);

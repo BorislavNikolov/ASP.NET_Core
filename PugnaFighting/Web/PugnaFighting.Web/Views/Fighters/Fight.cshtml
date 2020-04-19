@@ -5,7 +5,6 @@
 
 <div class="p-5 rounded text-white bg-dark mx-auto w-75">
     <h2 class="text-center font-weight-bold">It's time to fight</h2>
-    <form method="post" asp-action="Fight">
         <div class="row text-center">
             <div class="col-sm bg-info m-2 rounded p-2">
                 <h3 class="p-2">@Model.Fighter.Biography.FirstName @Model.Fighter.Biography.Nickname @Model.Fighter.Biography.LastName</h3>
@@ -30,7 +29,10 @@
             </div>
         </div>
         <div class="text-center pt-5">
-            <button type="submit" class="btn btn-light" asp-action="Fight">Fight</button>
+            <form method="post" asp-action="Fight">
+                <input asp-for="OpponentId" value="@Model.Opponent.Id" hidden />
+                <input asp-for="FighterId" value="@Model.Fighter.Id" hidden />
+                <button type="submit" class="btn btn-light">Fight</button>
+            </form>
         </div>
-    </form>
 </div>

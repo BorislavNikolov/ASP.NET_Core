@@ -15,21 +15,29 @@
         private readonly IDeletableEntityRepository<Fighter> fightersRepository;
         private readonly IDeletableEntityRepository<Fight> fightsRepository;
         private readonly IDeletableEntityRepository<Record> recordsRepository;
+        private readonly IDeletableEntityRepository<Skill> skillsRepository;
+        private readonly IDeletableEntityRepository<Biography> biographiesRepository;
         private readonly IOrganizationsService organizationsService;
 
         public FightersService(
             IDeletableEntityRepository<Fighter> fightersRepository,
             IOrganizationsService organizationsService,
             IDeletableEntityRepository<Record> recordsRepository,
+            IDeletableEntityRepository<Skill> skillsRepository,
+            IDeletableEntityRepository<Fight> fightsRepository,
+            IDeletableEntityRepository<Biography> biographiesRepository,
             IDeletableEntityRepository<ApplicationUser> usersRepository)
         {
             this.fightersRepository = fightersRepository;
             this.organizationsService = organizationsService;
             this.recordsRepository = recordsRepository;
+            this.skillsRepository = skillsRepository;
+            this.fightsRepository = fightsRepository;
+            this.biographiesRepository = biographiesRepository;
             this.usersRepository = usersRepository;
         }
 
-        public async Task<int> CreateAsync(int skillId, int biogrphyId, int categoryId, int recordId, ApplicationUser user)
+        public async Task<int> CreateAsync(int skillId, int biogrphyId, int recordId, int categoryId, ApplicationUser user)
         {
             var fighter = new Fighter
             {
@@ -53,6 +61,13 @@
         public Fighter GetById(int id)
         {
             var fighter = this.fightersRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            return fighter;
+        }
+
+        public T GetById<T>(int id)
+        {
+            var fighter = this.fightersRepository.All().Where(x => x.Id == id)
+               .To<T>().FirstOrDefault();
             return fighter;
         }
 
@@ -201,6 +216,11 @@
 
         public async Task<Fight> Fight(Fighter fighter, Fighter opponet)
         {
+            fighter.Skill = this.skillsRepository.All().Where(x => x.Id == fighter.SkillId).FirstOrDefault();
+            opponet.Skill = this.skillsRepository.All().Where(x => x.Id == opponet.SkillId).FirstOrDefault();
+
+            opponet.Biography = this.biographiesRepository.All().Where(x => x.Id == opponet.BiographyId).FirstOrDefault();
+
             var fighterOverall = fighter.Skill.Striking +
                                 fighter.Skill.Grappling +
                                 fighter.Skill.Wrestling +
@@ -215,39 +235,69 @@
                                 opponet.Skill.Stamina +
                                 opponet.Skill.Strenght;
 
+            var result = string.Empty;
+
+            if (fighterOverall > opponentOverall)
+            {
+                result = "Win";
+            }
+            else if (fighterOverall > opponentOverall)
+            {
+                result = "Lose";
+            }
+            else
+            {
+                result = "Draw";
+            }
+
+            var opponentName = opponet.Biography.FirstName + " " + opponet.Biography.LastName;
+
+            var fightId = await this.MakeFight(opponentName, result);
+            var fight = this.fightsRepository.All().Where(x => x.Id == fightId).FirstOrDefault();
+
+            return fight;
+        }
+
+        public async Task<int> MakeFight(string opponentName, string result)
+        {
             var fight = new Fight
             {
                 DateTime = DateTime.UtcNow,
                 Method = "KO",
-                OpponentName = opponet.Biography.FirstName + " " + opponet.Biography.LastName,
+                OpponentName = opponentName,
+                Result = result,
             };
-
-            if (fighterOverall > opponentOverall)
-            {
-                fight.Result = "Win";
-            }
-            else if (fighterOverall > opponentOverall)
-            {
-                fight.Result = "Lose";
-            }
-            else
-            {
-                fight.Result = "Draw";
-            }
 
             await this.fightsRepository.AddAsync(fight);
             await this.fightsRepository.SaveChangesAsync();
 
-            return fight;
+            return fight.Id;
         }
 
         public async Task AddFightToRecord(Fight fight, Fighter fighter)
         {
             var record = this.GetRecordById(fighter.RecordId);
 
+            if (fight.Result == "Win")
+            {
+                record.Wins++;
+            }
+            else if (fight.Result == "Draw")
+            {
+                record.Draws++;
+            }
+            else
+            {
+                record.Losses++;
+            }
+
+            if (record.Fights == null)
+            {
+                record.Fights = new List<Fight>();
+            }
+
             record.Fights.ToList().Add(fight);
 
-            await this.recordsRepository.AddAsync(record);
             await this.recordsRepository.SaveChangesAsync();
         }
 
