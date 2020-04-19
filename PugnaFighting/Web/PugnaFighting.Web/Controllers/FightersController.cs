@@ -100,6 +100,7 @@
             var biographyId = await this.biographiesService.CreateAsync(input.FirstName, input.Nickname, input.LastName, input.BornCountry, input.Age, input.Picture);
             //var recordId = await this.recordsService.CreateAsync();
             var fighterId = await this.fightersService.CreateAsync(skillId, biographyId, input.CategoryId, user);
+
             this.TempData["InfoMessage"] = "Fighter created!";
 
             return this.RedirectToAction(nameof(this.ChooseOrganization), new { id = fighterId });
@@ -131,7 +132,7 @@
             return this.RedirectToAction("AllFighters", "Users");
         }
 
-        public IActionResult Fight(int fighterId, int opponentId)
+        public async Task<IActionResult> Fight(int fighterId, int opponentId)
         {
             var fighter = this.fightersService.GetById(fighterId);
             var opponent = this.fightersService.GetById(opponentId);

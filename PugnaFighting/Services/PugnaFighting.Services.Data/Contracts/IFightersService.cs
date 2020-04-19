@@ -7,7 +7,7 @@
 
     public interface IFightersService
     {
-        Task<int> CreateAsync(int skillId, int biographyId, int categoryId, ApplicationUser user);
+        Task<int> CreateAsync(int skillId, int biographyId, int recordId, int categoryId, ApplicationUser user);
 
         Fighter GetById(int id);
 

@@ -16,6 +16,7 @@
         [Required]
         public int Losses { get; set; }
 
+        [Required]
         public IEnumerable<Fight> Fights { get; set; }
     }
 }
