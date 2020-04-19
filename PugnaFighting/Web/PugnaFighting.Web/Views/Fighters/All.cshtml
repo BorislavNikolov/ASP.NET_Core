@@ -5,7 +5,7 @@
 }
 
 <div class="p-5 rounded text-white bg-dark mx-auto w-75">
-    <form method="post" asp-controller="Fighters" asp-action="Fight">
+    <form method="get" asp-controller="Fighters" asp-action="Fight">
         <div class="text-center d-flex justify-content-around border">
             <div class="p-3">
                 <h5 class="text-center">Organization</h5>
@@ -16,27 +16,24 @@
                     <label for="coroporis">Corporis</label><br>
                 </div>
             </div>
-
             <div class="p-2">
                 <p class="text-center">Select a fighter to fight:</p>
                 <select asp-for="FighterId" asp-items="fighters" class="form-control"></select>
             </div>
-
         </div>
 
-        <div class="border p-4">
-            <div class="d-flex flex-column">
-                @foreach (var fighter in Model.Opponents)
-                {
-                    <div class="my-2 d-flex bg-danger rounded p-4 justify-content-between">
-                        <p>@fighter.Biography.FirstName "@fighter.Biography.Nickname" @fighter.Biography.LastName</p>
-                        <p>@fighter.Biography.BornCountry</p>
-                        <p>@fighter.Category.Name</p>
-                        <p>@fighter.Organization.Name</p>
-                        <button type="submit" class="btn btn-light" asp-controller="Fighters" asp-action="Fight" asp-route-fighterId="@Model.FighterId" asp-route-opponentId="@fighter.Id">Fight</button>
-                    </div>
-                }
-            </div>
+        <div class="d-flex flex-column border p-4">
+            @foreach (var opponent in Model.Opponents)
+            {
+                <div class="my-2 d-flex bg-danger rounded p-4 justify-content-between">
+                    <p>@opponent.Biography.FirstName "@opponent.Biography.Nickname" @opponent.Biography.LastName</p>
+                    <p>@opponent.Biography.BornCountry</p>
+                    <p>@opponent.Category.Name</p>
+                    <p>@opponent.Organization.Name</p>
+                    <input asp-for="OpponentId" value="@opponent.Id" hidden/>
+                    <button type="submit" class="btn btn-light" asp-controller="Fighters" asp-action="Fight" asp-route-fighterId="@Model.FighterId" asp-route-opponentId="@opponent.Id">Fight</button>
+                </div>
+            }
 
             <nav>
                 <ul class="pagination justify-content-center">

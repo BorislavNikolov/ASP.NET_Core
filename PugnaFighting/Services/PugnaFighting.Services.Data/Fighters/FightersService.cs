@@ -199,16 +199,8 @@
             return this.fightersRepository.All().Count(x => x.UserId != userId);
         }
 
-<<<<<<< HEAD
         public async Task<Fight> Fight(Fighter fighter, Fighter opponet)
         {
-=======
-        public async Task<Fight> Fight(int fighterId, int opponentId)
-        {
-            var fighter = this.GetById(fighterId);
-            var opponet = this.GetById(opponentId);
-
->>>>>>> remotes/origin/master
             var fighterOverall = fighter.Skill.Striking +
                                 fighter.Skill.Grappling +
                                 fighter.Skill.Wrestling +

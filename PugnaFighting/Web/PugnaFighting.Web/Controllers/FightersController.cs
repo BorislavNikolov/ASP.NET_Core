@@ -98,8 +98,8 @@
 
             var skillId = await this.skillsService.CreateAsync();
             var biographyId = await this.biographiesService.CreateAsync(input.FirstName, input.Nickname, input.LastName, input.BornCountry, input.Age, input.Picture);
-            //var recordId = await this.recordsService.CreateAsync();
-            var fighterId = await this.fightersService.CreateAsync(skillId, biographyId, input.CategoryId, user);
+            var recordId = await this.recordsService.CreateAsync();
+            var fighterId = await this.fightersService.CreateAsync(skillId, biographyId, recordId, input.CategoryId, user);
 
             this.TempData["InfoMessage"] = "Fighter created!";
 
@@ -132,7 +132,7 @@
             return this.RedirectToAction("AllFighters", "Users");
         }
 
-        public async Task<IActionResult> Fight(int fighterId, int opponentId)
+        public IActionResult Fight(int fighterId, int opponentId)
         {
             var fighter = this.fightersService.GetById(fighterId);
             var opponent = this.fightersService.GetById(opponentId);
@@ -143,15 +143,21 @@
                 Opponent = opponent,
             };
 
+            viewModel.Fighter.Biography = this.biographiesService.GetById(fighter.BiographyId);
+            viewModel.Fighter.Record = this.recordsService.GetById(fighter.RecordId);
+
+            viewModel.Opponent.Biography = this.biographiesService.GetById(opponent.BiographyId);
+            viewModel.Opponent.Record = this.recordsService.GetById(opponent.RecordId);
+
             return this.View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Fight(Fighter fighter, Fighter oppinent)
+        public async Task<IActionResult> Fight(FightViewModel viewModel)
         {
-            var fight = await this.fightersService.Fight(fighter, oppinent);
+            var fight = await this.fightersService.Fight(viewModel.Fighter, viewModel.Opponent);
 
-            await this.fightersService.AddFightToRecord(fight, fighter);
+            await this.fightersService.AddFightToRecord(fight, viewModel.Fighter);
 
             return this.RedirectToAction("AllFighters", "Users");
         }

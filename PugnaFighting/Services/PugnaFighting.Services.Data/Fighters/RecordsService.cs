@@ -1,18 +1,14 @@
 ﻿namespace PugnaFighting.Services.Data.Fighters
 {
-<<<<<<< HEAD
-=======
+    using System.Linq;
     using System.Threading.Tasks;
 
     using PugnaFighting.Data.Common.Repositories;
     using PugnaFighting.Data.Models;
->>>>>>> remotes/origin/master
     using PugnaFighting.Services.Data.Contracts;
 
     public class RecordsService : IRecordsService
     {
-<<<<<<< HEAD
-=======
         private readonly IDeletableEntityRepository<Record> recordsRepository;
 
         public RecordsService(IDeletableEntityRepository<Record> recordsRepository)
@@ -24,6 +20,9 @@
         {
             var record = new Record
             {
+                Wins = 0,
+                Draws = 0,
+                Losses = 0,
             };
 
             await this.recordsRepository.AddAsync(record);
@@ -31,6 +30,11 @@
 
             return record.Id;
         }
->>>>>>> remotes/origin/master
+
+        public Record GetById(int id)
+        {
+            var record = this.recordsRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            return record;
+        }
     }
 }

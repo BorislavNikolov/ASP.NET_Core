@@ -10,7 +10,7 @@
             <div class="col-sm bg-info m-2 rounded p-2">
                 <h3 class="p-2">@Model.Fighter.Biography.FirstName @Model.Fighter.Biography.Nickname @Model.Fighter.Biography.LastName</h3>
                 <p class="font-weight-bold">@Model.Fighter.Record.Wins-@Model.Fighter.Record.Losses-@Model.Fighter.Record.Draws</p>
-                <img src="@Model.Fighter.Biography.PictureUrl" alt="fighter pic" style="width: 250px;">
+                <img class="rounded" src="@Model.Fighter.Biography.PictureUrl" alt="fighter pic" style="width: 250px;">
                 <ul class="text-left p-2" style="list-style: none;">
                     <li>Trainer: Javier Peterson</li>
                     <li>Manager: Ali Perry</li>
@@ -20,8 +20,8 @@
 
             <div class="col-sm bg-info m-2 rounded">
                 <h3 class="p-2">@Model.Opponent.Biography.FirstName @Model.Opponent.Biography.Nickname @Model.Opponent.Biography.LastName</h3>
-                <p class="font-weight-bold mb-5">@Model.Opponent.Record.Wins-@Model.Opponent.Record.Losses-@Model.Opponent.Record.Draws</p>
-                <img src="@Model.Opponent.Biography.PictureUrl" alt="opponent pic" style="width: 250px;">
+                <p class="font-weight-bold">@Model.Opponent.Record.Wins-@Model.Opponent.Record.Losses-@Model.Opponent.Record.Draws</p>
+                <img class="rounded" src="@Model.Opponent.Biography.PictureUrl" alt="opponent pic" style="width: 250px;">
                 <ul class="text-left p-2" style="list-style: none;">
                     <li>Trainer: John Levinghton</li>
                     <li>Manager: Abdul Petrovic</li>
@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="text-center pt-5">
-            <button type="submit" class="btn btn-light" asp-action="Fight" asp-route-fighter="@Model.Fighter" asp-route-opponent="@Model.Opponent">Fight</button>
+            <button type="submit" class="btn btn-light" asp-action="Fight">Fight</button>
         </div>
     </form>
 </div>

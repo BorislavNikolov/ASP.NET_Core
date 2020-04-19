@@ -12,6 +12,9 @@
         [Range(1, int.MaxValue)]
         public int FighterId { get; set; }
 
+        [Range(1, int.MaxValue)]
+        public int OpponentId { get; set; }
+
         public int CurrentPage { get; set; }
 
         public int PagesCount { get; set; }
