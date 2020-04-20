@@ -47,14 +47,16 @@
             this.cutmenService = cutmenService;
         }
 
-        public IActionResult AllFighters()
+        public async Task<IActionResult> AllFighters()
         {
             var userId = this.userManager.GetUserId(this.User);
+            var user = await this.userManager.GetUserAsync(this.User);
             var fighters = this.usersService.GetAllFighters<FighterViewModel>(userId);
 
             var viewModel = new AllFightersViewModel
             {
                 FighterViewModels = fighters,
+                User = user,
             };
 
             return this.View(viewModel);

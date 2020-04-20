@@ -5,5 +5,7 @@
     public class AllManagersViewModel
     {
         public IEnumerable<ManagerViewModel> ManagerViewModels { get; set; }
+
+        public bool HasFighterWithoutManager { get; set; }
     }
 }

@@ -51,5 +51,11 @@
             await this.usersRepository.SaveChangesAsync();
             await this.fightersRepository.SaveChangesAsync();
         }
+
+        public async Task PayForNewFighter(ApplicationUser user)
+        {
+            user.Coins -= 10000;
+            await this.usersRepository.SaveChangesAsync();
+        }
     }
 }

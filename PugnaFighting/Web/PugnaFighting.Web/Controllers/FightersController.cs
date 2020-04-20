@@ -100,6 +100,7 @@
             var biographyId = await this.biographiesService.CreateAsync(input.FirstName, input.Nickname, input.LastName, input.BornCountry, input.Age, input.Picture);
             var recordId = await this.recordsService.CreateAsync();
             var fighterId = await this.fightersService.CreateAsync(skillId, biographyId, recordId, input.CategoryId, user);
+            await this.usersService.PayForNewFighter(user);
 
             this.TempData["InfoMessage"] = "Fighter created!";
 
