@@ -15,7 +15,7 @@
         </div>
 
         <form method="post" asp-controller="Users" asp-action="FireCoach" asp-route-id="@Model.FighterId">
-            <span style="display:block" id="delete-span" class="btn btn-success mx-auto mt-3 w-25">Fire</span>
+            <span style="display:block" id="delete-span" class="btn btn-danger mx-auto mt-3 w-25">Fire</span>
             <p style="display: none" id="delete-question" class="bg-danger text-center p-2 m-2 rounded">Are you sure you want do fire this coach?</p>
             <button style="display: none" id="delete-btn" class="btn btn-danger mx-auto mt-3" type="submit">Yes</button>
             <button style="display: none" id="cancel-btn" class="btn btn-success mx-auto mt-3" type="button">No</button>

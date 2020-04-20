@@ -9,25 +9,26 @@
 <div class="p-5 rounded text-white bg-dark mx-auto w-75">
     <div class="jumbotron w-75 bg-secondary mx-auto">
         <h3 class="text-center">@Model.Biography.FirstName @Model.Biography.LastName</h3>
+        <h5 class="text-center mt-2">Record: (W-@Model.Record.Wins L-@Model.Record.Losses D-@Model.Record.Draws)</h5>
         <img src="@Model.Biography.PictureUrl" style="width: 250px; height: 250px;" class="rounded d-block mx-auto mt-3" />
         <div class="d-flex">
             <div class="d-flex flex-column col-5 mt-4 font-weight-bold">
                 <span>Biography:</span>
-                <span>Nickname: @Model.Biography.Nickname</span>
-                <span>Age: @Model.Biography.Age</span>
-                <span>Born Country: @Model.Biography.BornCountry</span>
-                <span>Category: @Model.Category.Name (@Model.Category.WeightLimit)</span>
-                <span>Fans Count: @Model.FansCount</span>
+                <span><i class="fas fa-address-card"></i> Nickname: @Model.Biography.Nickname</span>
+                <span><i class="fas fa-user-clock"></i> Age: @Model.Biography.Age</span>
+                <span><i class="fas fa-globe"></i> Born Country: @Model.Biography.BornCountry</span>
+                <span><i class="fas fa-balance-scale"></i> Category: @Model.Category.Name (@Model.Category.WeightLimit)</span>
+                <span><i class="fas fa-child"></i> Fans Count: @Model.FansCount</span>
             </div>
 
             <div class="d-flex flex-column col-3 mt-4 font-weight-bold">
                 <span>Skills:</span>
-                <span>Striking: @Model.Skill.Striking</span>
-                <span>Grappling: @Model.Skill.Grappling</span>
-                <span>Wrestling: @Model.Skill.Wrestling</span>
-                <span>Strenght: @Model.Skill.Strenght</span>
-                <span>Stamina: @Model.Skill.Stamina</span>
-                <span>Health: @Model.Skill.Health</span>
+                <span><i class="fas fa-fist-raised"></i> Striking: @Model.Skill.Striking</span>
+                <span><i class="fas fa-lock"></i> Grappling: @Model.Skill.Grappling</span>
+                <span><i class="fas fa-praying-hands"></i> Wrestling: @Model.Skill.Wrestling</span>
+                <span><i class="fas fa-dumbbell"></i> Strenght: @Model.Skill.Strenght</span>
+                <span><i class="fas fa-gas-pump"></i> Stamina: @Model.Skill.Stamina</span>
+                <span><i class="far fa-heart"></i> Health: @Model.Skill.Health</span>
                 <a class="btn btn-success" asp-controller="Users" asp-action="Train" asp-route-id="@Model.Skill.Id">Train</a>
             </div>
 
@@ -35,29 +36,29 @@
                 <span>Team:</span>
                 @if (coachFullName != "none")
                 {
-                    <span>Coach: <a asp-controller="Users" asp-action="CoachDetails" asp-route-id="@Model.Id">@coachFullName</a></span>
+                    <span><i class="fas fa-user-cog"></i> Coach: <a asp-controller="Users" asp-action="CoachDetails" asp-route-id="@Model.Id">@coachFullName</a></span>
                 }
                 else
                 {
-                    <span>Coach: @coachFullName</span>
+                    <span><i class="fas fa-user-cog"></i> Coach: @coachFullName</span>
                 }
 
                 @if (cutmanFullName != "none")
                 {
-                    <span>Cutman: <a asp-controller="Users" asp-action="CutmanDetails" asp-route-id="@Model.Id">@cutmanFullName</a></span>
+                    <span><i class="fas fa-user-md"></i> Cutman: <a asp-controller="Users" asp-action="CutmanDetails" asp-route-id="@Model.Id">@cutmanFullName</a></span>
                 }
                 else
                 {
-                    <span>Cutman: @cutmanFullName</span>
+                    <span><i class="fas fa-user-md"></i> Cutman: @cutmanFullName</span>
                 }
 
                 @if (managerFullName != "none")
                 {
-                    <span>Manager: <a asp-controller="Users" asp-action="ManagerDetails" asp-route-id="@Model.Id">@managerFullName</a></span>
+                    <span><i class="fas fa-user-tie"></i> Manager: <a asp-controller="Users" asp-action="ManagerDetails" asp-route-id="@Model.Id">@managerFullName</a></span>
                 }
                 else
                 {
-                    <span>Manager: @managerFullName</span>
+                    <span><i class="fas fa-user-tie"></i> Manager: @managerFullName</span>
                 }
             </div>
         </div>
@@ -70,7 +71,7 @@
         </div>
 
         <form method="post" asp-controller="Users" asp-action="SellFighter" asp-route-id="@Model.Id">
-            <span style="display:block" id="delete-span" class="btn btn-success mx-auto mt-3 w-25">Sell</span>
+            <span style="display:block" id="delete-span" class="btn btn-danger mx-auto mt-3 w-25">Sell</span>
             <p style="display: none" id="delete-question" class="bg-danger text-center p-2 m-2 rounded">Are you sure you want do sell this fighter?</p>
             <button style="display: none" id="delete-btn" class="btn btn-danger mx-auto mt-3" type="submit">Yes</button>
             <button style="display: none" id="cancel-btn" class="btn btn-success mx-auto mt-3" type="button">No</button>

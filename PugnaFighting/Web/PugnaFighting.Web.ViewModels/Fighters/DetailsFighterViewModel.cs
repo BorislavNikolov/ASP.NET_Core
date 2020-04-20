@@ -11,6 +11,8 @@
 
         public int MoneyPerFight { get; set; }
 
+        public Record Record { get; set; }
+
         public Biography Biography { get; set; }
 
         public Category Category { get; set; }

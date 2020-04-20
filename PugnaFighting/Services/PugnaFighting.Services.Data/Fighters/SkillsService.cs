@@ -64,7 +64,7 @@
             var skill = this.GetById(skillId);
 
             skill.Grappling = trainViewModel.Grappling;
-            skill.Strenght = trainViewModel.Striking;
+            skill.Striking = trainViewModel.Striking;
             skill.Wrestling = trainViewModel.Wrestling;
             skill.Stamina = trainViewModel.Stamina;
             skill.Health = trainViewModel.Health;

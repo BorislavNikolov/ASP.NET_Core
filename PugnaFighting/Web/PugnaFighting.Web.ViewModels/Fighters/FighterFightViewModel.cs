@@ -9,6 +9,12 @@
 
         public Biography Biography { get; set; }
 
+        public Coach Coach { get; set; }
+
+        public Manager Manager { get; set; }
+
+        public Cutman Cutman { get; set; }
+
         public Record Record { get; set; }
     }
 }

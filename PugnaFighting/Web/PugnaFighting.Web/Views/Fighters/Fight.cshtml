@@ -1,30 +1,37 @@
 ﻿@model PugnaFighting.Web.ViewModels.Fighters.FightViewModel
 @{
     this.ViewData["Title"] = "Fight";
+    var fighterCoachFullName = Model.Fighter.Coach == null ? "none" : Model.Fighter.Coach.FirstName + " " + Model.Fighter.Coach.LastName;
+    var fighterCutmanFullName = Model.Fighter.Cutman == null ? "none" : Model.Fighter.Cutman.FirstName + " " + Model.Fighter.Cutman.LastName;
+    var fighterManagerFullName = Model.Fighter.Manager == null ? "none" : Model.Fighter.Manager.FirstName + " " + Model.Fighter.Manager.LastName;
+
+    var opponentCoachFullName = Model.Opponent.Coach == null ? "none" : Model.Opponent.Coach.FirstName + " " + Model.Opponent.Coach.LastName;
+    var opponentCutmanFullName = Model.Opponent.Cutman == null ? "none" : Model.Opponent.Cutman.FirstName + " " + Model.Opponent.Cutman.LastName;
+    var opponentManagerFullName = Model.Opponent.Manager == null ? "none" : Model.Opponent.Manager.FirstName + " " + Model.Opponent.Manager.LastName;
 }
 
 <div class="p-5 rounded text-white bg-dark mx-auto w-75">
     <h2 class="text-center font-weight-bold">It's time to fight</h2>
         <div class="row text-center">
-            <div class="col-sm bg-info m-2 rounded p-2">
+            <div class="col-sm bg-success m-2 rounded p-2">
                 <h3 class="p-2">@Model.Fighter.Biography.FirstName @Model.Fighter.Biography.Nickname @Model.Fighter.Biography.LastName</h3>
                 <p class="font-weight-bold">@Model.Fighter.Record.Wins-@Model.Fighter.Record.Losses-@Model.Fighter.Record.Draws</p>
                 <img class="rounded" src="@Model.Fighter.Biography.PictureUrl" alt="fighter pic" style="width: 250px;">
                 <ul class="text-left p-2" style="list-style: none;">
-                    <li>Trainer: Javier Peterson</li>
-                    <li>Manager: Ali Perry</li>
-                    <li>Cutman: Ivan Johnson</li>
+                    <li>Coach: @fighterCoachFullName</li>
+                    <li>Manager: @fighterManagerFullName</li>
+                    <li>Cutman: @fighterCutmanFullName</li>
                 </ul>
             </div>
 
-            <div class="col-sm bg-info m-2 rounded">
+            <div class="col-sm bg-success m-2 rounded">
                 <h3 class="p-2">@Model.Opponent.Biography.FirstName @Model.Opponent.Biography.Nickname @Model.Opponent.Biography.LastName</h3>
                 <p class="font-weight-bold">@Model.Opponent.Record.Wins-@Model.Opponent.Record.Losses-@Model.Opponent.Record.Draws</p>
                 <img class="rounded" src="@Model.Opponent.Biography.PictureUrl" alt="opponent pic" style="width: 250px;">
                 <ul class="text-left p-2" style="list-style: none;">
-                    <li>Trainer: John Levinghton</li>
-                    <li>Manager: Abdul Petrovic</li>
-                    <li>Cutman: Johny Sealed</li>
+                    <li>Coach: @opponentCoachFullName</li>
+                    <li>Manager: @opponentManagerFullName</li>
+                    <li>Cutman: @opponentCutmanFullName</li>
                 </ul>
             </div>
         </div>
