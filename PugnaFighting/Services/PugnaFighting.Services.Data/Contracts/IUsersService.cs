@@ -14,5 +14,7 @@
         Task DeleteFighter(Fighter fighter, ApplicationUser user);
 
         Task PayForNewFighter(ApplicationUser user);
+
+        Task PayForNewTeamMember(ApplicationUser user, int price);
     }
 }

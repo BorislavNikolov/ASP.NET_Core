@@ -9,6 +9,8 @@
 
         public Category Category { get; set; }
 
+        public Record Record { get; set; }
+
         public string UserUsername { get; set; }
     }
 }

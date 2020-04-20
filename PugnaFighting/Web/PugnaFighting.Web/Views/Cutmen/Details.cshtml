@@ -19,7 +19,14 @@
                 <p class="text-center">Select a fighter to appoint the manager:</p>
                 <select asp-for="FighterId" asp-items="fighters" class="form-control d-block mx-auto w-50"></select>
             </div>
-            <button type="submit" class="btn btn-success d-block mx-auto mt-3 w-25" asp-controller="Cutmen" asp-action="AppointCutmanToFighter" asp-route-id="@Model.Id">Hire</button>
+            @if (fighters.Any() && Model.Price <= Model.User.Coins)
+            {
+                <button type="submit" class="btn btn-success d-block mx-auto mt-3 w-25" asp-controller="Cutmen" asp-action="AppointCutmanToFighter" asp-route-id="@Model.Id">Hire</button>
+            }
+            else
+            {
+                <p class="mt-3 bg-dark text-danger font-weight-bold text-center">This cutman is too expensive or you doesnt have fighter without cutman.</p>
+            }
         </form>
     </div>
 </div>

@@ -19,6 +19,8 @@
             </div>
         }
     </div>
-
-    <a class="btn btn-success d-block mx-auto mt-3 w-25" asp-controller="Managers" asp-action="Create">Create</a>
+    @if (Model.Fighters.Any() && Model.User.Coins >= 20000)
+    {
+        <a class="btn btn-success d-block mx-auto mt-3 w-25" asp-controller="Managers" asp-action="Create">Create</a>
+    }
 </div>

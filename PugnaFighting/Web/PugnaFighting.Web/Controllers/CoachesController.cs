@@ -3,7 +3,10 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+
+    using PugnaFighting.Data.Models;
     using PugnaFighting.Services.Data;
     using PugnaFighting.Services.Data.Contracts;
     using PugnaFighting.Web.ViewModels.Coaches;
@@ -14,11 +17,19 @@
     {
         private readonly ICoachesService coachesService;
         private readonly IFightersService fightersService;
+        private readonly IUsersService usersService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public CoachesController(ICoachesService coachesService, IFightersService fightersService)
+        public CoachesController(
+            ICoachesService coachesService,
+            IFightersService fightersService,
+            IUsersService usersService,
+            UserManager<ApplicationUser> userManager)
         {
             this.coachesService = coachesService;
             this.fightersService = fightersService;
+            this.usersService = usersService;
+            this.userManager = userManager;
         }
 
         public IActionResult All()
@@ -33,17 +44,19 @@
             return this.View(viewModel);
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var fighters = this.fightersService.GetAllFightersWithoutCoaches<FightersDropDownViewModel>();
+            var user = await this.userManager.GetUserAsync(this.User);
+            var fighters = this.fightersService.GetAllFightersWithoutCoaches<FightersDropDownViewModel>(user.Id);
             var coachViewModel = this.coachesService.GetById<DetailsCoachViewModel>(id);
-
-            coachViewModel.Fighters = fighters;
 
             if (coachViewModel == null)
             {
                 return this.NotFound();
             }
+
+            coachViewModel.Fighters = fighters;
+            coachViewModel.User = user;
 
             return this.View(coachViewModel);
         }
@@ -51,9 +64,12 @@
         [HttpPost]
         public async Task<IActionResult> AppointCoachToFighter(DetailsCoachViewModel coachViewModel)
         {
+            var user = await this.userManager.GetUserAsync(this.User);
+            var coach = this.coachesService.GetById<DetailsCoachViewModel>(coachViewModel.Id);
             var fighter = this.fightersService.GetById(coachViewModel.FighterId);
 
             await this.fightersService.AppointCoachToFighter(fighter, coachViewModel.Id);
+            await this.usersService.PayForNewTeamMember(user, coach.Price);
 
             return this.RedirectToAction("AllFighters", "Users");
         }

@@ -9,6 +9,8 @@
 
     public class DetailsManagerViewModel : IMapFrom<Manager>
     {
+        public ApplicationUser User { get; set; }
+
         public int Id { get; set; }
 
         public string FirstName { get; set; }

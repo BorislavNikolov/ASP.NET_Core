@@ -29,7 +29,6 @@
         [Range(18, 90)]
         public int Age { get; set; }
 
-        [Required]
         public string PictureUrl { get; set; }
 
         [Required]

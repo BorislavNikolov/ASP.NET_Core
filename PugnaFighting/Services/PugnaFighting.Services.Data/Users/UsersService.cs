@@ -57,5 +57,11 @@
             user.Coins -= 10000;
             await this.usersRepository.SaveChangesAsync();
         }
+
+        public async Task PayForNewTeamMember(ApplicationUser user, int price)
+        {
+            user.Coins -= price;
+            await this.usersRepository.SaveChangesAsync();
+        }
     }
 }

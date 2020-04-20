@@ -21,11 +21,11 @@
 
         T GetBestGrappler<T>(string organizationName);
 
-        IEnumerable<T> GetAllFightersWithoutManagers<T>();
+        IEnumerable<T> GetAllFightersWithoutManagers<T>(string userId);
 
-        IEnumerable<T> GetAllFightersWithoutCoaches<T>();
+        IEnumerable<T> GetAllFightersWithoutCoaches<T>(string userId);
 
-        IEnumerable<T> GetAllFightersWithoutCutmen<T>();
+        IEnumerable<T> GetAllFightersWithoutCutmen<T>(string userId);
 
         Task AppointManagerToFighter(Fighter fighter, int managerId);
 

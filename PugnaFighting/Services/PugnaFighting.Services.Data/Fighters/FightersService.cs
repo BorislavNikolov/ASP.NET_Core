@@ -71,26 +71,26 @@
             return fighter;
         }
 
-        public IEnumerable<T> GetAllFightersWithoutManagers<T>()
+        public IEnumerable<T> GetAllFightersWithoutManagers<T>(string userId)
         {
             IQueryable<Fighter> query =
-               this.fightersRepository.All().Where(x => x.ManagerId == null);
+               this.fightersRepository.All().Where(x => x.ManagerId == null && x.UserId == userId);
 
             return query.To<T>().ToList();
         }
 
-        public IEnumerable<T> GetAllFightersWithoutCoaches<T>()
+        public IEnumerable<T> GetAllFightersWithoutCoaches<T>(string userId)
         {
             IQueryable<Fighter> query =
-               this.fightersRepository.All().Where(x => x.CoachId == null);
+               this.fightersRepository.All().Where(x => x.CoachId == null && x.UserId == userId);
 
             return query.To<T>().ToList();
         }
 
-        public IEnumerable<T> GetAllFightersWithoutCutmen<T>()
+        public IEnumerable<T> GetAllFightersWithoutCutmen<T>(string userId)
         {
             IQueryable<Fighter> query =
-               this.fightersRepository.All().Where(x => x.CutmanId == null);
+               this.fightersRepository.All().Where(x => x.CutmanId == null && x.UserId == userId);
 
             return query.To<T>().ToList();
         }

@@ -9,31 +9,34 @@
         <div class="bg-primary p-2 rounded col-3">
             <h3>Best Grappler</h3>
             <img src="@Model.AnimoGrapller.Biography.PictureUrl" class="rounded mb-1" alt="img" style="width: 70px; height: 70px;">
-            <p>Name: @Model.AnimoGrapller.Biography.FirstName @Model.AnimoGrapller.Biography.LastName</p>
-            <p>Record</p>
-            <p>Age: @Model.AnimoGrapller.Biography.Age</p>
-            <p>Born Country: @Model.AnimoGrapller.Biography.BornCountry</p>
-            <p>Category: @Model.AnimoGrapller.Category.Name (@Model.AnimoGrapller.Category.WeightLimit)</p>
+            <p><i class="fas fa-address-card"></i> Name: @Model.AnimoGrapller.Biography.FirstName @Model.AnimoGrapller.Biography.LastName</p>
+            <p><i class="fas fa-file-signature"></i> Record: (W-@Model.AnimoGrapller.Record.Wins L-@Model.AnimoGrapller.Record.Losses D-@Model.AnimoGrapller.Record.Draws)</p>
+            <p><i class="fas fa-user-clock"></i> Age: @Model.AnimoGrapller.Biography.Age</p>
+            <p><i class="fas fa-globe"></i> Born Country: @Model.AnimoGrapller.Biography.BornCountry</p>
+            <p><i class="fas fa-balance-scale"></i> Category: @Model.AnimoGrapller.Category.Name (@Model.AnimoGrapller.Category.WeightLimit)</p>
+            <p><i class="fas fa-user"></i> Owner: @Model.AnimoGrapller.UserUsername</p>
         </div>
 
         <div class="bg-primary p-2 rounded col-3">
             <h3>Best Striker</h3>
             <img src="@Model.AnimoStriker.Biography.PictureUrl" class="rounded mb-1" alt="img" style="width: 70px; height: 70px;">
             <p>Name: @Model.AnimoStriker.Biography.FirstName @Model.AnimoStriker.Biography.LastName</p>
-            <p>Record</p>
+            <p>Record: (W-@Model.AnimoStriker.Record.Wins L-@Model.AnimoStriker.Record.Losses D-@Model.AnimoStriker.Record.Draws)</p>
             <p>Age: @Model.AnimoStriker.Biography.Age</p>
             <p>Born Country: @Model.AnimoStriker.Biography.BornCountry</p>
             <p>Category: @Model.AnimoStriker.Category.Name (@Model.AnimoStriker.Category.WeightLimit)</p>
+            <p>Owner: @Model.AnimoStriker.UserUsername</p>
         </div>
 
         <div class="bg-primary p-2 rounded col-3">
             <h3>Best Wrestler</h3>
             <img src="@Model.AnimoWrestler.Biography.PictureUrl" class="rounded mb-1" alt="img" style="width: 70px; height: 70px;">
             <p>Name: @Model.AnimoWrestler.Biography.FirstName @Model.AnimoWrestler.Biography.LastName</p>
-            <p>Record</p>
+            <p>Record: (W-@Model.AnimoWrestler.Record.Wins L-@Model.AnimoWrestler.Record.Losses D-@Model.AnimoWrestler.Record.Draws)</p>
             <p>Age: @Model.AnimoWrestler.Biography.Age</p>
             <p>Born Country: @Model.AnimoWrestler.Biography.BornCountry</p>
             <p>Category: @Model.AnimoWrestler.Category.Name (@Model.AnimoWrestler.Category.WeightLimit)</p>
+            <p>Owner: @Model.AnimoWrestler.UserUsername</p>
         </div>
     </div>
 
@@ -43,30 +46,33 @@
             <h3>Best Grappler</h3>
             <img src="@Model.CorporisGrapller.Biography.PictureUrl" class="rounded mb-1" alt="img" style="width: 70px; height: 70px;">
             <p>Name: @Model.CorporisGrapller.Biography.FirstName @Model.CorporisGrapller.Biography.LastName</p>
-            <p>Record</p>
+            <p>Record: (W-@Model.CorporisGrapller.Record.Wins L-@Model.CorporisGrapller.Record.Losses D-@Model.CorporisGrapller.Record.Draws)</p>
             <p>Age: @Model.CorporisGrapller.Biography.Age</p>
             <p>Born Country: @Model.CorporisGrapller.Biography.BornCountry</p>
             <p>Category: @Model.CorporisGrapller.Category.Name (@Model.CorporisGrapller.Category.WeightLimit)</p>
+            <p>Owner: @Model.CorporisGrapller.UserUsername</p>
         </div>
 
         <div class="bg-danger p-2 rounded col-3">
             <h3>Best Striker</h3>
             <img src="@Model.CorporisStriker.Biography.PictureUrl" class="rounded mb-1" alt="img" style="width: 70px; height: 70px;">
             <p>Name: @Model.CorporisStriker.Biography.FirstName @Model.CorporisStriker.Biography.LastName</p>
-            <p>Record</p>
+            <p>Record: (W-@Model.CorporisStriker.Record.Wins L-@Model.CorporisStriker.Record.Losses D-@Model.CorporisStriker.Record.Draws)</p>
             <p>Age: @Model.CorporisStriker.Biography.Age</p>
             <p>Born Country: @Model.CorporisStriker.Biography.BornCountry</p>
             <p>Category: @Model.CorporisStriker.Category.Name (@Model.CorporisStriker.Category.WeightLimit)</p>
+            <p>Owner: @Model.CorporisStriker.UserUsername</p>
         </div>
 
         <div class="bg-danger p-2 rounded col-3">
             <h3>Best Wrestler</h3>
             <img src="@Model.CorporisWrestler.Biography.PictureUrl" class="rounded mb-1" alt="img" style="width: 70px; height: 70px;">
             <p>Name: @Model.CorporisWrestler.Biography.FirstName @Model.CorporisWrestler.Biography.LastName</p>
-            <p>Record</p>
+            <p>Record: (W-@Model.CorporisWrestler.Record.Wins L-@Model.CorporisWrestler.Record.Losses D-@Model.CorporisWrestler.Record.Draws)</p>
             <p>Age: @Model.CorporisWrestler.Biography.Age</p>
             <p>Born Country: @Model.CorporisWrestler.Biography.BornCountry</p>
             <p>Category: @Model.CorporisWrestler.Category.Name (@Model.CorporisWrestler.Category.WeightLimit)</p>
+            <p>Owner: @Model.CorporisWrestler.UserUsername</p>
         </div>
     </div>
 </div>
