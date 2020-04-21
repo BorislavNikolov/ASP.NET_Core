@@ -62,9 +62,9 @@
             return this.View(viewModel);
         }
 
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int fighterId)
         {
-            var fighterViewModel = await this.usersService.GetFighterById<DetailsFighterViewModel>(id);
+            var fighterViewModel = await this.usersService.GetFighterById<DetailsFighterViewModel>(fighterId);
 
             if (fighterViewModel == null)
             {

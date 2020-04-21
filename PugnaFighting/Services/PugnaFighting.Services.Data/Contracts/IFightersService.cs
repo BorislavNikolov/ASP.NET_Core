@@ -29,7 +29,7 @@
 
         int GetOpponentsCount(string userId);
 
-        Task<Fight> Fight(Fighter fighter, Fighter opponet);
+        Task<Fight> Fight(Fighter fighter, Fighter opponet, ApplicationUser user);
 
         Task AddFightToRecord(Fight fight, Fighter fighter);
 

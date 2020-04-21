@@ -94,8 +94,8 @@
 
             fighter.ManagerId = null;
             fighter.Manager = null;
-            fighter.FansCount -= manager.FansCount;
-            fighter.MoneyPerFight -= manager.MoneyPerFight;
+            fighter.FansCount = fighter.FansCount - manager.FansCount < 0 ? 0 : fighter.FansCount - manager.FansCount;
+            fighter.MoneyPerFight = fighter.MoneyPerFight - manager.MoneyPerFight < 0 ? 0 : fighter.MoneyPerFight - manager.MoneyPerFight;
 
             await this.fightersRepository.SaveChangesAsync();
         }

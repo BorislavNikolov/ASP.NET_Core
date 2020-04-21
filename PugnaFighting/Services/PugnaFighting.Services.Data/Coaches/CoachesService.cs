@@ -14,11 +14,16 @@
     {
         private readonly IDeletableEntityRepository<Coach> coachesRepository;
         private readonly IDeletableEntityRepository<Fighter> fightersRepository;
+        private readonly ISkillsService skillsService;
 
-        public CoachesService(IDeletableEntityRepository<Coach> coachesRepository, IDeletableEntityRepository<Fighter> fightersRepository)
+        public CoachesService(
+            IDeletableEntityRepository<Coach> coachesRepository,
+            IDeletableEntityRepository<Fighter> fightersRepository,
+            ISkillsService skillsService)
         {
             this.coachesRepository = coachesRepository;
             this.fightersRepository = fightersRepository;
+            this.skillsService = skillsService;
         }
 
         public IEnumerable<T> GetAll<T>(int? count = null)
@@ -43,6 +48,7 @@
         public async Task AppointCoachToFighter(Fighter fighter, int coachId)
         {
             var coach = this.GetById<DetailsCoachViewModel>(coachId);
+            fighter.Skill = this.skillsService.GetById(fighter.SkillId);
 
             fighter.CoachId = coachId;
             fighter.Skill.Striking = fighter.Skill.Striking + coach.SkillBonus >= 100 ? 100 : fighter.Skill.Striking + coach.SkillBonus;
@@ -57,6 +63,7 @@
         public async Task FireCoach(Fighter fighter)
         {
             var coach = this.GetById<DetailsCoachViewModel>(int.Parse(fighter.CoachId.ToString()));
+            fighter.Skill = this.skillsService.GetById(fighter.SkillId);
 
             fighter.CoachId = null;
             fighter.Coach = null;

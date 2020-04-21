@@ -150,10 +150,11 @@
         [HttpPost]
         public async Task<IActionResult> Fight(FightViewModel viewModel)
         {
+            var user = await this.userManager.GetUserAsync(this.User);
             var fighter = this.fightersService.GetById(viewModel.FighterId);
             var opponent = this.fightersService.GetById(viewModel.OpponentId);
 
-            var fight = await this.fightersService.Fight(fighter, opponent);
+            var fight = await this.fightersService.Fight(fighter, opponent, user);
 
             await this.fightersService.AddFightToRecord(fight, fighter);
 

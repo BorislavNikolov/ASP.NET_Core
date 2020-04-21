@@ -1,6 +1,7 @@
 ﻿namespace PugnaFighting.Services.Data
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -152,7 +153,7 @@
             return this.fightersRepository.All().Count(x => x.UserId != userId);
         }
 
-        public async Task<Fight> Fight(Fighter fighter, Fighter opponet)
+        public async Task<Fight> Fight(Fighter fighter, Fighter opponet, ApplicationUser user)
         {
             fighter.Skill = this.skillsService.GetById(fighter.SkillId);
             opponet.Skill = this.skillsService.GetById(opponet.SkillId);
@@ -166,14 +167,19 @@
             if (fighterOverall > opponentOverall)
             {
                 result = "Win";
+                user.Coins += fighter.MoneyPerFight + (fighter.FansCount * 10);
+                fighter.FansCount += (int)Math.Ceiling(opponet.FansCount * 0.05);
             }
-            else if (fighterOverall > opponentOverall)
+            else if (fighterOverall < opponentOverall)
             {
                 result = "Lose";
+                user.Coins += fighter.MoneyPerFight;
+                fighter.FansCount -= (int)Math.Floor(opponet.FansCount * 0.05);
             }
             else
             {
                 result = "Draw";
+                user.Coins += fighter.MoneyPerFight + (fighter.FansCount * 5);
             }
 
             var opponentName = opponet.Biography.FirstName + " " + opponet.Biography.LastName;
@@ -222,7 +228,7 @@
                 record.Fights = new List<Fight>();
             }
 
-            record.Fights.ToList().Add(fight);
+            record.Fights.ToList().Append(fight);
 
             await this.recordsRepository.SaveChangesAsync();
         }

@@ -17,7 +17,7 @@
                 <h3 class="p-2">@Model.Fighter.Biography.FirstName @Model.Fighter.Biography.Nickname @Model.Fighter.Biography.LastName</h3>
                 <p class="font-weight-bold">@Model.Fighter.Record.Wins-@Model.Fighter.Record.Losses-@Model.Fighter.Record.Draws</p>
                 <img class="rounded" src="@Model.Fighter.Biography.PictureUrl" alt="fighter pic" style="width: 250px;">
-                <ul class="text-left p-2" style="list-style: none;">
+                <ul class="text-left p-2 text-center" style="list-style: none;">
                     <li>Coach: @fighterCoachFullName</li>
                     <li>Manager: @fighterManagerFullName</li>
                     <li>Cutman: @fighterCutmanFullName</li>
@@ -28,7 +28,7 @@
                 <h3 class="p-2">@Model.Opponent.Biography.FirstName @Model.Opponent.Biography.Nickname @Model.Opponent.Biography.LastName</h3>
                 <p class="font-weight-bold">@Model.Opponent.Record.Wins-@Model.Opponent.Record.Losses-@Model.Opponent.Record.Draws</p>
                 <img class="rounded" src="@Model.Opponent.Biography.PictureUrl" alt="opponent pic" style="width: 250px;">
-                <ul class="text-left p-2" style="list-style: none;">
+                <ul class="text-left p-2 text-center" style="list-style: none;">
                     <li>Coach: @opponentCoachFullName</li>
                     <li>Manager: @opponentManagerFullName</li>
                     <li>Cutman: @opponentCutmanFullName</li>

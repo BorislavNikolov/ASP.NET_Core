@@ -14,11 +14,16 @@
     {
         private readonly IDeletableEntityRepository<Cutman> cutmenRepository;
         private readonly IDeletableEntityRepository<Fighter> fightersRepository;
+        private readonly ISkillsService skillsService;
 
-        public CutmenService(IDeletableEntityRepository<Cutman> cutmenRepository, IDeletableEntityRepository<Fighter> fightersRepository)
+        public CutmenService(
+            IDeletableEntityRepository<Cutman> cutmenRepository,
+            IDeletableEntityRepository<Fighter> fightersRepository,
+            ISkillsService skillsService)
         {
             this.cutmenRepository = cutmenRepository;
             this.fightersRepository = fightersRepository;
+            this.skillsService = skillsService;
         }
 
         public IEnumerable<T> GetAll<T>(int? count = null)
@@ -43,6 +48,7 @@
         public async Task AppointCutmanToFighter(Fighter fighter, int cutmanId)
         {
             var cutman = this.GetById<DetailsCutmanViewModel>(cutmanId);
+            fighter.Skill = this.skillsService.GetById(fighter.SkillId);
 
             fighter.CutmanId = cutmanId;
             fighter.Skill.Health = fighter.Skill.Health + cutman.HealthBonus >= 100 ? 100 : fighter.Skill.Health + cutman.HealthBonus;
@@ -53,6 +59,7 @@
         public async Task FireCutman(Fighter fighter)
         {
             var cutman = this.GetById<DetailsCutmanViewModel>(int.Parse(fighter.CutmanId.ToString()));
+            fighter.Skill = this.skillsService.GetById(fighter.SkillId);
 
             fighter.CutmanId = null;
             fighter.Cutman = null;
