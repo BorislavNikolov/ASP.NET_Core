@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using PugnaFighting.Data.Common.Repositories;
     using PugnaFighting.Data.Models;
@@ -10,10 +11,17 @@
     public class OrganizationsService : IOrganizationsService
     {
         private readonly IDeletableEntityRepository<Organization> organizationsRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
+        private readonly IDeletableEntityRepository<Fighter> fightersRepository;
 
-        public OrganizationsService(IDeletableEntityRepository<Organization> organizationsRepository)
+        public OrganizationsService(
+            IDeletableEntityRepository<Organization> organizationsRepository,
+            IDeletableEntityRepository<ApplicationUser> usersRepository,
+            IDeletableEntityRepository<Fighter> fightersRepository)
         {
             this.organizationsRepository = organizationsRepository;
+            this.usersRepository = usersRepository;
+            this.fightersRepository = fightersRepository;
         }
 
         public IEnumerable<T> GetAll<T>(int? count = null)
@@ -32,6 +40,19 @@
         {
             var organization = this.organizationsRepository.All().Where(x => x.Id == id).FirstOrDefault();
             return organization;
+        }
+
+        public async Task SetOrganization(Fighter fighter, int organizationId, ApplicationUser user)
+        {
+            var organization = this.GetById(organizationId);
+
+            fighter.OrganizationId = organizationId;
+            fighter.MoneyPerFight = organization.MoneyPerFight;
+            fighter.FansCount += organization.FansCount;
+            user.Coins += organization.InstantCash;
+
+            await this.usersRepository.SaveChangesAsync();
+            await this.fightersRepository.SaveChangesAsync();
         }
     }
 }

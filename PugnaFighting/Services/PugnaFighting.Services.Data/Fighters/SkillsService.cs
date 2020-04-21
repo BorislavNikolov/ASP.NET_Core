@@ -12,10 +12,12 @@
     public class SkillsService : ISkillsService
     {
         private readonly IDeletableEntityRepository<Skill> skillsRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
 
-        public SkillsService(IDeletableEntityRepository<Skill> skillsRepository)
+        public SkillsService(IDeletableEntityRepository<Skill> skillsRepository, IDeletableEntityRepository<ApplicationUser> usersRepository)
         {
             this.skillsRepository = skillsRepository;
+            this.usersRepository = usersRepository;
         }
 
         public async Task<int> CreateAsync()
@@ -71,6 +73,34 @@
             skill.Strenght = trainViewModel.Strenght;
 
             await this.skillsRepository.SaveChangesAsync();
+        }
+
+        public int GetSkillPointsOverall(Skill skill)
+        {
+            var overall = skill.Striking + skill.Grappling + skill.Wrestling + skill.Strenght + skill.Stamina + skill.Health;
+            return overall;
+        }
+
+        public bool ChechForEnoughCoinsToTrain(ApplicationUser user, Skill skill, TrainViewModel trainViewModel)
+        {
+            var overallSkillPointsAfterTraining = trainViewModel.Striking +
+                                                  trainViewModel.Grappling +
+                                                  trainViewModel.Wrestling +
+                                                  trainViewModel.Stamina +
+                                                  trainViewModel.Strenght +
+                                                  trainViewModel.Health;
+
+            var curentSkillPointsOverall = this.GetSkillPointsOverall(skill);
+            var newSkillPoints = overallSkillPointsAfterTraining - curentSkillPointsOverall;
+
+            if (newSkillPoints * 1000 > user.Coins)
+            {
+                return false;
+            }
+
+            user.Coins -= newSkillPoints * 1000;
+
+            return true;
         }
     }
 }

@@ -16,5 +16,9 @@
         T GetById<T>(int id);
 
         Task UpdateSkillPoints(TrainViewModel trainViewModel, int skillId);
+
+        int GetSkillPointsOverall(Skill skill);
+
+        bool ChechForEnoughCoinsToTrain(ApplicationUser user, Skill skill, TrainViewModel trainViewModel);
     }
 }

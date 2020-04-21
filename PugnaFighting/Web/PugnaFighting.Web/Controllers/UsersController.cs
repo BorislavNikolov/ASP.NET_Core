@@ -97,11 +97,20 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Train(TrainViewModel skills)
+        public async Task<IActionResult> Train(TrainViewModel newSkills)
         {
+            var user = await this.userManager.GetUserAsync(this.User);
             var skillId = int.Parse(this.RouteData.Values["id"].ToString());
+            var skill = this.skillsService.GetById(skillId);
 
-            await this.skillsService.UpdateSkillPoints(skills, skillId);
+            var hasEnoughCoinsToMakeTheTraining = this.skillsService.ChechForEnoughCoinsToTrain(user, skill, newSkills);
+
+            if (hasEnoughCoinsToMakeTheTraining == false)
+            {
+                return this.RedirectToAction("NotEnoughCoins", "Home");
+            }
+
+            await this.skillsService.UpdateSkillPoints(newSkills, skillId);
 
             return this.RedirectToAction("AllFighters");
         }

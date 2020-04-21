@@ -13,8 +13,6 @@
 
         public T GetById<T>(int id);
 
-        Task SetOrganization(int fighterId, int organizationId, ApplicationUser user);
-
         T GetBestStriker<T>(string organizationName);
 
         T GetBestWrestler<T>(string organizationName);

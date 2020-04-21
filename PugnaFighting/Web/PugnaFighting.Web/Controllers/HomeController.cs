@@ -58,6 +58,12 @@
             return this.View("Error");
         }
 
+        [Authorize]
+        public IActionResult NotEnoughCoins()
+        {
+            return this.View();
+        }
+
         [AllowAnonymous]
         public IActionResult IndexGuest()
         {

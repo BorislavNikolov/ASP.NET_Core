@@ -124,11 +124,11 @@
         [HttpPost]
         public async Task<IActionResult> ChooseOrganization(ChooseOrganizationViewModel viewModel)
         {
-            var id = int.Parse(this.RouteData.Values["id"].ToString());
-
+            var fighterId = int.Parse(this.RouteData.Values["id"].ToString());
+            var fighter = this.fightersService.GetById(fighterId);
             var user = await this.userManager.GetUserAsync(this.User);
 
-            await this.fightersService.SetOrganization(id, viewModel.OrganizationId, user);
+            await this.organizationsService.SetOrganization(fighter, viewModel.OrganizationId, user);
 
             return this.RedirectToAction("AllFighters", "Users");
         }

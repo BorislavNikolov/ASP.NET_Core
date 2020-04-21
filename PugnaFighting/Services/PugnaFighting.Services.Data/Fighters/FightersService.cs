@@ -15,26 +15,23 @@
         private readonly IDeletableEntityRepository<Fighter> fightersRepository;
         private readonly IDeletableEntityRepository<Fight> fightsRepository;
         private readonly IDeletableEntityRepository<Record> recordsRepository;
-        private readonly IDeletableEntityRepository<Skill> skillsRepository;
-        private readonly IDeletableEntityRepository<Biography> biographiesRepository;
-        private readonly IOrganizationsService organizationsService;
+        private readonly IBiographiesService biographiesService;
+        private readonly ISkillsService skillsService;
 
         public FightersService(
             IDeletableEntityRepository<Fighter> fightersRepository,
-            IOrganizationsService organizationsService,
             IDeletableEntityRepository<Record> recordsRepository,
-            IDeletableEntityRepository<Skill> skillsRepository,
             IDeletableEntityRepository<Fight> fightsRepository,
-            IDeletableEntityRepository<Biography> biographiesRepository,
-            IDeletableEntityRepository<ApplicationUser> usersRepository)
+            IDeletableEntityRepository<ApplicationUser> usersRepository,
+            IBiographiesService biographiesService,
+            ISkillsService skillService)
         {
             this.fightersRepository = fightersRepository;
-            this.organizationsService = organizationsService;
             this.recordsRepository = recordsRepository;
-            this.skillsRepository = skillsRepository;
             this.fightsRepository = fightsRepository;
-            this.biographiesRepository = biographiesRepository;
+            this.biographiesService = biographiesService;
             this.usersRepository = usersRepository;
+            this.skillsService = skillService;
         }
 
         public async Task<int> CreateAsync(int skillId, int biogrphyId, int recordId, int categoryId, ApplicationUser user)
@@ -93,20 +90,6 @@
                this.fightersRepository.All().Where(x => x.CutmanId == null && x.UserId == userId);
 
             return query.To<T>().ToList();
-        }
-
-        public async Task SetOrganization(int fighterId, int organizationId, ApplicationUser user)
-        {
-            var fighter = this.GetById(fighterId);
-            var organization = this.organizationsService.GetById(organizationId);
-
-            fighter.OrganizationId = organizationId;
-            fighter.MoneyPerFight = organization.MoneyPerFight;
-            fighter.FansCount += organization.FansCount;
-            user.Coins += organization.InstantCash;
-
-            await this.usersRepository.SaveChangesAsync();
-            await this.fightersRepository.SaveChangesAsync();
         }
 
         public T GetBestStriker<T>(string organizationName)
@@ -171,24 +154,12 @@
 
         public async Task<Fight> Fight(Fighter fighter, Fighter opponet)
         {
-            fighter.Skill = this.skillsRepository.All().Where(x => x.Id == fighter.SkillId).FirstOrDefault();
-            opponet.Skill = this.skillsRepository.All().Where(x => x.Id == opponet.SkillId).FirstOrDefault();
+            fighter.Skill = this.skillsService.GetById(fighter.SkillId);
+            opponet.Skill = this.skillsService.GetById(opponet.SkillId);
+            opponet.Biography = this.biographiesService.GetById(opponet.BiographyId);
 
-            opponet.Biography = this.biographiesRepository.All().Where(x => x.Id == opponet.BiographyId).FirstOrDefault();
-
-            var fighterOverall = fighter.Skill.Striking +
-                                fighter.Skill.Grappling +
-                                fighter.Skill.Wrestling +
-                                fighter.Skill.Striking +
-                                fighter.Skill.Stamina +
-                                fighter.Skill.Strenght;
-
-            var opponentOverall = opponet.Skill.Striking +
-                                opponet.Skill.Grappling +
-                                opponet.Skill.Wrestling +
-                                opponet.Skill.Striking +
-                                opponet.Skill.Stamina +
-                                opponet.Skill.Strenght;
+            var fighterOverall = this.skillsService.GetSkillPointsOverall(fighter.Skill);
+            var opponentOverall = this.skillsService.GetSkillPointsOverall(opponet.Skill);
 
             var result = string.Empty;
 
