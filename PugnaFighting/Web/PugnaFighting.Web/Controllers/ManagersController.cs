@@ -74,7 +74,7 @@
             var user = await this.userManager.GetUserAsync(this.User);
             var fighter = this.fightersService.GetById(managerViewModel.FighterId);
 
-            await this.fightersService.AppointManagerToFighter(fighter, managerViewModel.Id);
+            await this.managersService.AppointManagerToFighter(fighter, managerViewModel.Id);
             await this.usersService.PayForNewTeamMember(user, manager.Price);
 
             return this.RedirectToAction("AllFighters", "Users");
@@ -109,7 +109,7 @@
             // Give parameters
             var managerId = await this.managersService.CreateAsync(input);
             var fighter = this.fightersService.GetById(input.FighterId);
-            await this.fightersService.AppointManagerToFighter(fighter, managerId);
+            await this.managersService.AppointManagerToFighter(fighter, managerId);
             await this.usersService.PayForNewTeamMember(user, input.Price);
 
             this.TempData["InfoMessage"] = "Manager created!";

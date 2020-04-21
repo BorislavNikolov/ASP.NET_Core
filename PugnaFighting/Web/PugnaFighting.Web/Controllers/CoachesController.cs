@@ -68,7 +68,7 @@
             var coach = this.coachesService.GetById<DetailsCoachViewModel>(coachViewModel.Id);
             var fighter = this.fightersService.GetById(coachViewModel.FighterId);
 
-            await this.fightersService.AppointCoachToFighter(fighter, coachViewModel.Id);
+            await this.coachesService.AppointCoachToFighter(fighter, coachViewModel.Id);
             await this.usersService.PayForNewTeamMember(user, coach.Price);
 
             return this.RedirectToAction("AllFighters", "Users");

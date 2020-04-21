@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using PugnaFighting.Data.Models;
     using PugnaFighting.Web.ViewModels.Managers;
 
     public interface IManagersService
@@ -12,5 +13,9 @@
         T GetById<T>(int id);
 
         Task<int> CreateAsync(CreateManagerViewModel viewModel);
+
+        Task AppointManagerToFighter(Fighter fighter, int managerId);
+
+        Task FireManager(Fighter fighter);
     }
 }

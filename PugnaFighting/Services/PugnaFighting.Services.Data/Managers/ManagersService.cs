@@ -15,11 +15,16 @@
         private const string CloudinaryFolderName = "FightersPics";
         private const string UnknownPictureUrl = "https://res.cloudinary.com/dka5uzl0n/image/upload/v1586529578/FightersPics/Unknown_olk6sa.jpg";
         private readonly IDeletableEntityRepository<Manager> managersRepository;
+        private readonly IDeletableEntityRepository<Fighter> fightersRepository;
         private readonly ICloudinaryService cloudinaryService;
 
-        public ManagersService(IDeletableEntityRepository<Manager> managersRepository, ICloudinaryService cloudinaryService)
+        public ManagersService(
+            IDeletableEntityRepository<Manager> managersRepository,
+            IDeletableEntityRepository<Fighter> fightersRepository,
+            ICloudinaryService cloudinaryService)
         {
             this.managersRepository = managersRepository;
+            this.fightersRepository = fightersRepository;
             this.cloudinaryService = cloudinaryService;
         }
 
@@ -70,6 +75,29 @@
             await this.managersRepository.SaveChangesAsync();
 
             return manager.Id;
+        }
+
+        public async Task AppointManagerToFighter(Fighter fighter, int managerId)
+        {
+            var manager = this.GetById<DetailsManagerViewModel>(managerId);
+
+            fighter.ManagerId = managerId;
+            fighter.MoneyPerFight += manager.MoneyPerFight;
+            fighter.FansCount += manager.FansCount;
+
+            await this.fightersRepository.SaveChangesAsync();
+        }
+
+        public async Task FireManager(Fighter fighter)
+        {
+            var manager = this.GetById<DetailsManagerViewModel>(int.Parse(fighter.ManagerId.ToString()));
+
+            fighter.ManagerId = null;
+            fighter.Manager = null;
+            fighter.FansCount -= manager.FansCount;
+            fighter.MoneyPerFight -= manager.MoneyPerFight;
+
+            await this.fightersRepository.SaveChangesAsync();
         }
     }
 }

@@ -68,7 +68,7 @@
             var user = await this.userManager.GetUserAsync(this.User);
             var fighter = this.fightersService.GetById(cutmanViewModel.FighterId);
 
-            await this.fightersService.AppointCutmanToFighter(fighter, cutmanViewModel.Id);
+            await this.cutmenService.AppointCutmanToFighter(fighter, cutmanViewModel.Id);
             await this.usersService.PayForNewTeamMember(user, cutman.Price);
 
             return this.RedirectToAction("AllFighters", "Users");

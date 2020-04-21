@@ -148,51 +148,6 @@
             return fighter;
         }
 
-        public async Task AppointManagerToFighter(Fighter fighter, int managerId)
-        {
-            fighter.ManagerId = managerId;
-
-            await this.fightersRepository.SaveChangesAsync();
-        }
-
-        public async Task FireManager(Fighter fighter)
-        {
-            fighter.ManagerId = null;
-            fighter.Manager = null;
-
-            await this.fightersRepository.SaveChangesAsync();
-        }
-
-        public async Task AppointCoachToFighter(Fighter fighter, int coachId)
-        {
-            fighter.CoachId = coachId;
-
-            await this.fightersRepository.SaveChangesAsync();
-        }
-
-        public async Task FireCoach(Fighter fighter)
-        {
-            fighter.CoachId = null;
-            fighter.Coach = null;
-
-            await this.fightersRepository.SaveChangesAsync();
-        }
-
-        public async Task AppointCutmanToFighter(Fighter fighter, int cutmanId)
-        {
-            fighter.CutmanId = cutmanId;
-
-            await this.fightersRepository.SaveChangesAsync();
-        }
-
-        public async Task FireCutman(Fighter fighter)
-        {
-            fighter.CutmanId = null;
-            fighter.Cutman = null;
-
-            await this.fightersRepository.SaveChangesAsync();
-        }
-
         public IEnumerable<T> GetAllOpponents<T>(string userId, int? take = null, int skip = 0)
         {
             IQueryable<Fighter> query =

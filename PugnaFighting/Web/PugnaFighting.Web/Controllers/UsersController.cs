@@ -126,7 +126,7 @@
 
             var fighter = this.fightersService.GetById(fighterId);
 
-            await this.fightersService.FireManager(fighter);
+            await this.managersService.FireManager(fighter);
 
             return this.RedirectToAction(nameof(this.AllFighters));
         }
@@ -151,7 +151,7 @@
 
             var fighter = this.fightersService.GetById(fighterId);
 
-            await this.fightersService.FireCoach(fighter);
+            await this.coachesService.FireCoach(fighter);
 
             return this.RedirectToAction(nameof(this.AllFighters));
         }
@@ -176,7 +176,7 @@
 
             var fighter = this.fightersService.GetById(fighterId);
 
-            await this.fightersService.FireCutman(fighter);
+            await this.cutmenService.FireCutman(fighter);
 
             return this.RedirectToAction(nameof(this.AllFighters));
         }
