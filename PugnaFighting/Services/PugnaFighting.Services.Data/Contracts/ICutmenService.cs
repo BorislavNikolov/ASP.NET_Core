@@ -11,8 +11,8 @@
 
         T GetById<T>(int id);
 
-        Task AppointCutmanToFighter(Fighter fighter, int cutmanId);
+        Task AppointCutmanToFighterAsync(Fighter fighter, int cutmanId);
 
-        Task FireCutman(Fighter fighter);
+        Task FireCutmanAsync(Fighter fighter);
     }
 }

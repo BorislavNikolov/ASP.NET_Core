@@ -64,9 +64,11 @@
 
         public async Task<IActionResult> Details(int fighterId)
         {
-            var fighterViewModel = await this.usersService.GetFighterById<DetailsFighterViewModel>(fighterId);
+            var user = await this.userManager.GetUserAsync(this.User);
+            var fighterViewModel = await this.usersService.GetFighterByIdAsync<DetailsFighterViewModel>(fighterId);
+            var fighter = this.fightersService.GetById(fighterId);
 
-            if (fighterViewModel == null)
+            if (fighterViewModel == null || fighter.User != user)
             {
                 return this.NotFound();
             }
@@ -80,9 +82,9 @@
             var fighter = this.fightersService.GetById(id);
             var user = await this.userManager.GetUserAsync(this.User);
 
-            await this.usersService.DeleteFighter(fighter, user);
-            await this.biographiesService.Delete(fighter.BiographyId);
-            await this.skillsService.Delete(fighter.SkillId);
+            await this.usersService.DeleteFighterAsync(fighter, user);
+            await this.biographiesService.DeleteAsync(fighter.BiographyId);
+            await this.skillsService.DeleteAsync(fighter.SkillId);
 
             return this.RedirectToAction(nameof(this.AllFighters));
         }
@@ -110,7 +112,7 @@
                 return this.RedirectToAction("NotEnoughCoins", "Home");
             }
 
-            await this.skillsService.UpdateSkillPoints(newSkills, skillId);
+            await this.skillsService.UpdateSkillPointsAsync(newSkills, skillId);
 
             return this.RedirectToAction("AllFighters");
         }
@@ -135,7 +137,7 @@
 
             var fighter = this.fightersService.GetById(fighterId);
 
-            await this.managersService.FireManager(fighter);
+            await this.managersService.FireManagerAsync(fighter);
 
             return this.RedirectToAction(nameof(this.AllFighters));
         }
@@ -160,7 +162,7 @@
 
             var fighter = this.fightersService.GetById(fighterId);
 
-            await this.coachesService.FireCoach(fighter);
+            await this.coachesService.FireCoachAsync(fighter);
 
             return this.RedirectToAction(nameof(this.AllFighters));
         }
@@ -185,7 +187,7 @@
 
             var fighter = this.fightersService.GetById(fighterId);
 
-            await this.cutmenService.FireCutman(fighter);
+            await this.cutmenService.FireCutmanAsync(fighter);
 
             return this.RedirectToAction(nameof(this.AllFighters));
         }

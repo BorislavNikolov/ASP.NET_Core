@@ -9,12 +9,12 @@
     {
         IEnumerable<T> GetAllFighters<T>(string userId);
 
-        Task<T> GetFighterById<T>(int id);
+        Task<T> GetFighterByIdAsync<T>(int id);
 
-        Task DeleteFighter(Fighter fighter, ApplicationUser user);
+        Task DeleteFighterAsync(Fighter fighter, ApplicationUser user);
 
-        Task PayForNewFighter(ApplicationUser user);
+        Task PayForNewFighterAsync(ApplicationUser user);
 
-        Task PayForNewTeamMember(ApplicationUser user, int price);
+        Task PayForNewTeamMemberAsync(ApplicationUser user, int price);
     }
 }

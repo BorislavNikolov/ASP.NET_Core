@@ -11,8 +11,8 @@
 
         T GetById<T>(int id);
 
-        Task AppointCoachToFighter(Fighter fighter, int coachId);
+        Task AppointCoachToFighterAsync(Fighter fighter, int coachId);
 
-        Task FireCoach(Fighter fighter);
+        Task FireCoachAsync(Fighter fighter);
     }
 }

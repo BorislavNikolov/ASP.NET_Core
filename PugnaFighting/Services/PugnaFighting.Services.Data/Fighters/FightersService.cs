@@ -1,7 +1,6 @@
 ﻿namespace PugnaFighting.Services.Data
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -153,7 +152,7 @@
             return this.fightersRepository.All().Count(x => x.UserId != userId);
         }
 
-        public async Task<Fight> Fight(Fighter fighter, Fighter opponet, ApplicationUser user)
+        public async Task<Fight> FightAsync(Fighter fighter, Fighter opponet, ApplicationUser user)
         {
             fighter.Skill = this.skillsService.GetById(fighter.SkillId);
             opponet.Skill = this.skillsService.GetById(opponet.SkillId);
@@ -163,50 +162,40 @@
             var opponentOverall = this.skillsService.GetSkillPointsOverall(opponet.Skill);
 
             var result = string.Empty;
+            var method = string.Empty;
 
             if (fighterOverall > opponentOverall)
             {
+                method = fighter.Skill.Striking > opponet.Skill.Striking ? "KO/TKO" :
+                         fighter.Skill.Grappling > opponet.Skill.Grappling ? "Submission" : "Decision";
                 result = "Win";
                 user.Coins += fighter.MoneyPerFight + (fighter.FansCount * 10);
                 fighter.FansCount += (int)Math.Ceiling(opponet.FansCount * 0.05);
             }
             else if (fighterOverall < opponentOverall)
             {
+                method = fighter.Skill.Striking < opponet.Skill.Striking ? "KO/TKO" :
+                         fighter.Skill.Grappling < opponet.Skill.Grappling ? "Submission" : "Decision";
                 result = "Lose";
                 user.Coins += fighter.MoneyPerFight;
                 fighter.FansCount -= (int)Math.Floor(opponet.FansCount * 0.05);
             }
             else
             {
+                method = "Decision";
                 result = "Draw";
                 user.Coins += fighter.MoneyPerFight + (fighter.FansCount * 5);
             }
 
             var opponentName = opponet.Biography.FirstName + " " + opponet.Biography.LastName;
 
-            var fightId = await this.MakeFight(opponentName, result);
+            var fightId = await this.MakeFightAsync(opponentName, result, method);
             var fight = this.fightsRepository.All().Where(x => x.Id == fightId).FirstOrDefault();
 
             return fight;
         }
 
-        public async Task<int> MakeFight(string opponentName, string result)
-        {
-            var fight = new Fight
-            {
-                DateTime = DateTime.UtcNow,
-                Method = "KO",
-                OpponentName = opponentName,
-                Result = result,
-            };
-
-            await this.fightsRepository.AddAsync(fight);
-            await this.fightsRepository.SaveChangesAsync();
-
-            return fight.Id;
-        }
-
-        public async Task AddFightToRecord(Fight fight, Fighter fighter)
+        public async Task AddFightToRecordAsync(Fight fight, Fighter fighter)
         {
             var record = this.GetRecordById(fighter.RecordId);
 
@@ -237,6 +226,22 @@
         {
             var record = this.recordsRepository.All().Where(x => x.Id == id).FirstOrDefault();
             return record;
+        }
+
+        private async Task<int> MakeFightAsync(string opponentName, string result, string method)
+        {
+            var fight = new Fight
+            {
+                DateTime = DateTime.UtcNow,
+                Method = method,
+                OpponentName = opponentName,
+                Result = result,
+            };
+
+            await this.fightsRepository.AddAsync(fight);
+            await this.fightsRepository.SaveChangesAsync();
+
+            return fight.Id;
         }
     }
 }

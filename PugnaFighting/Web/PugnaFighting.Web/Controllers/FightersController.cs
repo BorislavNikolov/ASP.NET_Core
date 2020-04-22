@@ -12,6 +12,7 @@
     using PugnaFighting.Services.Data;
     using PugnaFighting.Services.Data.Contracts;
     using PugnaFighting.Web.ViewModels.Fighters;
+    using PugnaFighting.Web.ViewModels.Fights;
     using PugnaFighting.Web.ViewModels.Organizations;
 
     [Authorize]
@@ -89,18 +90,20 @@
         [HttpPost]
         public async Task<IActionResult> Create(FighterCreateInputModel input)
         {
-            var user = await this.userManager.GetUserAsync(this.User);
-
             if (!this.ModelState.IsValid)
             {
+                var categories = this.categoriesService.GetAll<CategoryDropDownViewModel>();
+                input.Categories = categories;
                 return this.View(input);
             }
+
+            var user = await this.userManager.GetUserAsync(this.User);
 
             var skillId = await this.skillsService.CreateAsync();
             var biographyId = await this.biographiesService.CreateAsync(input.FirstName, input.Nickname, input.LastName, input.BornCountry, input.Age, input.Picture);
             var recordId = await this.recordsService.CreateAsync();
             var fighterId = await this.fightersService.CreateAsync(skillId, biographyId, recordId, input.CategoryId, user);
-            await this.usersService.PayForNewFighter(user);
+            await this.usersService.PayForNewFighterAsync(user);
 
             this.TempData["InfoMessage"] = "Fighter created!";
 
@@ -128,7 +131,7 @@
             var fighter = this.fightersService.GetById(fighterId);
             var user = await this.userManager.GetUserAsync(this.User);
 
-            await this.organizationsService.SetOrganization(fighter, viewModel.OrganizationId, user);
+            await this.organizationsService.SetOrganizationAsync(fighter, viewModel.OrganizationId, user);
 
             return this.RedirectToAction("AllFighters", "Users");
         }
@@ -154,11 +157,19 @@
             var fighter = this.fightersService.GetById(viewModel.FighterId);
             var opponent = this.fightersService.GetById(viewModel.OpponentId);
 
-            var fight = await this.fightersService.Fight(fighter, opponent, user);
+            var fight = await this.fightersService.FightAsync(fighter, opponent, user);
 
-            await this.fightersService.AddFightToRecord(fight, fighter);
+            await this.fightersService.AddFightToRecordAsync(fight, fighter);
 
-            return this.RedirectToAction("AllFighters", "Users");
+            return this.RedirectToAction(nameof(this.FightReport), new { id = fight.Id });
+        }
+
+        public IActionResult FightReport()
+        {
+            var fightId = int.Parse(this.RouteData.Values["id"].ToString());
+            var fightHistoryViewModel = this.recordsService.GetFight<FightReportViewModel>(fightId);
+
+            return this.View(fightHistoryViewModel);
         }
     }
 }

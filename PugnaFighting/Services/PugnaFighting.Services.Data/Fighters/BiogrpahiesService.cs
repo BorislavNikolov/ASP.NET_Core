@@ -59,7 +59,7 @@
             return biography;
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             var biography = this.GetById(id);
 

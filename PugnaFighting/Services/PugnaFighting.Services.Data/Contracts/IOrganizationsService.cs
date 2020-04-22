@@ -11,6 +11,6 @@
 
         Organization GetById(int id);
 
-        Task SetOrganization(Fighter fighter, int organizationId, ApplicationUser user);
+        Task SetOrganizationAsync(Fighter fighter, int organizationId, ApplicationUser user);
     }
 }

@@ -14,8 +14,8 @@
 
         Task<int> CreateAsync(CreateManagerViewModel viewModel);
 
-        Task AppointManagerToFighter(Fighter fighter, int managerId);
+        Task AppointManagerToFighterAsync(Fighter fighter, int managerId);
 
-        Task FireManager(Fighter fighter);
+        Task FireManagerAsync(Fighter fighter);
     }
 }

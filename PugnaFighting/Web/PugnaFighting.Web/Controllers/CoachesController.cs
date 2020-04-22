@@ -68,8 +68,8 @@
             var coach = this.coachesService.GetById<DetailsCoachViewModel>(coachViewModel.Id);
             var fighter = this.fightersService.GetById(coachViewModel.FighterId);
 
-            await this.coachesService.AppointCoachToFighter(fighter, coachViewModel.Id);
-            await this.usersService.PayForNewTeamMember(user, coach.Price);
+            await this.coachesService.AppointCoachToFighterAsync(fighter, coachViewModel.Id);
+            await this.usersService.PayForNewTeamMemberAsync(user, coach.Price);
 
             return this.RedirectToAction("AllFighters", "Users");
         }

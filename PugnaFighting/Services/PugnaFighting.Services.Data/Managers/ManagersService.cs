@@ -12,7 +12,9 @@
 
     public class ManagersService : IManagersService
     {
+        private const int DefaultCustomManagerPrice = 20000;
         private const string CloudinaryFolderName = "FightersPics";
+
         private const string UnknownPictureUrl = "https://res.cloudinary.com/dka5uzl0n/image/upload/v1586529578/FightersPics/Unknown_olk6sa.jpg";
         private readonly IDeletableEntityRepository<Manager> managersRepository;
         private readonly IDeletableEntityRepository<Fighter> fightersRepository;
@@ -55,6 +57,7 @@
                 LastName = viewModel.LastName,
                 BornCountry = viewModel.BornCountry,
                 Age = viewModel.Age,
+                Price = DefaultCustomManagerPrice,
                 MoneyPerFight = viewModel.MoneyPerFight,
                 FansCount = viewModel.FansCount,
                 IsCustom = true,
@@ -77,7 +80,7 @@
             return manager.Id;
         }
 
-        public async Task AppointManagerToFighter(Fighter fighter, int managerId)
+        public async Task AppointManagerToFighterAsync(Fighter fighter, int managerId)
         {
             var manager = this.GetById<DetailsManagerViewModel>(managerId);
 
@@ -88,7 +91,7 @@
             await this.fightersRepository.SaveChangesAsync();
         }
 
-        public async Task FireManager(Fighter fighter)
+        public async Task FireManagerAsync(Fighter fighter)
         {
             var manager = this.GetById<DetailsManagerViewModel>(int.Parse(fighter.ManagerId.ToString()));
 

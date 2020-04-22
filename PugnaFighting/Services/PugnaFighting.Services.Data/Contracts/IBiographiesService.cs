@@ -12,6 +12,6 @@
 
         public Biography GetById(int id);
 
-        public Task Delete(int id);
+        public Task DeleteAsync(int id);
     }
 }

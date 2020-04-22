@@ -45,7 +45,7 @@
             return coach;
         }
 
-        public async Task AppointCutmanToFighter(Fighter fighter, int cutmanId)
+        public async Task AppointCutmanToFighterAsync(Fighter fighter, int cutmanId)
         {
             var cutman = this.GetById<DetailsCutmanViewModel>(cutmanId);
             fighter.Skill = this.skillsService.GetById(fighter.SkillId);
@@ -56,7 +56,7 @@
             await this.fightersRepository.SaveChangesAsync();
         }
 
-        public async Task FireCutman(Fighter fighter)
+        public async Task FireCutmanAsync(Fighter fighter)
         {
             var cutman = this.GetById<DetailsCutmanViewModel>(int.Parse(fighter.CutmanId.ToString()));
             fighter.Skill = this.skillsService.GetById(fighter.SkillId);

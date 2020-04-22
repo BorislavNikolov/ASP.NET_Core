@@ -1,0 +1,26 @@
+﻿@model PugnaFighting.Web.ViewModels.Fights.FightReportViewModel
+@{
+    ViewData["Title"] = "Fight Report";
+    if (Model.Result.ToLower() == "draw")
+    {
+        Model.FinalRound = 3;
+    }
+    else
+    {
+        var random = new Random();
+        Model.FinalRound = random.Next(1, 4);
+    }
+
+    var backgroundColor = Model.Result.ToLower() == "win" ? "success" : Model.Result.ToLower() == "lose" ? "danger" : "secondary";
+}
+
+<div class="p-5 rounded text-white bg-dark mx-auto w-75">
+    <div class="jumbotron w-75 bg-@backgroundColor mx-auto">
+        <h1 class="text-center">You @Model.Result the fight</h1>
+        <ul>
+            <li>Opponent: @Model.OpponentName</li>
+            <li>Method: @Model.Method</li>
+            <li>Last round of the fight: @Model.FinalRound</li>
+        </ul>
+    </div>
+</div>

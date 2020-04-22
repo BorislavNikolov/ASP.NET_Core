@@ -15,8 +15,6 @@
     [Authorize]
     public class ManagersController : Controller
     {
-        private const int DefaultCustomManagerPrice = 20000;
-
         private readonly IManagersService managersService;
         private readonly IFightersService fightersService;
         private readonly IUsersService usersService;
@@ -74,8 +72,8 @@
             var user = await this.userManager.GetUserAsync(this.User);
             var fighter = this.fightersService.GetById(managerViewModel.FighterId);
 
-            await this.managersService.AppointManagerToFighter(fighter, managerViewModel.Id);
-            await this.usersService.PayForNewTeamMember(user, manager.Price);
+            await this.managersService.AppointManagerToFighterAsync(fighter, managerViewModel.Id);
+            await this.usersService.PayForNewTeamMemberAsync(user, manager.Price);
 
             return this.RedirectToAction("AllFighters", "Users");
         }
@@ -83,7 +81,6 @@
         public IActionResult Create()
         {
             var userId = this.userManager.GetUserId(this.User);
-
             var fighters = this.fightersService.GetAllFightersWithoutManagers<FightersDropDownViewModel>(userId);
 
             var viewModel = new CreateManagerViewModel
@@ -97,20 +94,22 @@
         [HttpPost]
         public async Task<IActionResult> Create(CreateManagerViewModel input)
         {
-            var user = await this.userManager.GetUserAsync(this.User);
-
-            input.Price = DefaultCustomManagerPrice;
-
             if (!this.ModelState.IsValid)
             {
+                var userId = this.userManager.GetUserId(this.User);
+                var fighters = this.fightersService.GetAllFightersWithoutManagers<FightersDropDownViewModel>(userId);
+                input.Fighters = fighters;
+
                 return this.View(input);
             }
+
+            var user = await this.userManager.GetUserAsync(this.User);
 
             // Give parameters
             var managerId = await this.managersService.CreateAsync(input);
             var fighter = this.fightersService.GetById(input.FighterId);
-            await this.managersService.AppointManagerToFighter(fighter, managerId);
-            await this.usersService.PayForNewTeamMember(user, input.Price);
+            await this.managersService.AppointManagerToFighterAsync(fighter, managerId);
+            await this.usersService.PayForNewTeamMemberAsync(user, input.Price);
 
             this.TempData["InfoMessage"] = "Manager created!";
 

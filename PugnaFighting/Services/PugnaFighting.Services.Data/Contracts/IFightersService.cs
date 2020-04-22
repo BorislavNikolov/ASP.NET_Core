@@ -29,9 +29,9 @@
 
         int GetOpponentsCount(string userId);
 
-        Task<Fight> Fight(Fighter fighter, Fighter opponet, ApplicationUser user);
+        Task<Fight> FightAsync(Fighter fighter, Fighter opponet, ApplicationUser user);
 
-        Task AddFightToRecord(Fight fight, Fighter fighter);
+        Task AddFightToRecordAsync(Fight fight, Fighter fighter);
 
         public Record GetRecordById(int id);
     }

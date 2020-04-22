@@ -9,5 +9,7 @@
         Task<int> CreateAsync();
 
         Record GetById(int id);
+
+        T GetFight<T>(int fightId);
     }
 }

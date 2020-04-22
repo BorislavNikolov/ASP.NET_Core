@@ -42,7 +42,7 @@
             return organization;
         }
 
-        public async Task SetOrganization(Fighter fighter, int organizationId, ApplicationUser user)
+        public async Task SetOrganizationAsync(Fighter fighter, int organizationId, ApplicationUser user)
         {
             var organization = this.GetById(organizationId);
 

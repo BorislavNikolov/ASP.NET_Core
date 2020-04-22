@@ -51,7 +51,7 @@
             return query;
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             var skill = this.GetById(id);
 
@@ -61,7 +61,7 @@
             await this.skillsRepository.SaveChangesAsync();
         }
 
-        public async Task UpdateSkillPoints(TrainViewModel trainViewModel, int skillId)
+        public async Task UpdateSkillPointsAsync(TrainViewModel trainViewModel, int skillId)
         {
             var skill = this.GetById(skillId);
 

@@ -33,7 +33,7 @@
             return query.To<T>().ToList();
         }
 
-        public async Task<T> GetFighterById<T>(int id)
+        public async Task<T> GetFighterByIdAsync<T>(int id)
         {
             var fighter = await this.fightersRepository.All().Where(x => x.Id == id)
                 .To<T>().FirstOrDefaultAsync();
@@ -41,7 +41,7 @@
             return fighter;
         }
 
-        public async Task DeleteFighter(Fighter fighter, ApplicationUser user)
+        public async Task DeleteFighterAsync(Fighter fighter, ApplicationUser user)
         {
             user.FightersCount--;
             user.Coins += 10000;
@@ -52,13 +52,13 @@
             await this.fightersRepository.SaveChangesAsync();
         }
 
-        public async Task PayForNewFighter(ApplicationUser user)
+        public async Task PayForNewFighterAsync(ApplicationUser user)
         {
             user.Coins -= 10000;
             await this.usersRepository.SaveChangesAsync();
         }
 
-        public async Task PayForNewTeamMember(ApplicationUser user, int price)
+        public async Task PayForNewTeamMemberAsync(ApplicationUser user, int price)
         {
             user.Coins -= price;
             await this.usersRepository.SaveChangesAsync();

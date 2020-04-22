@@ -8,6 +8,7 @@
 
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+
     using PugnaFighting.Data.Common.Models;
     using PugnaFighting.Data.Models;
 

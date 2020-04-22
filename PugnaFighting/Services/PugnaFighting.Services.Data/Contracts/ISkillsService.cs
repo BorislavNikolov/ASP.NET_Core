@@ -11,11 +11,11 @@
 
         Skill GetById(int id);
 
-        Task Delete(int id);
+        Task DeleteAsync(int id);
 
         T GetById<T>(int id);
 
-        Task UpdateSkillPoints(TrainViewModel trainViewModel, int skillId);
+        Task UpdateSkillPointsAsync(TrainViewModel trainViewModel, int skillId);
 
         int GetSkillPointsOverall(Skill skill);
 
