@@ -49,12 +49,18 @@
             this.userManager = userManager;
         }
 
-        public IActionResult All(int page = 1)
+        public IActionResult All(int page)
         {
+            page = page >= 1 ? page : 1;
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var opponents = this.fightersService.GetAllOpponents<OpponentViewModel>(userId, ItemsPerPage, (page - 1) * ItemsPerPage);
             var fighters = this.usersService.GetAllFighters<FightersDropDownViewModel>(userId);
+
+            if (fighters == null || opponents == null)
+            {
+                return this.NotFound();
+            }
 
             var viewModel = new AllOpponentsViewModel
             {

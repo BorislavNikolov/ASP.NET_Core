@@ -7,15 +7,6 @@
 <div class="p-5 rounded text-white bg-dark mx-auto w-75">
     <form method="get" asp-controller="Fighters" asp-action="Fight">
         <div class="text-center d-flex justify-content-around border">
-            <div class="p-3">
-                <h5 class="text-center">Organization</h5>
-                <div class="d-flex">
-                    <input type="radio" id="animo-checkbox" name="organization" value="Animo" checked="checked">
-                    <label class="mr-3" for="animo">Animo</label><br>
-                    <input class="ml-3" type="radio" id="corporis-checkbox" name="organization" value="Corporis">
-                    <label for="coroporis">Corporis</label><br>
-                </div>
-            </div>
             <div class="p-2">
                 <p class="text-center">Select a fighter to fight:</p>
                 <select asp-for="FighterId" asp-items="fighters" class="form-control"></select>
@@ -25,17 +16,17 @@
         <div class="d-flex flex-column border p-4">
             @foreach (var opponent in Model.Opponents)
             {
-                <div class="my-2 d-flex bg-danger rounded p-4 justify-content-between">
-                    <p>@opponent.Biography.FirstName "@opponent.Biography.Nickname" @opponent.Biography.LastName</p>
-                    <p>@opponent.Biography.BornCountry</p>
-                    <p>@opponent.Category.Name</p>
-                    <p>@opponent.Organization.Name</p>
-                    <input asp-for="OpponentId" value="@opponent.Id" hidden/>
+                <div class="my-2 d-flex bg-@((opponent.Organization.Id == 1 ? "primary" : "danger").ToString()) rounded p-4 justify-content-between">
+                    <p>Name: @opponent.Biography.FirstName "@opponent.Biography.Nickname" @opponent.Biography.LastName</p>
+                    <p>Born Country: @opponent.Biography.BornCountry</p>
+                    <p>Category: @opponent.Category.Name</p>
+                    <p>Organization: @opponent.Organization.Name</p>
+                    <input asp-for="OpponentId" value="@opponent.Id" hidden />
                     <button type="submit" class="btn btn-light" asp-controller="Fighters" asp-action="Fight" asp-route-fighterId="@Model.FighterId" asp-route-opponentId="@opponent.Id">Fight</button>
                 </div>
             }
 
-            <nav>
+            <nav class="mx-auto mt-3">
                 <ul class="pagination justify-content-center">
                     @if (this.Model.CurrentPage == 1)
                     {
@@ -47,7 +38,8 @@
                     {
                         <li class="page-item">
                             <a class="page-link"
-                               asp-route="fighters"
+                               asp-controller="Fighters"
+                               asp-action="All"
                                asp-route-page="@(this.Model.CurrentPage - 1)">Previous</a>
                         </li>
                     }
@@ -57,7 +49,8 @@
                         var active = i == this.Model.CurrentPage ? "active" : string.Empty;
                         <li class="page-item @active">
                             <a class="page-link"
-                               asp-route="fighters"
+                               asp-controller="Fighters"
+                               asp-action="All"
                                asp-route-page="@i">@i</a>
                         </li>
                     }
@@ -72,7 +65,8 @@
                     {
                         <li class="page-item">
                             <a class="page-link"
-                               asp-route="fighters"
+                               asp-controller="Fighters"
+                               asp-action="All"
                                asp-route-page="@(this.Model.CurrentPage + 1)">Next</a>
                         </li>
                     }

@@ -62,7 +62,7 @@
             return this.View(viewModel);
         }
 
-        public async Task<IActionResult> Details(int fighterId)
+        public async Task<IActionResult> FighterDetails(int fighterId)
         {
             var user = await this.userManager.GetUserAsync(this.User);
             var fighterViewModel = await this.usersService.GetFighterByIdAsync<DetailsFighterViewModel>(fighterId);
@@ -77,9 +77,9 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> SellFighter(int id)
+        public async Task<IActionResult> SellFighter(int fighterId)
         {
-            var fighter = this.fightersService.GetById(id);
+            var fighter = this.fightersService.GetById(fighterId);
             var user = await this.userManager.GetUserAsync(this.User);
 
             await this.usersService.DeleteFighterAsync(fighter, user);

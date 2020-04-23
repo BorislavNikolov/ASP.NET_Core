@@ -59,6 +59,10 @@
             {
                 configure.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-CSRF-TOKEN";
+            });
             services.AddRazorPages();
 
             Account account = new Account(
@@ -83,7 +87,7 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:AppKey"]));
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IBiographiesService, BiogrpahiesService>();
