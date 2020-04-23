@@ -55,6 +55,7 @@
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var opponents = this.fightersService.GetAllOpponents<OpponentViewModel>(userId, ItemsPerPage, (page - 1) * ItemsPerPage);
+            var opponentsDropDown = this.fightersService.GetAllOpponents<FightersDropDownViewModel>(userId, ItemsPerPage, (page - 1) * ItemsPerPage);
             var fighters = this.usersService.GetAllFighters<FightersDropDownViewModel>(userId);
 
             if (fighters == null || opponents == null)
@@ -65,6 +66,7 @@
             var viewModel = new AllOpponentsViewModel
             {
                 Opponents = opponents,
+                OpponentsDropDown = opponentsDropDown,
                 Fighters = fighters,
             };
 

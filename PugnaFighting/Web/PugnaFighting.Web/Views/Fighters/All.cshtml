@@ -2,76 +2,82 @@
 @{
     ViewData["Title"] = "Fighters";
     var fighters = Model.Fighters.Select(x => new SelectListItem(x.Biography.FirstName + " " + x.Biography.LastName, x.Id.ToString()));
+    var opponents = Model.OpponentsDropDown.Select(x => new SelectListItem(x.Biography.FirstName + " " + x.Biography.LastName, x.Id.ToString()));
 }
 
 <div class="p-5 rounded text-white bg-dark mx-auto w-75">
-    <form method="get" asp-controller="Fighters" asp-action="Fight">
-        <div class="text-center d-flex justify-content-around border">
+    <form method="get" asp-controller="Fighters" asp-action="Fight" asp-route-fighterId="@Model.FighterId" asp-route-opponentId="@Model.OpponentId">
+        <div class="text-center d-flex justify-content-around">
             <div class="p-2">
                 <p class="text-center">Select a fighter to fight:</p>
-                <select asp-for="FighterId" asp-items="fighters" class="form-control"></select>
+                <select id="fighter" asp-for="FighterId" asp-items="fighters" class="form-control"></select>
+            </div>
+
+            <div class="p-2">
+                <p class="text-center">Select a opponent to fight with:</p>
+                <select id="fighter" asp-for="OpponentId" asp-items="opponents" class="form-control"></select>
             </div>
         </div>
-
-        <div class="d-flex flex-column border p-4">
-            @foreach (var opponent in Model.Opponents)
-            {
-                <div class="my-2 d-flex bg-@((opponent.Organization.Id == 1 ? "primary" : "danger").ToString()) rounded p-4 justify-content-between">
-                    <p>Name: @opponent.Biography.FirstName "@opponent.Biography.Nickname" @opponent.Biography.LastName</p>
-                    <p>Born Country: @opponent.Biography.BornCountry</p>
-                    <p>Category: @opponent.Category.Name</p>
-                    <p>Organization: @opponent.Organization.Name</p>
-                    <input asp-for="OpponentId" value="@opponent.Id" hidden />
-                    <button type="submit" class="btn btn-light" asp-controller="Fighters" asp-action="Fight" asp-route-fighterId="@Model.FighterId" asp-route-opponentId="@opponent.Id">Fight</button>
-                </div>
-            }
-
-            <nav class="mx-auto mt-3">
-                <ul class="pagination justify-content-center">
-                    @if (this.Model.CurrentPage == 1)
-                    {
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#">Previous</a>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="page-item">
-                            <a class="page-link"
-                               asp-controller="Fighters"
-                               asp-action="All"
-                               asp-route-page="@(this.Model.CurrentPage - 1)">Previous</a>
-                        </li>
-                    }
-
-                    @for (int i = 1; i <= this.Model.PagesCount; i++)
-                    {
-                        var active = i == this.Model.CurrentPage ? "active" : string.Empty;
-                        <li class="page-item @active">
-                            <a class="page-link"
-                               asp-controller="Fighters"
-                               asp-action="All"
-                               asp-route-page="@i">@i</a>
-                        </li>
-                    }
-
-                    @if (this.Model.CurrentPage == this.Model.PagesCount)
-                    {
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="page-item">
-                            <a class="page-link"
-                               asp-controller="Fighters"
-                               asp-action="All"
-                               asp-route-page="@(this.Model.CurrentPage + 1)">Next</a>
-                        </li>
-                    }
-                </ul>
-            </nav>
-        </div>
+        <button type="submit" class="btn btn-success d-block mx-auto mb-2" style="width: 5em">Fight</button>
     </form>
+
+    <div class="d-flex flex-column p-4 border-top">
+        @foreach (var opponent in Model.Opponents)
+        {
+            <div class="my-2 d-flex bg-@((opponent.Organization.Id == 1 ? "primary" : "danger").ToString()) rounded p-4 justify-content-between">
+                <img src="@opponent.Biography.PictureUrl" style="width: 60px; height: 60px;" class="rounded" />
+                <p>Name: @opponent.Biography.FirstName "@opponent.Biography.Nickname" @opponent.Biography.LastName</p>
+                <p>Born Country: @opponent.Biography.BornCountry</p>
+                <p>Category: @opponent.Category.Name</p>
+                <p>Organization: @opponent.Organization.Name</p>
+            </div>
+        }
+
+        <nav class="mx-auto mt-3">
+            <ul class="pagination justify-content-center">
+                @if (this.Model.CurrentPage == 1)
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">Previous</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link"
+                           asp-controller="Fighters"
+                           asp-action="All"
+                           asp-route-page="@(this.Model.CurrentPage - 1)">Previous</a>
+                    </li>
+                }
+
+                @for (int i = 1; i <= this.Model.PagesCount; i++)
+                {
+                    var active = i == this.Model.CurrentPage ? "active" : string.Empty;
+                    <li class="page-item @active">
+                        <a class="page-link"
+                           asp-controller="Fighters"
+                           asp-action="All"
+                           asp-route-page="@i">@i</a>
+                    </li>
+                }
+
+                @if (this.Model.CurrentPage == this.Model.PagesCount)
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link"
+                           asp-controller="Fighters"
+                           asp-action="All"
+                           asp-route-page="@(this.Model.CurrentPage + 1)">Next</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
 </div>

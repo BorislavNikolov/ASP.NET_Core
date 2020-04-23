@@ -9,6 +9,8 @@
 
         public IEnumerable<FightersDropDownViewModel> Fighters { get; set; }
 
+        public IEnumerable<FightersDropDownViewModel> OpponentsDropDown { get; set; }
+
         [Range(1, int.MaxValue)]
         public int FighterId { get; set; }
 
