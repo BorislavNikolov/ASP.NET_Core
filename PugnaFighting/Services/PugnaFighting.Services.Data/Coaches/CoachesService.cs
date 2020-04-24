@@ -29,7 +29,7 @@
         public IEnumerable<T> GetAll<T>(int? count = null)
         {
             IQueryable<Coach> query =
-                this.coachesRepository.All().Where(x => x.IsCustom == false).OrderBy(x => x.Price);
+                this.coachesRepository.All().OrderBy(x => x.Price);
             if (count.HasValue)
             {
                 query = query.Take(count.Value);
