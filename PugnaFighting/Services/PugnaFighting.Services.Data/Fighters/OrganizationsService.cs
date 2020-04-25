@@ -47,7 +47,7 @@
             var organization = this.GetById(organizationId);
 
             fighter.OrganizationId = organizationId;
-            fighter.MoneyPerFight = organization.MoneyPerFight;
+            fighter.MoneyPerFight += organization.MoneyPerFight;
             fighter.FansCount += organization.FansCount;
             user.Coins += organization.InstantCash;
 

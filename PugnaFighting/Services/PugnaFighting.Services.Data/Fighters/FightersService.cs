@@ -44,6 +44,7 @@
                 BiographyId = skillId,
                 RecordId = recordId,
                 FansCount = 100,
+                MoneyPerFight = 0,
             };
 
             user.FightersCount++;
