@@ -15,14 +15,18 @@
     {
         [Required]
         [MaxLength(30)]
+        [MinLength(2)]
         public string FirstName { get; set; }
 
         [Required]
         [MaxLength(30)]
+        [MinLength(2)]
+
         public string LastName { get; set; }
 
         [Required]
         [MaxLength(30)]
+        [MinLength(4)]
         public string BornCountry { get; set; }
 
         [Required]
